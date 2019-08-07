@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   // directives: []
   // providers: [] where you specify the components you get stuff from *i think*
 })
-export class Destination {
+export class DestinationComponent {
   // also define dynamic values in the hmtl files like title= 'Pllnr'
   constructor(/*get*/) {
 
@@ -17,5 +17,4 @@ export class Destination {
   ngOnInit() {
 
   }
-
 }

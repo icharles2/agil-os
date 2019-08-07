@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   // moduleId: module.id,
   // selector used for when you are rendering a cpomponent and/or passing down properties to that component
   selector: 'travel-method',
-  templateUrl: '../dTree/travelMethod.component.html',
+  templateUrl: '../dTree/travel.component.html',
   // directives: []
   // providers: [] where you specify the components you get stuff from *i think*
 })

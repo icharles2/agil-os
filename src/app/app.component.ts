@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   /* sorry for all the comments i was testing out the views */
   templateUrl: './app.component.html', //landing
   // templateUrl: './homepage/home.component.html', //homepage
-  // templateUrl: './dTree/priceRange.component.html', priceRange
+  // templateUrl: './dTree/priceRange.component.html', //priceRange
 
-  // styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css']
   // styleUrls: ['../app/homepage/home.css']
 })
 export class AppComponent {
