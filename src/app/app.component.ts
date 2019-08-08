@@ -14,6 +14,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   // also define dynamic values in the hmtl files like title= 'Pllnr'
   title = 'Plnnr';
+  text = 'Click Me yuuuurd';
   constructor(/*get*/) {
 
   }
@@ -22,4 +23,9 @@ export class AppComponent {
     // simple initialize func
     console.log('App innnnnit');
   }
+
+  countClicks() {
+    console.log('button has been clicked yuuurd');
+  }
+
 }
