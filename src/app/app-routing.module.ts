@@ -6,6 +6,7 @@ import { ResultsComponent } from './results.component';
 const routes: Routes = [
   { path: 'home', pathMatch: 'full', component: HomeComponent},
   { path: 'results', pathMatch: 'full', component: ResultsComponent},
+  // { path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule) }, example
 ];
 
 @NgModule({
