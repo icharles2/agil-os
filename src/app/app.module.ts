@@ -1,26 +1,27 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ResultsComponent } from './results.component';
-import { HomeComponent } from './homepage/home.component';
-import { TravelComponent } from './dTree/travelMethod.component';
-import { RangeComponent } from './dTree/priceRange.component';
-import { LodgeMethod } from './dTree/lodgingMethod.component';
-import { DestinationComponent } from './dTree/destination.component';
-import { CarComponent } from './dTree/carMethods/car.component';
+import { BudgetComponent } from './modules/pages/Budget/budget.component';
+import { HomeComponent } from './modules/pages/Dashboard/home.component';
+import { TranspoComponent } from './modules/pages/New Trips/Transpo/transpo.component';
+import { RangeComponent } from './modules/pages/New Trips/Price/price.component';
+import { LodgeMethod } from './modules/pages/New Trips/Lodging/lodging.component';
+import { DestinationComponent } from './modules/pages/New Trips/newTripForm.component';
+import { CarComponent } from './modules/pages/New Trips/Transpo/car.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    ResultsComponent,
+    BudgetComponent,
     HomeComponent,
-    TravelComponent,
+    TranspoComponent,
     RangeComponent,
     LodgeMethod,
     DestinationComponent,
-    CarComponent
+    CarComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
