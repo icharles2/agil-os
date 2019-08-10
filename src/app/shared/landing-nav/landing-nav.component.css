@@ -1,0 +1,14 @@
+.spacer {
+  margin-left: 70px
+}
+
+.spacer2 {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar.mat-primary {
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
