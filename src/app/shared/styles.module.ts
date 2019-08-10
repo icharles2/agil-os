@@ -6,15 +6,22 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MainNavComponent } from './main-nav/main-nav.component';
-import { MatButtonModule, MatMenuModule } from '@angular/material';
-import { MatStepperModule } from '@angular/material';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
-import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
-import { MatCardModule } from '@angular/material';
+import { LandingNavComponent } from './landing-nav/landing-nav.component';
+import { 
+  MatButtonModule, 
+  MatMenuModule,
+  MatStepperModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatCardModule, 
+} from '@angular/material';
 
 @NgModule({
   declarations: [
-    MainNavComponent
+    MainNavComponent,
+    LandingNavComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +45,7 @@ import { MatCardModule } from '@angular/material';
     MatIconModule,
     MatListModule,
     MainNavComponent,
+    LandingNavComponent,
     MatButtonModule,
     MatStepperModule,
     MatFormFieldModule,
