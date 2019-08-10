@@ -1,0 +1,19 @@
+.space {
+  padding-left: 20px;
+}
+.space1 {
+  margin-left: 20px;
+}
+
+.rounded {
+  border-radius: 50%;
+  padding: 40px;
+}
+
+.rounded:hover {
+  background-color: #B8F5F8;
+}
+
+img {
+  width: 100px;
+}
