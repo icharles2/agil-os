@@ -1,0 +1,89 @@
+
+ 
+    <mat-horizontal-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Trip Details</ng-template>
+          <mat-card>
+          <h3>Enter your trip details</h3>
+          <mat-form-field>
+            <input matInput placeholder="Destination" formControlName="firstCtrl" required>
+          </mat-form-field>
+          <span>
+          <mat-form-field class="space">
+              <input matInput placeholder="Trip Name" >
+            </mat-form-field>
+          </span>
+          <div>
+              <mat-form-field>
+                  <input matInput [matDatepicker]="picker1" placeholder="Departure Date">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="space">
+                    <input matInput [matDatepicker]="picker2" 
+                    
+                    placeholder="Return Date">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+          </div>
+          <span>
+              
+          </span>
+          <div>
+            <button mat-raised-button color="accent" matStepperNext>Make Trip</button>
+          </div>
+        </mat-card>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Price Range</ng-template>
+         <mat-card>
+          <h3>How Much Do You Want To Spend?</h3> 
+          <div>
+            <!-- <button mat-button matStepperPrevious>Back</button> -->
+            <button mat-raised-button class="rounded" matStepperNext>$</button>
+            <button mat-raised-button class="rounded space1" matStepperNext>$$</button>
+            <button mat-raised-button class="rounded space1" matStepperNext>$$$</button>
+          </div>
+        </mat-card>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup">
+        <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Transportation</ng-template>
+        <mat-card>
+           <h3>How Do You Want To Get There? </h3> 
+           <div>
+             <!-- <button mat-button matStepperPrevious>Back</button> -->
+             <button mat-raised-button class="rounded"matStepperNext>Road Trip</button>
+             <button mat-raised-button class="rounded space1" matStepperNext>Flight</button>
+             <button mat-raised-button class="rounded space1" matStepperNext>Bus/Train</button>
+           </div>
+         </mat-card>
+      </form>
+      </mat-step>
+      <mat-step [stepControl]="fourthFormGroup">
+          <form *ngIf="fourthFormGroup" [formGroup]="fourthFormGroup">
+          <ng-template matStepLabel>Lodging</ng-template>
+          <mat-card>
+              <h3>Where will you be staying?</h3>
+            <div>
+              <!-- <button mat-button matStepperPrevious>Back</button> -->
+             <span> <button mat-raised-button class="rounded" matStepperNext><img src="../../../assets/Icons/key.png"></button>
+             </span>
+             
+              <button mat-raised-button class="rounded space1" 
+                matStepperNext><img src="../../../assets/Icons/resort.png"></button>
+              <button mat-raised-button class="rounded space1" matStepperNext><img src="../../../assets/Icons/laugh.png"></button>
+              <div>
+                
+               Short-term Rental   |     Hotel    |   With Friends
+              </div>
+            </div>
+          </mat-card>
+          </form>
+        </mat-step>
+    </mat-horizontal-stepper>
