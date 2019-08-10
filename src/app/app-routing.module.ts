@@ -6,8 +6,6 @@ import { BudgetComponent } from './modules/pages/Budget/budget.component';
 
 
 const routes: Routes = [
-  // { path: '', redirectTo: '/app', pathMatch: 'full'},
-  // { path: "app", component: AppComponent},
   { 
     path: 'newtrip', 
     loadChildren: () => import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule) 
