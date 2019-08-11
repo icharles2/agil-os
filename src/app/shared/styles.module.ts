@@ -16,6 +16,8 @@ import {
   MatDatepickerModule,
   MatNativeDateModule,
   MatCardModule, 
+  MatExpansionModule,
+  MatDividerModule,
 } from '@angular/material';
 
 @NgModule({
@@ -37,6 +39,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatExpansionModule,
+    MatDividerModule
   ],
   exports: [
     LayoutModule,
@@ -53,6 +57,8 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatExpansionModule,
+    MatDividerModule
   ]
 })
 export class StylesModule { }
