@@ -72,16 +72,26 @@
               <h3>Where will you be staying?</h3>
             <div>
               <!-- <button mat-button matStepperPrevious>Back</button> -->
-             <span> <button mat-raised-button class="rounded" matStepperNext><img src="../../../assets/Icons/key.png"></button>
-             </span>
-             
-              <button mat-raised-button class="rounded space1" 
-                matStepperNext><img src="../../../assets/Icons/resort.png"></button>
-              <button mat-raised-button class="rounded space1" matStepperNext><img src="../../../assets/Icons/laugh.png"></button>
-              <div>
-                
-               Short-term Rental   |     Hotel    |   With Friends
+            <span> <button mat-raised-button class="rounded">
+            <a href="dashboard">
+            <img src="../../../assets/Icons/key.png">
+              </a>
+              </button>
+            </span>
+              <button mat-raised-button class="rounded space1">
+                <a href="dashboard">
+                <img src="../../../assets/Icons/resort.png">
+                </a>
+              </button>
+              <button mat-raised-button class="rounded space1">
+                <a href="dashboard">
+                <img src="../../../assets/Icons/laugh.png">
+              </a>
+              </button>
+              <div> 
+              Short-term Rental   |     Hotel    |   With Friends
               </div>
+              <router-outlet></router-outlet>
             </div>
           </mat-card>
           </form>

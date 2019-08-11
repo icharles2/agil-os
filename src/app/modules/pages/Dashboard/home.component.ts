@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   // moduleId: module.id,
@@ -8,14 +8,11 @@ import { Component } from '@angular/core';
   // directives: []
   // providers: [] where you specify the components you get stuff from *i think*
 })
-export class HomeComponent {
-  // also define dynamic values in the hmtl files like title= 'Pllnr'
-  constructor(/*get*/) {
+export class HomeComponent implements OnInit {
 
-  }
-  // functions after constructor
+  constructor() { }
+
   ngOnInit() {
-    console.log('home page');
   }
 
 }
