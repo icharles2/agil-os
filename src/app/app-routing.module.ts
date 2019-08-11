@@ -10,14 +10,14 @@ const routes: Routes = [
     path: 'newtrip', 
     loadChildren: () => import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule) 
   },
-  {
-    path: 'home',
-    component: HomeComponent,
-  },
   { 
-    path: '', 
+    path: 'dashboard', 
+    loadChildren: () => import('./modules/pages/Dashboard/home.module').then(mod => mod.HomeModule)
+  },
+  {
+    path: '',
     redirectTo: '',
-    pathMatch: 'full', 
+    pathMatch: 'full'
   },
 ];
 
