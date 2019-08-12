@@ -1,21 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  // moduleId: module.id,
-  // selector used for when you are rendering a cpomponent and/or passing down properties to that component
+  
   selector: 'sign-in',
-  templateUrl: '../carMethods/car.component.html',
-  // directives: []
-  // providers: [] where you specify the components you get stuff from *i think*
+  templateUrl: '../Signup/signup.component.html',
+  styleUrls: ['./signup.component.css'],
+  
 })
-export class SignComponent {
-  // also define dynamic values in the hmtl files like title= 'Pllnr'
-  constructor(/*get*/) {
-    
+export class SignComponent implements OnInit {
+
+  constructor() {
+
   }
-  // functions after constructor
+
   ngOnInit() {
-    // simple initialize func
+
   }
 
 }
