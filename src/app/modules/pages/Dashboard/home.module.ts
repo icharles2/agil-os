@@ -8,7 +8,7 @@ import { HomeComponent } from './home.component'
 
 // import { AppModule } from 'src/app/app.module';
 import { HttpClientModule } from '@angular/common/http';
-import { BudgetDetailComponent } from './budget-detail/budget-detail.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -19,7 +19,6 @@ import { MatSortModule } from '@angular/material/sort';
   declarations: [
     HomeComponent,
     TripComponent,
-    BudgetDetailComponent,
   ],
   imports: [
     CommonModule,
