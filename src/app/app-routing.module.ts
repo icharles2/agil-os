@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { HomeComponent } from './modules/pages/Dashboard/home.component';
-import { BudgetComponent } from './modules/pages/Budget/budget.component';
+import { LogComponent } from './modules/pages/Login/login.component';
+import { SignComponent } from './modules/pages/Signup/signup.component';
 
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LogComponent,
+  },
+  {
+    path: 'signup',
+    component: SignComponent,
+  },
   { 
     path: 'newtrip', 
     loadChildren: () => import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule) 
@@ -13,6 +20,10 @@ const routes: Routes = [
   { 
     path: 'dashboard', 
     loadChildren: () => import('./modules/pages/Dashboard/home.module').then(mod => mod.HomeModule)
+  },
+  {
+    path: 'landing',
+    component: SignComponent,
   },
   {
     path: '',
