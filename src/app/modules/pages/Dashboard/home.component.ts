@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BudgetService } from 'src/budget.service';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   // moduleId: module.id,
@@ -10,9 +13,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private svc: BudgetService, private http: HttpClient) {
+    this.svc.printBudget('Got the Service');
+   }
 
   ngOnInit() {
+    
   }
 
 }
