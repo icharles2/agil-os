@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BudgetComponent } from './modules/pages/Budget/budget.component';
-
 import { StylesModule } from './shared/styles.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -17,6 +17,7 @@ import { StylesModule } from './shared/styles.module';
     BrowserAnimationsModule,
     StylesModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   exports: [],
   providers: [],
