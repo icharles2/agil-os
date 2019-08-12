@@ -23,6 +23,7 @@ import { BudgetService } from '../budget.service';
     BrowserAnimationsModule,
     StylesModule,
     AppRoutingModule,
+<<<<<<< HEAD
     HttpClientModule,
   ],
   exports: [
@@ -30,6 +31,9 @@ import { BudgetService } from '../budget.service';
   ],
   providers: [
     BudgetService
+=======
+    HttpClientModule
+>>>>>>> c171405bfe0d602050b6d3554884ba954c1a257a
   ],
   bootstrap: [AppComponent]
 })
