@@ -34,7 +34,18 @@
         <mat-icon>notifications</mat-icon>
       </button>
       <span class="v1"></span>
-      <button mat-icon-button><mat-icon>settings</mat-icon></button>
+      <button mat-icon-button [matMenuTriggerFor]="settings" aria-label="Settings button for User settings and dark mode">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <mat-menu #settings="matMenu">
+          <button mat-menu-item>
+              <a ma-list-item href="#">Change Hometown</a>
+          </button>
+          <button mat-menu-item>
+              <a ma-list-item href="#">Dark Mode</a>
+              <!-- <span>Switch User</span> -->
+            </button>
+          </mat-menu>
       <span class="v1"></span>
       <img class="avatar" src="../../assets/profile.png" alt="Avatar">
       <!-- Will need to make this dynamic -->
@@ -44,8 +55,7 @@
         </button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item>
-              
-              <span>Logout</span>
+                <a ma-list-item href="landing">Log out</a>
             </button>
             <button mat-menu-item>
                 <a ma-list-item href="login">Switch User</a>
