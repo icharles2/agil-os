@@ -72,14 +72,14 @@ export class TripComponent implements OnInit {
     return tripLength;
     }
 
-    let getTripCountdown = (tripDeparture) => {
-      let oneDay = 24*60*60*1000;
-      let date1 = getMonthString(tripDeparture);
-      let firstDate = new Date(2019, date1.mon, date1.day);
-      let todayDate = new Date();
-      let tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-    return tripLength;
-    }
+    // let getTripCountdown = (tripDeparture) => {
+    //   let oneDay = 24*60*60*1000;
+    //   let date1 = getMonthString(tripDeparture);
+    //   let firstDate = new Date(2019, date1.mon, date1.day);
+    //   let todayDate = new Date();
+    //   let tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    // return tripLength;
+    // }
 
     
     //console.log(this.trip.mealsTotal);
