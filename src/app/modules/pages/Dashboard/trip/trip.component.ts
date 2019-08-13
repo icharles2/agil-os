@@ -12,40 +12,34 @@ export class TripComponent implements OnInit {
     prices: any;
     food: number;
     hotel: number;
-    tripLength: any;
+    tripLength: number;
     mealsTotal: number;
     total: number;
+    daysUntilTrip: number;
 
   constructor(private http: HttpClient) { 
     
     let obsFlight = this.http.get('http://localhost:3000/prices/flight')
     obsFlight.subscribe((response) => {
       this.flight = parseFloat(response[1]);
-      console.log(this.flight);
-      // this.prices.flight = parseFloat(response[1]);
-      // console.log(this.prices.flight)
     });
     let obsFood = this.http.get('http://localhost:3000/prices/food');
     obsFood.subscribe((response) => {
       this.food = parseFloat(response[1]);
-      console.log(this.food)
     });
     let obsHotel = this.http.get('http://localhost:3000/prices/hotel');
     obsHotel.subscribe((response) => {
       this.hotel = parseFloat(response[1]);
-      console.log(this.hotel)
+      
     });
     let obsTrip = this.http.get('http://localhost:3000/trips/detail');
     obsTrip.subscribe((response) => {
-      console.log(response);
       this.trip.departure = response[1];
       this.trip.return = response[2];
       this.tripLength = getTripLength(this.trip.departure, this.trip.return);
-      console.log(this.tripLength);
       this.mealsTotal = ((this.food) * 3) * this.tripLength
-      console.log(this.mealsTotal);
       this.total = this.mealsTotal + this.flight + this.hotel;
-      console.log(this.total);
+      //this.daysUntilTrip = getTripLength(this.trip.departure, )
     });
    
     
@@ -55,16 +49,11 @@ export class TripComponent implements OnInit {
       title: "Renee's Bachelorette",
       destination: "Las Vegas",
       origin: "New Orleans",
-      total: "2678",
       transpo: "car",
       rental: true,
       lodging: "Hotel",
     };
   
-    
-
-    let getTripLength = (dateStr1, dateStr2) => {
-    let oneDay = 24*60*60*1000;
     let getMonthString = (stringDate) => {
       let dateDay = Number(stringDate.match(/\d+/)[0]);
       let arr = stringDate.split(' ');
@@ -72,6 +61,9 @@ export class TripComponent implements OnInit {
       let dateMon = new Date(Date.parse(monthStr + dateDay + ", 2019")).getMonth()+1
       return {mon: dateMon, day: dateDay};
     }
+
+    let getTripLength = (dateStr1, dateStr2) => {
+    let oneDay = 24*60*60*1000;
     let date1 = getMonthString(dateStr1);
     let date2 = getMonthString(dateStr2); // hours*minutes*seconds*milliseconds
     let firstDate = new Date(2019, date1.mon, date1.day);
@@ -80,7 +72,14 @@ export class TripComponent implements OnInit {
     return tripLength;
     }
 
-   
+    let getTripCountdown = (tripDeparture) => {
+      let oneDay = 24*60*60*1000;
+      let date1 = getMonthString(tripDeparture);
+      let firstDate = new Date(2019, date1.mon, date1.day);
+      let todayDate = new Date();
+      let tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
+    return tripLength;
+    }
 
     
     //console.log(this.trip.mealsTotal);
