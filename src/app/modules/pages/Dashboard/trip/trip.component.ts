@@ -1,91 +1,117 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BudgetService } from '../../../../services/budget.service';
+import { DateService } from '../../../../services/date.service';
+import { Price } from '../../../../models/Prices';
+import { Trip } from '../../../../models/Trips';
 
 @Component({
   selector: 'app-trip',
   templateUrl: './trip.component.html',
-  styleUrls: ['./trip.component.css']
+  styleUrls: ['./trip.component.css'],
 })
 export class TripComponent implements OnInit {
-    trip: any;
-    flight: number;
-    prices: any;
-    food: number;
-    hotel: number;
-    tripLength: number;
-    mealsTotal: number;
-    total: number;
-    daysUntilTrip: number;
+  trips: Trip;
+  prices: Price;
+  tripLength: number;
+  daysUntilTrip: number;
 
-  constructor(private http: HttpClient) { 
-    
-    let obsFlight = this.http.get('http://localhost:3000/prices/flight')
-    obsFlight.subscribe((response) => {
-      this.flight = parseFloat(response[1]);
-    });
-    let obsFood = this.http.get('http://localhost:3000/prices/food');
-    obsFood.subscribe((response) => {
-      this.food = parseFloat(response[1]);
-    });
-    let obsHotel = this.http.get('http://localhost:3000/prices/hotel');
-    obsHotel.subscribe((response) => {
-      this.hotel = parseFloat(response[1]);
-      
-    });
-    let obsTrip = this.http.get('http://localhost:3000/trips/detail');
-    obsTrip.subscribe((response) => {
-      this.trip.departure = response[1];
-      this.trip.return = response[2];
-      this.tripLength = getTripLength(this.trip.departure, this.trip.return);
-      this.mealsTotal = ((this.food) * 3) * this.tripLength
-      this.total = this.mealsTotal + this.flight + this.hotel;
-      //this.daysUntilTrip = getTripLength(this.trip.departure, )
-    });
-   
-    
-    // this.prices.total = this.trip.mealsTotal + this.prices.hotel + this.prices.flight;
-    
-    this.trip = {
+  constructor(
+    private budget: BudgetService,
+    private dates: DateService,
+    ) {
+    this.trips = {
       title: "Renee's Bachelorette",
-      destination: "Las Vegas",
-      origin: "New Orleans",
-      transpo: "car",
+      origin: 'New Orleans',
+      destination: 'Las Vegas',
+      transpo: 'car',
+      lodging: 'hotel',
+      departure: this.dates.parseDateAPI('08/17/2019'),
+      return: this.dates.parseDateAPI('08/20/2019'),
+      quality: 1,
       rental: true,
-      lodging: "Hotel",
     };
-  
-    let getMonthString = (stringDate) => {
-      let dateDay = Number(stringDate.match(/\d+/)[0]);
-      let arr = stringDate.split(' ');
-      let monthStr = arr[1]
-      let dateMon = new Date(Date.parse(monthStr + dateDay + ", 2019")).getMonth()+1
-      return {mon: dateMon, day: dateDay};
+
+    this.tripLength = this.dates.getTripLength(this.trips['departure'], this.trips['return']);
+
+    this.prices = {};
+
+    this.budget.getTripPicture(this.trips['destination'])
+      .subscribe((data) => {
+        this.trips['cityImg'] = data;
+        console.log(data);
+      });
+
+    this.budget.getMealsPrice(this.trips['destination'], this.trips['quality'])
+      .subscribe((data) => {
+        console.log('meals', data);
+        this.prices['meals'] = [data['average'], data['low'], data['high']];
+        this.prices['mealsTotal'] = data['average'] * this.tripLength * 3;
+        this.prices['mealsQ'] = this.trips['quality'];
+      });
+
+    if (this.trips['transpo'] === 'flight') {
+      this.budget.getFlightPrice(
+          this.trips['quality'],
+          this.trips['origin'],
+          this.trips['destination'],
+          this.trips['departure'])
+        .subscribe((data) => {
+          console.log('flight1', data);
+          this.prices['flight1'] =  [data['average'], data['low'], data['high']];
+          this.prices['flight1Avg'] = data['average'];
+          this.prices['flightQ'] = this.trips['quality'];
+        });
+      this.budget.getFlightPrice(
+          this.trips['quality'],
+          this.trips['destination'],
+          this.trips['origin'],
+          this.trips['return'])
+        .subscribe((data) => {
+          console.log('flight2', data);
+          this.prices['flight2'] = [data['average'], data['low'], data['high']];
+          this.prices['flight2Avg'] = data['average'];
+        });
     }
 
-    let getTripLength = (dateStr1, dateStr2) => {
-    let oneDay = 24*60*60*1000;
-    let date1 = getMonthString(dateStr1);
-    let date2 = getMonthString(dateStr2); // hours*minutes*seconds*milliseconds
-    let firstDate = new Date(2019, date1.mon, date1.day);
-    let secondDate = new Date(2019, date2.mon, date2.day);
-    let tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-    return tripLength;
+    if (this.trips['transpo'] === 'car') {
+      this.budget.getGasPrice(this.trips['origin'], this.trips['destination'],
+        ).subscribe((data) => {
+          console.log('gas', data);
+          // should also make use of distance and time
+          this.prices['gas'] = Number(data['gasPerGallon'].toFixed(2));
+          this.prices['gasTotal'] = data['distancePrice'];
+          this.trips['distance'] = data['distance'];
+        });
     }
 
-    // let getTripCountdown = (tripDeparture) => {
-    //   let oneDay = 24*60*60*1000;
-    //   let date1 = getMonthString(tripDeparture);
-    //   let firstDate = new Date(2019, date1.mon, date1.day);
-    //   let todayDate = new Date();
-    //   let tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)));
-    // return tripLength;
-    // }
+    if (this.trips['rental']) {
+      this.budget.getRentalCarPrice(
+          this.trips['origin'],
+          this.trips['departure'],
+          this.trips['return'])
+          .subscribe((data) => {
+            console.log('rental', data);
+            this.prices['rental'] = [data['average'], data['low'], data['high']];
+          });
+    }
 
-    
-    //console.log(this.trip.mealsTotal);
-    // 
+    if (this.trips['lodging'] === 'hotel') {
+      this.budget.getHotelPrice(
+          this.trips['quality'],
+          this.trips['destination'],
+          this.trips['departure'],
+          this.trips['return'])
+          .subscribe((data) => {
+            console.log('hotel', data);
+            this.prices['hotel'] = [data['average'], data['low'], data['high']];
+            this.prices['hotelQ'] = this.trips['quality'];
+          });
+    }
   }
+
   ngOnInit() {
- }
+
+  }
 
 }
