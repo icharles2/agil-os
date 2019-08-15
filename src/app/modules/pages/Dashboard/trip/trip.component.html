@@ -1,36 +1,34 @@
+<div id="content" #content>
 <br>
 <br>
 <br>
 
 <div *ngIf="prices else loading">
 
-<mat-card class="example-card" >
-  <div layout-align="space-between end">
-    <mat-card-header>
-      <img
-      mat-card-avatar
-      class="example-header-image"
-      src={{trips.cityImg}}>
-      <mat-card-title>
-        <div class="container">
-          <div>{{trips.destination}}: {{trips.title}}</div>
-          <div class="fill"></div>
-          <div class="end">${{total}}</div>
-        </div>
-      </mat-card-title>
-            <mat-card-subtitle>
+  <mat-card class="example-card">
+    <div layout-align="space-between end">
+      <mat-card-header>
+        <img mat-card-avatar class="example-header-image" src={{trips.cityImg}}>
+        <mat-card-title>
+          <div class="container">
+            <div>{{trips.destination}}: {{trips.title}}</div>
+            <div class="fill"></div>
+            <div class="end">${{total}}</div>
+          </div>
+        </mat-card-title>
+        <mat-card-subtitle>
           <mat-divider inset="true"></mat-divider>
           <div class="lines">
-              <div>Origin: {{trips.origin}}</div>
-              <div>Departure Date: {{trips.departure}}</div>
-              <div>Return Date: {{trips.return}}</div> 
-              
+            <div>Origin: {{trips.origin}}</div>
+            <div>Departure Date: {{trips.departure}}</div>
+            <div>Return Date: {{trips.return}}</div>
+
           </div>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <br>
-    <mat-card-content>
-      <div *ngIf="trips.transpo === 'flight'; else elseBlock">
+        </mat-card-subtitle>
+      </mat-card-header>
+      <br>
+      <mat-card-content>
+        <div *ngIf="trips.transpo === 'flight'; else elseBlock">
           <p>Departing Flight: </p>
           <ul>
             <li *ngFor="let flight of prices.flight1" class="list">
@@ -46,53 +44,54 @@
           <div *ngIf="prices.flight2">
             <p>Flight Total: ${{trips.flight1Avg + trips.flight2Avg}}</p>
           </div>
-          
-    </div>
-    <div *ngIf="trips.lodging === 'hotel'">
-      <p>Hotel: </p>
-      <ul>
-        <li *ngFor="let hotel of prices.hotel" class="list">
-          ${{hotel}}
-        </li>
-      </ul>
-</div>
-<div *ngIf="prices.meals">
-  <p>Avg Price Per Meal: </p>
-  <ul>
-    <li *ngFor="let meal of prices.meals" class="list">
-      ${{meal}}
-    </li>
-  </ul>
-</div>
-<div *ngIf="prices.mealsTotal">
-      <div>Meals Total: ${{prices.mealsTotal}}.00</div>
-      </div>
 
-<div *ngIf="prices.rental">
-  <div>Rental Car: </div>
-      <ul>
-          <li *ngFor="let rental of prices.rental" class="list">
-            ${{rental}}
-          </li>
-        </ul>
-</div>
-<div *ngIf="trips.transpo === 'car'">
-    <div>Gas costs per gallon: ${{prices.gas}}</div>
-    <p>Miles to travel One Way: {{trips.distance}}</p>
-    <p>Gas Subtotal One Way: ${{prices.gasTotal}}</p>
-    <p>Gas Total: ${{prices.gasTotal * 2}}</p>
-        
-  </div>
-    </mat-card-content>
-    
-    <mat-card-actions>
-      <button mat-button>SAVE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </div>
+        </div>
+        <div *ngIf="trips.lodging === 'hotel'">
+          <p>Hotel: </p>
+          <ul>
+            <li *ngFor="let hotel of prices.hotel" class="list">
+              ${{hotel}}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="prices.meals">
+          <p>Avg Price Per Meal: </p>
+          <ul>
+            <li *ngFor="let meal of prices.meals" class="list">
+              ${{meal}}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="prices.mealsTotal">
+          <div>Meals Total: ${{prices.mealsTotal}}.00</div>
+        </div>
+
+        <div *ngIf="prices.rental">
+          <div>Rental Car: </div>
+          <ul>
+            <li *ngFor="let rental of prices.rental" class="list">
+              ${{rental}}
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="trips.transpo === 'car'">
+          <div>Gas costs per gallon: ${{prices.gas}}</div>
+          <p>Miles to travel One Way: {{trips.distance}}</p>
+          <p>Gas Subtotal One Way: ${{prices.gasTotal}}</p>
+          <p>Gas Total: ${{prices.gasTotal * 2}}</p>
+
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-button (click)="downloadPDF()">SAVE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </div>
   </mat-card>
 </div>
-   
+
 <ng-template #loading>
- <div>Loading...</div>
+  <div>Loading...</div>
 </ng-template>
+</div>
