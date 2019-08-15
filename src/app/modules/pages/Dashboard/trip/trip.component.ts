@@ -30,8 +30,7 @@ export class TripComponent implements OnInit {
 
   getPricesTotal() {
     if (this.meals && this.transpo && this.lodging) {
-      this.total = this.prices['tripTotal'].reduce((a, b) => a + b);
-      Number(this.total.toFixed(2));
+      this.total = Number(this.prices['tripTotal'].reduce((a, b) => a + b).toFixed(2));
     }
   }
 

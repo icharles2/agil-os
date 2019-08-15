@@ -1,19 +1,24 @@
 .example-card {
   max-width: 800px;
-  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: auto;
+  margin-right: auto;
   
   /* display: flex;
   justify-content: space-between; */
 }
 
-.progress {
-  margin: auto;
+/* .progress {
+  margin-top: 10%;
+  margin-bottom: 10%;
+  padding: 10px;
   max-width: 80%;
   display: flex;
   align-content: center;
   align-items: center;
   height: 6px;
-}
+} */
 
 /* table {
   border-collapse: collapse;
