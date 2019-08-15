@@ -1,17 +1,21 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import domToImage from 'dom-to-image';
 
 @Component({
   selector: 'app-trip',
   templateUrl: './trip.component.html',
   styleUrls: ['./trip.component.css'],
 })
-export class TripComponent implements OnInit{
-  displayedColumns: string[] = ['expense', 'average', 'low', 'high'];
+export class TripComponent implements OnInit {
+  @ViewChild('content', { static: true }) content: ElementRef;
+
   trips: Trip;
   prices: Price;
   tripLength: number;
@@ -147,8 +151,23 @@ export class TripComponent implements OnInit{
       this.isDoneLoading = true;
       this.getPricesTotal();
     }, 6000);
-    
+
   }
 
-  
+  downloadPDF() {
+    const doc = new jsPDF;
+    const speciallementHandlers = {
+      '#editor': (element, renderer) => {
+        return true;
+      },
+    };
+    const content = this.content.nativeElement;
+
+    doc.fromHTML(content.innerHTML, 15, 15, {
+      width: 190,
+      elementHandlers: speciallementHandlers,
+    });
+    doc.save('test.pdf');
+  }
+
 }
