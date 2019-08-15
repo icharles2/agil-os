@@ -13,6 +13,6 @@ export class Price {
   hotel?: number[]; // done
   hotelQ?: number; // done
   flightTotal?: number;
-  tripTotal?: number;
+  tripTotal?: number[];
   mealsTotal?: number; // done
 }

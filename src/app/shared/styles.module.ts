@@ -18,6 +18,11 @@ import {
   MatCardModule,
   MatExpansionModule,
   MatDividerModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatTableModule,
+  MatProgressBarModule,
 } from '@angular/material';
 
 @NgModule({
@@ -41,6 +46,11 @@ import {
     MatCardModule,
     MatExpansionModule,
     MatDividerModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
+    MatProgressBarModule,
   ],
   exports: [
     LayoutModule,
@@ -59,6 +69,11 @@ import {
     MatCardModule,
     MatExpansionModule,
     MatDividerModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatTableModule,
+    MatProgressBarModule,
   ],
 })
 export class StylesModule { }

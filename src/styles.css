@@ -5,3 +5,8 @@ body {
   margin: 0;
   background-color: #eeeeee
 }
+
+/* mat-progress-bar .mat-progress-bar-buffer {
+ margin: auto;
+ width: 80%
+} */
