@@ -7,15 +7,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LandingNavComponent } from './landing-nav/landing-nav.component';
-import { 
-  MatButtonModule, 
+import {
+  MatButtonModule,
   MatMenuModule,
   MatStepperModule,
   MatFormFieldModule,
   MatInputModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatCardModule, 
+  MatCardModule,
   MatExpansionModule,
   MatDividerModule,
 } from '@angular/material';
@@ -40,7 +40,7 @@ import {
     MatNativeDateModule,
     MatCardModule,
     MatExpansionModule,
-    MatDividerModule
+    MatDividerModule,
   ],
   exports: [
     LayoutModule,
@@ -58,7 +58,7 @@ import {
     MatNativeDateModule,
     MatCardModule,
     MatExpansionModule,
-    MatDividerModule
-  ]
+    MatDividerModule,
+  ],
 })
 export class StylesModule { }
