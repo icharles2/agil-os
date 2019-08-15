@@ -1,0 +1,44 @@
+.example-card {
+  max-width: 800px;
+  margin: auto;
+  
+  /* display: flex;
+  justify-content: space-between; */
+}
+
+.list {
+  list-style-type: none;
+}
+
+.mat-card-header {
+  margin: auto;
+}
+
+.container {
+  display: flex;
+}
+
+.fill {
+  flex: 1;
+}
+
+.end {
+  margin-left: 200px;
+  color: #2EB57A;
+  font-weight: bold;
+}
+
+.example-header-image {
+  /* background-image: url('../../../../../assets/Icons/fe3bf53162ccc397f952359ce85c77cc.png'); */
+  background-size: cover;
+  height: 150px;
+  width: 150px;
+}
+
+.spacer2 {
+  flex: 1 1 auto;
+}
+
+.lines {
+  line-height: 25px;
+}

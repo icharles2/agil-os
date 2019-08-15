@@ -1,33 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BudgetComponent } from './modules/pages/Budget/budget.component';
-import { HomeComponent } from './modules/pages/Dashboard/home.component';
-import { TranspoComponent } from './modules/pages/New Trips/Transpo/transpo.component';
-import { RangeComponent } from './modules/pages/New Trips/Price/price.component';
-import { LodgeMethod } from './modules/pages/New Trips/Lodging/lodging.component';
-import { DestinationComponent } from './modules/pages/New Trips/newTripForm.component';
-import { CarComponent } from './modules/pages/New Trips/Transpo/car.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BudgetComponent } from './Budget/budget.component';
 
+import { StylesModule } from './shared/styles.module';
+import { LogComponent } from './modules/pages/Login/login.component';
+import { SignComponent } from './modules/pages/Signup/signup.component';
+import { BudgetService } from './services/budget.service';
+import { DateService } from './services/date.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     BudgetComponent,
-    HomeComponent,
-    TranspoComponent,
-    RangeComponent,
-    LodgeMethod,
-    DestinationComponent,
-    CarComponent,
+    LogComponent,
+    SignComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule
+    BrowserAnimationsModule,
+    StylesModule,
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  exports: [
+    HttpClientModule,
+  ],
+  providers: [
+    BudgetService,
+    DateService,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
