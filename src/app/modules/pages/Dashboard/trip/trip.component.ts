@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import domToImage from 'dom-to-image';
 
 @Component({
   selector: 'app-trip',
@@ -11,6 +14,8 @@ import { Trip } from '../../../../models/Trips';
   styleUrls: ['./trip.component.css'],
 })
 export class TripComponent implements OnInit {
+  @ViewChild('content', { static: true }) content: ElementRef;
+
   trips: Trip;
   prices: Price;
   tripLength: number;
@@ -112,6 +117,48 @@ export class TripComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  downloadPDF() {
+    const doc = new jsPDF;
+    const speciallementHandlers = {
+      '#editor': (element, renderer) => {
+        return true;
+      },
+    };
+    const content = this.content.nativeElement;
+
+    doc.fromHTML(content.innerHTML, 15, 15, {
+      width: 190,
+      elementHandlers: speciallementHandlers,
+    });
+    doc.save('test.pdf');
+  }
+
+  download() {
+    html2canvas(document.getElementById('results')).then((canvas) => {
+      const img = canvas.toDataURL('image/png');
+      const doc = new jsPDF();
+      doc.addImage(img, 'JPEG', 5, 20);
+      doc.save('testCanvas.pdf');
+    });
+  }
+
+  generatePDF() {
+    // console.log(`outside: this.problem.length = " + ${this.problems.length}`);
+
+    html2canvas(document.getElementById('content')).then(function (canvas) {
+      const self = this;
+      console.log(`inside: self.problem.length =  + ${self.problems.length}`);
+
+      const doc = new jsPDF();
+      doc.text(50, 100, 'page 1');
+      const img = canvas.toDataURL('image/png');
+      doc.addImage(img, 'JPEG', 100, 100);
+      doc.addPage();
+      doc.text(50, 100, 'page 2');
+      doc.save('test.pdf');
+    });
   }
 
 }
