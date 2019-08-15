@@ -1,7 +1,4 @@
 <div id="content" #content>
-<br>
-<br>
-<br>
 
 <div *ngIf="!isDoneLoading">
     <mat-progress-bar
@@ -124,14 +121,15 @@
     </mat-card-content>
     
     <mat-card-actions>
-      <button mat-raised-button (click)="downloadPDF()">SAVE</button>
+      <button 
+      mat-raised-button 
+      (click)="downloadPDF()"
+      matTooltip="Save Your Trip As A PDF">SAVE</button>
       <button mat-raised-button>SHARE</button>
     </mat-card-actions>
   </div>
   </mat-card>
 
    
-  <br>
-  <br>
-  <br>
+  
 </div>

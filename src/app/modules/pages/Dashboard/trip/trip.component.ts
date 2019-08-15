@@ -156,7 +156,7 @@ export class TripComponent implements OnInit {
 
   downloadPDF() {
     const doc = new jsPDF;
-    const speciallementHandlers = {
+    const specialElementHandlers = {
       '#editor': (element, renderer) => {
         return true;
       },
@@ -165,7 +165,7 @@ export class TripComponent implements OnInit {
 
     doc.fromHTML(content.innerHTML, 15, 15, {
       width: 190,
-      elementHandlers: speciallementHandlers,
+      elementHandlers: specialElementHandlers,
     });
     doc.save('test.pdf');
   }
