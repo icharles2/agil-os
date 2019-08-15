@@ -6,6 +6,27 @@
   justify-content: space-between; */
 }
 
+.progress {
+  margin: auto;
+  max-width: 80%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 6px;
+}
+
+/* table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+} */
+
+th {
+  text-align: left;
+}
+
 .list {
   list-style-type: none;
 }
@@ -40,5 +61,6 @@
 }
 
 .lines {
-  line-height: 25px;
+  line-height: 18px;
 }
+
