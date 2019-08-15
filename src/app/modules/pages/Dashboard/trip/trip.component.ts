@@ -20,26 +20,45 @@ export class TripComponent implements OnInit {
   prices: Price;
   tripLength: number;
   daysUntilTrip: number;
+  count: number;
+  lodging: boolean;
+  meals: boolean;
+  transpo: boolean;
+  isDoneLoading: boolean;
+  setTimeoutNow: any;
+  total: number;
+
+  getPricesTotal() {
+    if (this.meals && this.transpo && this.lodging) {
+      this.total = this.prices['tripTotal'].reduce((a, b) => a + b);
+      Number(this.total.toFixed(2)); 
+    }
+  }
 
   constructor(
     private budget: BudgetService,
     private dates: DateService,
     ) {
+
     this.trips = {
-      title: "Renee's Bachelorette",
+      title: 'Cross Country Move',
       origin: 'New Orleans',
-      destination: 'Las Vegas',
+      destination: 'Chicago',
       transpo: 'car',
       lodging: 'hotel',
-      departure: this.dates.parseDateAPI('08/17/2019'),
-      return: this.dates.parseDateAPI('08/20/2019'),
+      departure: this.dates.parseDateAPI('08/20/2019'),
+      return: this.dates.parseDateAPI('08/30/2019'),
       quality: 1,
       rental: true,
+      withFriends: false,
     };
-
+    this.meals = false;
+    this.transpo = false;
+    this.lodging = this.trips.withFriends ? true : false;
     this.tripLength = this.dates.getTripLength(this.trips['departure'], this.trips['return']);
 
     this.prices = {};
+    this.prices['tripTotal'] = [];
 
     this.budget.getTripPicture(this.trips['destination'])
       .subscribe((data) => {
@@ -52,6 +71,8 @@ export class TripComponent implements OnInit {
         console.log('meals', data);
         this.prices['meals'] = [data['average'], data['low'], data['high']];
         this.prices['mealsTotal'] = data['average'] * this.tripLength * 3;
+        this.prices['tripTotal'].push(this.prices['mealsTotal']);
+        this.meals = true;
         this.prices['mealsQ'] = this.trips['quality'];
       });
 
@@ -65,6 +86,7 @@ export class TripComponent implements OnInit {
           console.log('flight1', data);
           this.prices['flight1'] =  [data['average'], data['low'], data['high']];
           this.prices['flight1Avg'] = data['average'];
+          this.prices['tripTotal'].push(data['average']);
           this.prices['flightQ'] = this.trips['quality'];
         });
       this.budget.getFlightPrice(
@@ -75,7 +97,9 @@ export class TripComponent implements OnInit {
         .subscribe((data) => {
           console.log('flight2', data);
           this.prices['flight2'] = [data['average'], data['low'], data['high']];
+          this.transpo = true;
           this.prices['flight2Avg'] = data['average'];
+          this.prices['tripTotal'].push(data['average']);
         });
     }
 
@@ -87,6 +111,8 @@ export class TripComponent implements OnInit {
           this.prices['gas'] = Number(data['gasPerGallon'].toFixed(2));
           this.prices['gasTotal'] = data['distancePrice'];
           this.trips['distance'] = data['distance'];
+          this.prices['tripTotal'].push(data['distancePrice']);
+          this.transpo = true;
         });
     }
 
@@ -98,6 +124,7 @@ export class TripComponent implements OnInit {
           .subscribe((data) => {
             console.log('rental', data);
             this.prices['rental'] = [data['average'], data['low'], data['high']];
+            this.prices['tripTotal'].push(data['average']);
           });
     }
 
@@ -110,18 +137,26 @@ export class TripComponent implements OnInit {
           .subscribe((data) => {
             console.log('hotel', data);
             this.prices['hotel'] = [data['average'], data['low'], data['high']];
+            this.prices['tripTotal'].push(data['average']);
+            this.lodging = true;
             this.prices['hotelQ'] = this.trips['quality'];
           });
     }
+
   }
 
   ngOnInit() {
+    this.isDoneLoading = false;
+    setTimeout(() => {
+      this.isDoneLoading = true;
+      this.getPricesTotal();
+    }, 6000);
 
   }
 
   downloadPDF() {
     const doc = new jsPDF;
-    const speciallementHandlers = {
+    const specialElementHandlers = {
       '#editor': (element, renderer) => {
         return true;
       },
@@ -130,35 +165,9 @@ export class TripComponent implements OnInit {
 
     doc.fromHTML(content.innerHTML, 15, 15, {
       width: 190,
-      elementHandlers: speciallementHandlers,
+      elementHandlers: specialElementHandlers,
     });
     doc.save('test.pdf');
-  }
-
-  download() {
-    html2canvas(document.getElementById('results')).then((canvas) => {
-      const img = canvas.toDataURL('image/png');
-      const doc = new jsPDF();
-      doc.addImage(img, 'JPEG', 5, 20);
-      doc.save('testCanvas.pdf');
-    });
-  }
-
-  generatePDF() {
-    // console.log(`outside: this.problem.length = " + ${this.problems.length}`);
-
-    html2canvas(document.getElementById('content')).then(function (canvas) {
-      const self = this;
-      console.log(`inside: self.problem.length =  + ${self.problems.length}`);
-
-      const doc = new jsPDF();
-      doc.text(50, 100, 'page 1');
-      const img = canvas.toDataURL('image/png');
-      doc.addImage(img, 'JPEG', 100, 100);
-      doc.addPage();
-      doc.text(50, 100, 'page 2');
-      doc.save('test.pdf');
-    });
   }
 
 }

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetComponent } from './Budget/budget.component';
-
 import { StylesModule } from './shared/styles.module';
 import { LogComponent } from './modules/pages/Login/login.component';
 import { SignComponent } from './modules/pages/Signup/signup.component';
