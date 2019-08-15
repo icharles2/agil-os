@@ -9,7 +9,8 @@ import { BudgetComponent } from './Budget/budget.component';
 import { StylesModule } from './shared/styles.module';
 import { LogComponent } from './modules/pages/Login/login.component';
 import { SignComponent } from './modules/pages/Signup/signup.component';
-import { BudgetService } from '../budget.service';
+import { BudgetService } from './services/budget.service';
+import { DateService } from './services/date.service';
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import { BudgetService } from '../budget.service';
     HttpClientModule,
   ],
   exports: [
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
-    BudgetService
+    BudgetService,
+    DateService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
