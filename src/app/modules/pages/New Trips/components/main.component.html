@@ -6,33 +6,35 @@
           <ng-template matStepLabel>Trip Details</ng-template>
           <mat-card>
           <h3>Enter your trip details</h3>
-          <mat-form-field>
-            <input matInput 
-            placeholder="Destination"
-            id="autocomplete"
-            formControlName="firstCtrl" required>
-          </mat-form-field>
-          <span>
-          <mat-form-field class="space">
-              <input matInput placeholder="Trip Name" >
+          <!-- need to call func on this -->
+            <mat-form-field>
+              <input matInput 
+              placeholder="Destination"
+              id="autocomplete"
+              formControlName="firstCtrl" required>
             </mat-form-field>
-          </span>
+          <!-- call func on this -->
+            <span>
+              <mat-form-field class="space">
+              <input matInput placeholder="Trip Name" >
+              </mat-form-field>
+            </span>
           <div>
+            <!-- call func on this -->
               <mat-form-field>
-                  <input matInput [matDatepicker]="picker1" placeholder="Departure Date">
-                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                  <mat-datepicker #picker1></mat-datepicker>
-                </mat-form-field>
-                <mat-form-field class="space">
-                    <input matInput [matDatepicker]="picker2" 
-                    
-                    placeholder="Return Date">
-                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                    <mat-datepicker #picker2></mat-datepicker>
-                  </mat-form-field>
+              <input matInput [matDatepicker]="picker1" placeholder="Departure Date">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            <!-- call func on this -->
+              <mat-form-field class="space">
+              <input matInput [matDatepicker]="picker2"      
+              placeholder="Return Date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
           </div>
-          <span>
-              
+            <span>     
           </span>
           <div>
             <button mat-raised-button color="accent" matStepperNext>Make Trip</button>
@@ -43,22 +45,25 @@
       <mat-step [stepControl]="secondFormGroup">
         <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Price Range</ng-template>
-         <mat-card>
+        <mat-card>
           <h3>How Much Do You Want To Spend?</h3> 
           <div>
-            <!-- <button mat-button matStepperPrevious>Back</button> -->
-            <button mat-raised-button class="rounded dollar" matStepperNext>
+                  <!-- <button mat-button matStepperPrevious>Back</button> -->
+            <!-- call func on this -->
+              <button mat-raised-button class="rounded dollar" matStepperNext>
                 <img class="dollarimg1" src="../../../../../assets/dollars/oneDollar.png">
-            </button>
+              </button>
             
-            <button mat-raised-button class="rounded dollar spacer" matStepperNext>
+            <!-- call func on this -->
+              <button mat-raised-button class="rounded dollar spacer" matStepperNext>
                 <img class="dollarimg2" src="../../../../../assets/dollars/2dollars.png">
-            </button>
+              </button>
             
-            <button mat-raised-button class="rounded dollar spacer1" matStepperNext>
+            <!-- call func on this -->
+              <button mat-raised-button class="rounded dollar spacer1" matStepperNext>
                 <img class="dollarimg3" src="../../../../../assets/dollars/3dollars.png">
-            </button>
-            <div> 
+              </button>
+          <div> 
                 Thrifty   |     Reasonable    |   Lavish
             </div>
           </div>
@@ -69,23 +74,29 @@
         <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Transportation</ng-template>
         <mat-card>
-           <h3>How Do You Want To Get There? </h3> 
-           <div>
-             <!-- <button mat-button matStepperPrevious>Back</button> -->
-             <button mat-raised-button class="rounded"matStepperNext>
+          <h3>How Do You Want To Get There? </h3> 
+          <div>
+              <!-- <button mat-button matStepperPrevious>Back</button> -->
+
+            <!-- call func on this -->
+              <button mat-raised-button class="rounded"matStepperNext>
                 <img src="../../../../../assets/Icons/car.png">
-             </button>
-             <button mat-raised-button class="rounded space1" matStepperNext>
+              </button>
+
+            <!-- call func on this -->
+              <button mat-raised-button class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/Plane Sized.png">
-             </button>
-             <button mat-raised-button class="rounded space1" matStepperNext>
+              </button>
+
+            <!-- call func on this -->
+              <button mat-raised-button class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/Bus.png">
-             </button>
-             <div> 
+              </button>
+            <div> 
               Road Trip   |     Flight    |   Bus/Train
               </div>
-           </div>
-         </mat-card>
+          </div>
+        </mat-card>
       </form>
       </mat-step>
       <mat-step [stepControl]="fourthFormGroup">
@@ -96,22 +107,25 @@
             <div>
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
-              <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded">
-              <a href="/dashboard">
-              <img src="../../../assets/Icons/key.png">
-              </a>
-              </button>
+              <!-- call func on this -->
+                <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded">
+                  <a href="/dashboard">
+                  <img src="../../../assets/Icons/key.png">
+                  </a>
+                </button>
             </span>
-              <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded space1">
-                <a href="/dashboard">
-                <img src="../../../assets/Icons/resort.png">
-                </a>
-              </button>
-              <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded space1">
-                <a href="/dashboard">
-                <img src="../../../assets/Icons/laugh.png">
-              </a>
-              </button>
+              <!-- call func on this -->
+                <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded space1">
+                  <a href="/dashboard">
+                  <img src="../../../assets/Icons/resort.png">
+                  </a>
+                </button>
+              <!-- call func on this -->
+                <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded space1">
+                  <a href="/dashboard">
+                  <img src="../../../assets/Icons/laugh.png">
+                  </a>
+                </button>
               <div> 
               Short-term Rental   |     Hotel    |   With Friends
               </div>
