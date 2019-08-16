@@ -4,7 +4,7 @@
   margin-bottom: 2%;
   margin-left: auto;
   margin-right: auto;
-  
+
   /* display: flex;
   justify-content: space-between; */
 }
@@ -50,7 +50,7 @@ th {
 
 .end {
   margin-left: 200px;
-  color: #2EB57A;
+  color: #2eb57a;
   font-weight: bold;
 }
 
@@ -68,4 +68,3 @@ th {
 .lines {
   line-height: 18px;
 }
-

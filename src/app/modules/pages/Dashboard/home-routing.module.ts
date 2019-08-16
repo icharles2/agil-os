@@ -4,17 +4,15 @@ import { TripComponent } from './trip/trip.component';
 import { HomeComponent } from './home.component';
 // import { }
 
-
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    component: HomeComponent,
   },
-  
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class HomeRoutingModule { }
+export class HomeRoutingModule {}
