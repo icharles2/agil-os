@@ -12,12 +12,7 @@ import { BudgetService } from './services/budget.service';
 import { DateService } from './services/date.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BudgetComponent,
-    LogComponent,
-    SignComponent,
-  ],
+  declarations: [AppComponent, BudgetComponent, LogComponent, SignComponent],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
@@ -25,13 +20,8 @@ import { DateService } from './services/date.service';
     AppRoutingModule,
     HttpClientModule,
   ],
-  exports: [
-    HttpClientModule,
-  ],
-  providers: [
-    BudgetService,
-    DateService,
-  ],
+  exports: [HttpClientModule],
+  providers: [BudgetService, DateService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
