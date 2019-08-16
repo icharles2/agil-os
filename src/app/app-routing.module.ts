@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LogComponent } from './modules/pages/Login/login.component';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 
-
 const routes: Routes = [
   {
     path: 'login',
@@ -13,13 +12,14 @@ const routes: Routes = [
     path: 'signup',
     component: SignComponent,
   },
-  { 
-    path: 'newtrip', 
-    loadChildren: () => import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule) 
+  {
+    path: 'newtrip',
+    loadChildren: () =>
+      import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule),
   },
-  { 
-    path: 'dashboard', 
-    loadChildren: () => import('./modules/pages/Dashboard/home.module').then(mod => mod.HomeModule)
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./modules/pages/Dashboard/home.module').then(mod => mod.HomeModule),
   },
   {
     path: 'landing',
@@ -28,12 +28,12 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -24,13 +24,11 @@ import {
   MatTableModule,
   MatProgressBarModule,
   MatTooltipModule,
+  MatButtonToggleModule,
 } from '@angular/material';
 
 @NgModule({
-  declarations: [
-    MainNavComponent,
-    LandingNavComponent,
-  ],
+  declarations: [MainNavComponent, LandingNavComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -53,6 +51,7 @@ import {
     MatTableModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatButtonToggleModule,
   ],
   exports: [
     LayoutModule,
@@ -77,6 +76,7 @@ import {
     MatTableModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatButtonToggleModule,
   ],
 })
-export class StylesModule { }
+export class StylesModule {}

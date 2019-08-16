@@ -1,14 +1,15 @@
 export class Trip {
-  cityImg?: string;
-  title: string;
-  destination: string;
-  imgUrl?: string;
-  origin: string;
-  quality: number;
-  transpo: string;
-  lodging: string;
-  departure: string;
-  return: string;
-  rental?: boolean;
-  distance?: string;
+  constructor(
+    public title: string,
+    public destination: string,
+    public origin: string,
+    public quality: number,
+    public transpo: string,
+    public lodging: string,
+    public departure: string,
+    public returnDate: string,
+    public rental: boolean,
+    public imgUrl?: string,
+    public total?: number,
+  ) {}
 }

@@ -1,27 +1,11 @@
 .example-card {
   max-width: 800px;
-  margin: auto;
-  
-  /* display: flex;
-  justify-content: space-between; */
-}
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: auto;
+  margin-right: auto;
 
-.progress {
-  margin: auto;
-  max-width: 80%;
-  display: flex;
-  align-content: center;
-  align-items: center;
-  height: 6px;
 }
-
-/* table {
-  border-collapse: collapse;
-}
-
-table, th, td {
-  border: 1px solid black;
-} */
 
 th {
   text-align: left;
@@ -45,7 +29,7 @@ th {
 
 .end {
   margin-left: 200px;
-  color: #2EB57A;
+  color: #2eb57a;
   font-weight: bold;
 }
 
@@ -63,4 +47,3 @@ th {
 .lines {
   line-height: 18px;
 }
-

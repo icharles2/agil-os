@@ -4,10 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class DateService {
+  constructor() {}
 
-  constructor() { }
-
-  parseDateAPI(date1):string {
+  parseDateAPI(date1): string {
     const yyyy = new Date().getFullYear();
     const dateArr = date1.split('/');
     const mm = dateArr[0];
@@ -15,7 +14,7 @@ export class DateService {
     return `${yyyy}-${mm}-${dd}`;
   }
 
-  parseDateLength(date1):object {
+  parseDateLength(date1): object {
     const dateArr = date1.split('-');
     const mm = dateArr[1];
     const dd = dateArr[2];
@@ -30,16 +29,14 @@ export class DateService {
     return { mon: dateMon, day: dateDay };
   }
 
-  getTripLength(date1:string, date2:string): number {
+  getTripLength(date1: string, date2: string): number {
     const oneDay = 24 * 60 * 60 * 1000;
     const dateA = this.parseDateLength(date1);
     const dateB = this.parseDateLength(date2);
-     // hours*minutes*seconds*milliseconds
-    const firstDate = new Date(2019, dateA['mon'], dateB['day']);
-    const secondDate = new Date(2019, dateA['mon'], dateB['day']);
-    const tripLength = Math.round(
-      Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)),
-      );
+    // hours*minutes*seconds*milliseconds
+    const firstDate = new Date(2019, dateA['mon'] - 1, dateA['day']);
+    const secondDate = new Date(2019, dateB['mon'] - 1, dateB['day']);
+    const tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
     return tripLength;
   }
 
@@ -51,8 +48,8 @@ export class DateService {
     const firstDate = new Date(2019, date1['mon'], date1['day']);
     const todayDate = new Date();
     const tripCountdown = Math.round(
-      Math.abs((firstDate.getTime() - todayDate.getTime()) / (oneDay)),
-      );
+      Math.abs((firstDate.getTime() - todayDate.getTime()) / oneDay),
+    );
     return tripCountdown;
   }
 }

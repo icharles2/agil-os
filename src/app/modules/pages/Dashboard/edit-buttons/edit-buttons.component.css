@@ -1,0 +1,17 @@
+.box {
+  max-width: 40px;
+  min-width: 40px;
+}
+
+.mat-button-toggle-label-content {
+  padding: 0px !important;
+}
+
+.mat-button-toggle-button {
+  margin-left: 2px !important;
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 40px;
+  padding: 0px !important;
+}

@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { EMPTY, Observable } from 'rxjs';
+import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
@@ -7,7 +8,7 @@ import { Trip } from '../../../../models/Trips';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import domToImage from 'dom-to-image';
-import { Observable } from 'rxjs';
+import { Lifecycle } from 'src/app/models/Lifecycle';
 
 @Component({
   selector: 'app-trip',
@@ -20,6 +21,7 @@ export class TripComponent implements OnInit {
 
   trips: Trip;
   prices: Price;
+  lifecycle: Lifecycle;
   tripLength: number;
   daysUntilTrip: number;
   count: number;
@@ -30,149 +32,201 @@ export class TripComponent implements OnInit {
   setTimeoutNow: any;
   total: number;
 
-  ngOnInit() {
-    console.log('obj from dTree', this.state$);
-    this.isDoneLoading = false;
-    setTimeout(() => {
-      this.isDoneLoading = true;
-      this.getPricesTotal();
-    }, 6000);
-
-  }
-
-  getPricesTotal() {
-    if (this.meals && this.transpo && this.lodging) {
-      this.total = this.prices['tripTotal'].reduce((a, b) => a + b);
-      Number(this.total.toFixed(2));
-    }
-  }
-
   constructor(
     private budget: BudgetService,
     private dates: DateService,
-    ) {
+    ) {}
 
+  ngOnInit() {
+    this.prices = {
+      tripTotal: [],
+    };
     this.trips = {
       title: 'Cross Country Move',
       origin: 'New Orleans',
       destination: 'Chicago',
-      transpo: 'car',
+      transpo: 'flight',
       lodging: 'hotel',
-      departure: this.dates.parseDateAPI('08/20/2019'),
-      return: this.dates.parseDateAPI('08/30/2019'),
-      quality: 1,
-      rental: true,
-      // withFriends: false,
+      departure: '08/20/2019',
+      returnDate: '08/30/2019',
+      quality: 3,
+      rental: false,
+      imgUrl: '',
+      total: 0,
     };
-    this.meals = false;
-    this.transpo = false;
-    // this.lodging = this.trips.withFriends ? true : false;
-    // this.trips.lodging === withFriends 
-    this.tripLength = this.dates.getTripLength(this.trips['departure'], this.trips['return']);
-
-    this.prices = {};
-    this.prices['tripTotal'] = [];
-
-    this.budget.getTripPicture(this.trips['destination'])
-      .subscribe((data) => {
-        this.trips['cityImg'] = data;
-        console.log(data);
-      });
-
-    this.budget.getMealsPrice(this.trips['destination'], this.trips['quality'])
-      .subscribe((data) => {
-        console.log('meals', data);
-        this.prices['meals'] = [data['average'], data['low'], data['high']];
-        this.prices['mealsTotal'] = data['average'] * this.tripLength * 3;
-        this.prices['tripTotal'].push(this.prices['mealsTotal']);
-        this.meals = true;
-        this.prices['mealsQ'] = this.trips['quality'];
-      });
-
+    this.lifecycle = {
+      food: false,
+      transpo: false,
+      lodging: this.trips['lodging'] === 'hotel' ? false : true,
+      isDoneLoading: false,
+    };
+    this.getTripPhoto();
+    this.setDates();
+    this.setTripLength(this.trips['departure'], this.trips['returnDate']);
+    this.getMealsPrices(this.trips['quality']);
     if (this.trips['transpo'] === 'flight') {
-      this.budget.getFlightPrice(
-          this.trips['quality'],
-          this.trips['origin'],
-          this.trips['destination'],
-          this.trips['departure'])
-        .subscribe((data) => {
-          console.log('flight1', data);
-          this.prices['flight1'] =  [data['average'], data['low'], data['high']];
-          this.prices['flight1Avg'] = data['average'];
-          this.prices['tripTotal'].push(data['average']);
-          this.prices['flightQ'] = this.trips['quality'];
-        });
-      this.budget.getFlightPrice(
-          this.trips['quality'],
-          this.trips['destination'],
-          this.trips['origin'],
-          this.trips['return'])
-        .subscribe((data) => {
-          console.log('flight2', data);
-          this.prices['flight2'] = [data['average'], data['low'], data['high']];
-          this.transpo = true;
-          this.prices['flight2Avg'] = data['average'];
-          this.prices['tripTotal'].push(data['average']);
-        });
+      this.getFlightsPrices(this.trips['quality']);
     }
-
     if (this.trips['transpo'] === 'car') {
-      this.budget.getGasPrice(this.trips['origin'], this.trips['destination'],
-        ).subscribe((data) => {
-          console.log('gas', data);
-          // should also make use of distance and time
-          this.prices['gas'] = Number(data['gasPerGallon'].toFixed(2));
-          this.prices['gasTotal'] = data['distancePrice'];
-          this.trips['distance'] = data['distance'];
-          this.prices['tripTotal'].push(data['distancePrice']);
-          this.transpo = true;
-        });
+      this.getGasPrices();
     }
-
     if (this.trips['rental']) {
-      this.budget.getRentalCarPrice(
-          this.trips['origin'],
-          this.trips['departure'],
-          this.trips['return'])
-          .subscribe((data) => {
-            console.log('rental', data);
-            this.prices['rental'] = [data['average'], data['low'], data['high']];
-            this.prices['tripTotal'].push(data['average']);
-          });
+      this.getRentalCarPrices();
     }
-
     if (this.trips['lodging'] === 'hotel') {
-      this.budget.getHotelPrice(
-          this.trips['quality'],
-          this.trips['destination'],
-          this.trips['departure'],
-          this.trips['return'])
-          .subscribe((data) => {
-            console.log('hotel', data);
-            this.prices['hotel'] = [data['average'], data['low'], data['high']];
-            this.prices['tripTotal'].push(data['average']);
-            this.lodging = true;
-            this.prices['hotelQ'] = this.trips['quality'];
-          });
+      this.getHotelPrices(this.trips['quality']);
     }
+    setTimeout(
+      () => {
+        this.getPricesTotal();
+        this.lifecycle['isDoneLoading'] = true;
+      },
+      6000,
+    );
 
   }
 
   
-  downloadPDF() {
-    const doc = new jsPDF;
-    const specialElementHandlers = {
-      '#editor': (element, renderer) => {
-        return true;
-      },
-    };
-    const content = this.content.nativeElement;
-
-    doc.fromHTML(content.innerHTML, 15, 15, {
-      width: 190,
-      elementHandlers: specialElementHandlers,
-    });
-    doc.save('test.pdf');
+  // downloadPDF() {
+  //   const doc = new jsPDF;
+  //   const specialElementHandlers = {
+  //     '#editor': (element, renderer) => {
+  //       return true;
+  //     },
+  //   };
+  // const content = this.content.nativeElement;
+  setTripLength(departure: string, returnDate: string) {
+    this.lifecycle['tripLength'] = this.dates.getTripLength(departure, returnDate);
+    return this.lifecycle['tripLength'];
   }
 
+  setDates() {
+    this.trips['departure'] = this.dates.parseDateAPI(this.trips['departure']);
+    this.trips['returnDate'] = this.dates.parseDateAPI(this.trips['returnDate']);
+  }
+
+  getPricesTotal() {
+    const { food, lodging, transpo, tripLength } = this.lifecycle;
+    const { tripTotal } = this.prices;
+    if (food && tripLength) {
+      this.prices.mealsTotal = ((this.prices.meals[2]) * tripLength) * 3;
+      tripTotal.push(this.prices.mealsTotal);
+      if (food && transpo && lodging) {
+        this.trips.total += tripTotal.reduce((a, b) => a + b);
+        return this.trips.total;
+      }
+    }
+
+  }
+  getTripPhoto() {
+    this.budget.getTripPicture(this.trips['destination'])
+      .subscribe((data: string) => {
+        this.trips['imgUrl'] = data;
+      });
+  }
+  getMealsPrices(quality: number) {
+    this.budget.getMealsPrice(this.trips['destination'], quality)
+    .subscribe((data) => {
+      this.setPrices(data, 'meals');
+      this.lifecycle['food'] = true;
+      this.setQuality(quality, 'meals');
+    });
+  }
+
+  setPrices(price, method: string) {
+    this.prices[method] =  [price['low'], price['high'], price['average']];
+  }
+
+  setQuality(quality: number, method: string) {
+    this.prices[`${method}Q`] = quality;
+  }
+
+  addToTotal(price: number) {
+    this.prices['tripTotal'].push(price['average']);
+  }
+
+  getFlightsPrices(quality: number) {
+    const { origin, destination, departure, returnDate } = this.trips;
+    this.budget.getFlightPrice(quality, origin, destination, departure)
+    .pipe(
+      catchError(() => {
+        return EMPTY;
+      }),
+    )
+      .subscribe((res, err) => {
+        if (res) {
+          this.setPrices(res, 'flight1');
+          this.addToTotal(res);
+          this.setQuality(quality, 'flight');
+        }
+        if (err) {
+          console.log('HTTP Flights Error', err);
+        }
+      });
+
+    this.budget.getFlightPrice(quality, destination, origin, returnDate)
+      .subscribe((data) => {
+        this.setPrices(data, 'flight2');
+        this.addToTotal(data);
+        this.lifecycle['transpo'] = true;
+      });
+  }
+  getHotelPrices(quality: number) {
+    const { destination, departure, returnDate } = this.trips;
+    this.budget.getHotelPrice(quality, destination, departure, returnDate)
+    .pipe(
+      retry(1),
+      catchError(() => {
+        return EMPTY;
+      }),
+      shareReplay(),
+    )
+
+    .subscribe((res, err) => {
+      if (res) {
+        this.setPrices(res, 'hotel');
+        this.addToTotal(res);
+        this.setQuality(quality, 'hotel');
+      } else {
+        console.log('HTTP Hotels Error', err);
+      }
+      this.lifecycle['lodging'] = true;
+    });
+  }
+
+  getRentalCarPrices() {
+    const { origin, departure, returnDate } = this.trips;
+    this.budget.getRentalCarPrice(origin, departure, returnDate)
+      .subscribe((data) => {
+        this.setPrices(data, 'rental');
+        this.addToTotal(data);
+      });
+  }
+
+  getGasPrices() {
+    const { origin, destination } = this.trips;
+    this.budget.getGasPrice(origin, destination)
+    .subscribe((data) => {
+      // should also make use of distance and time
+      this.prices['gas'] = data['gasPerGallon'].toFixed(2);
+      this.prices['gasTotal'] = data['distancePrice'];
+      this.trips['distance'] = data['distance'];
+      this.prices['tripTotal'].push(data['distancePrice']);
+      this.lifecycle['transpo'] = true;
+    });
+  }
+  // downloadPDF() {
+  //   const doc = new jsPDF;
+  //   const specialElementHandlers = {
+  //     '#editor': (element, renderer) => {
+  //       return true;
+  //     },
+  //   };
+  //   const content = this.content.nativeElement;
+  //   doc.fromHTML(content.innerHTML, 15, 15, {
+  //     width: 190,
+  //     elementHandlers: specialElementHandlers,
+  //   });
+  //   doc.save('test.pdf');
+  // }
 }
