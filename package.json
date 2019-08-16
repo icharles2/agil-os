@@ -12,7 +12,10 @@
     "compile:server": "webpack --config webpack.server.config.js --progress --colors",
     "serve:ssr": "node dist/server",
     "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
-    "build:client-and-server-bundles": "ng build --prod && ng run agil-os:server:production"
+    "build:client-and-server-bundles": "ng build --prod && ng run agil-os:server:production",
+    "format": "npm run format:prettier && npm run format:html",
+    "format:prettier": "node_modules/.bin/prettier --config .prettierrc \"src/**/*.{ts,css,less,js}\" --write",
+    "format:html": "node bin/glob-ls.js 'src/**/*.html' 'build/**/*.html.ejs' | xargs node_modules/.bin/html-beautify -r"
   },
   "private": true,
   "dependencies": {
@@ -54,12 +57,14 @@
     "html-linter": "^1.1.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
+    "js-beautify": "^1.10.2",
     "karma": "~4.1.0",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "nodemon": "^1.18.11",
+    "prettier": "^1.18.2",
     "protractor": "~5.4.0",
     "rimraf": "^2.6.3",
     "ts-loader": "^5.2.0",
