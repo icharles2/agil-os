@@ -35,8 +35,8 @@ export class DateService {
     const dateA = this.parseDateLength(date1);
     const dateB = this.parseDateLength(date2);
      // hours*minutes*seconds*milliseconds
-    const firstDate = new Date(2019, dateA['mon'], dateB['day']);
-    const secondDate = new Date(2019, dateA['mon'], dateB['day']);
+    const firstDate = new Date(2019, dateA['mon'] - 1, dateA['day']);
+    const secondDate = new Date(2019, dateB['mon'] - 1, dateB['day']);
     const tripLength = Math.round(
       Math.abs((firstDate.getTime() - secondDate.getTime()) / (oneDay)),
       );
