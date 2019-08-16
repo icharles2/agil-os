@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { EditButtonsComponent } from './edit-buttons/edit-buttons.component';
 // import { BudgetService } from '../../../../budget.service';
 
 
@@ -16,6 +17,7 @@ import { MatSortModule } from '@angular/material/sort';
   declarations: [
     HomeComponent,
     TripComponent,
+    EditButtonsComponent,
   ],
   imports: [
     CommonModule,
