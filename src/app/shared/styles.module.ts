@@ -28,10 +28,7 @@ import {
 } from '@angular/material';
 
 @NgModule({
-  declarations: [
-    MainNavComponent,
-    LandingNavComponent,
-  ],
+  declarations: [MainNavComponent, LandingNavComponent],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -82,4 +79,4 @@ import {
     MatButtonToggleModule,
   ],
 })
-export class StylesModule { }
+export class StylesModule {}
