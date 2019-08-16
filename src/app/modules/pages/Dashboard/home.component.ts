@@ -13,7 +13,6 @@ export interface Transaction {
   selector: 'Home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.css'],
-
 })
 export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['expense', 'average', 'low', 'high'];
@@ -33,8 +32,5 @@ export class HomeComponent implements OnInit {
   }
   constructor() {}
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 }

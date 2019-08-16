@@ -6,19 +6,17 @@ import { HomeComponent } from '../Dashboard/home.component';
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent
+    component: MainComponent,
   },
 
   // {
   //   path: 'dashboard',
   //   component: HomeComponent
   // }
-  
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DashboardRoutingModule { }
+export class DashboardRoutingModule {}
