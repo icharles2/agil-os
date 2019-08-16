@@ -11,5 +11,4 @@ export class Trip {
   return: string;
   rental?: boolean;
   distance?: string;
-  withFriends: boolean;
 }

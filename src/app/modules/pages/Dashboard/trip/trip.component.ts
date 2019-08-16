@@ -7,6 +7,7 @@ import { Trip } from '../../../../models/Trips';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import domToImage from 'dom-to-image';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-trip',
@@ -15,6 +16,7 @@ import domToImage from 'dom-to-image';
 })
 export class TripComponent implements OnInit {
   @ViewChild('content', { static: true }) content: ElementRef;
+  private state$: Observable<object>;
 
   trips: Trip;
   prices: Price;
@@ -28,10 +30,20 @@ export class TripComponent implements OnInit {
   setTimeoutNow: any;
   total: number;
 
+  ngOnInit() {
+    console.log('obj from dTree', this.state$);
+    this.isDoneLoading = false;
+    setTimeout(() => {
+      this.isDoneLoading = true;
+      this.getPricesTotal();
+    }, 6000);
+
+  }
+
   getPricesTotal() {
     if (this.meals && this.transpo && this.lodging) {
       this.total = this.prices['tripTotal'].reduce((a, b) => a + b);
-      Number(this.total.toFixed(2)); 
+      Number(this.total.toFixed(2));
     }
   }
 
@@ -50,11 +62,12 @@ export class TripComponent implements OnInit {
       return: this.dates.parseDateAPI('08/30/2019'),
       quality: 1,
       rental: true,
-      withFriends: false,
+      // withFriends: false,
     };
     this.meals = false;
     this.transpo = false;
-    this.lodging = this.trips.withFriends ? true : false;
+    // this.lodging = this.trips.withFriends ? true : false;
+    // this.trips.lodging === withFriends 
     this.tripLength = this.dates.getTripLength(this.trips['departure'], this.trips['return']);
 
     this.prices = {};
@@ -145,15 +158,7 @@ export class TripComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.isDoneLoading = false;
-    setTimeout(() => {
-      this.isDoneLoading = true;
-      this.getPricesTotal();
-    }, 6000);
-
-  }
-
+  
   downloadPDF() {
     const doc = new jsPDF;
     const specialElementHandlers = {

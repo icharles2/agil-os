@@ -1,34 +1,33 @@
-
- 
     <mat-horizontal-stepper #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Trip Details</ng-template>
           <mat-card>
           <h3>Enter your trip details</h3>
-          <!-- need to call func on this -->
-            <mat-form-field>
+          <!-- need to call func on this >> use formControl to get the input value-->
+            <mat-form-field [formGroup]="form">
               <input matInput 
               placeholder="Destination"
+              formControlName="destination"
               id="autocomplete"
-              formControlName="firstCtrl" required>
+              required>
             </mat-form-field>
           <!-- call func on this -->
             <span>
-              <mat-form-field class="space">
-              <input matInput placeholder="Trip Name" >
+              <mat-form-field class="space" [formGroup]="form" >
+              <input matInput formControlName="tripName" placeholder="Trip Name" >
               </mat-form-field>
             </span>
           <div>
             <!-- call func on this -->
-              <mat-form-field>
-              <input matInput [matDatepicker]="picker1" placeholder="Departure Date">
+              <mat-form-field [formGroup]="form">
+              <input matInput [matDatepicker]="picker1" formControlName="departureDate" placeholder="Departure Date">
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
             <!-- call func on this -->
-              <mat-form-field class="space">
-              <input matInput [matDatepicker]="picker2"      
+              <mat-form-field class="space" [formGroup]="form" >
+              <input matInput  formControlName="returnDate" [matDatepicker]="picker2"      
               placeholder="Return Date">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
@@ -37,7 +36,7 @@
             <span>     
           </span>
           <div>
-            <button mat-raised-button color="accent" matStepperNext>Make Trip</button>
+            <button mat-raised-button color="accent" matStepperNext (click)="logInputs()" >Make Trip</button>
           </div>
         </mat-card>
         </form>
@@ -108,23 +107,24 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded">
-                  <a href="/dashboard">
+                <button (click)="router.navigate(['/dashboard']); tree.setLodging(tripObj, 'hotel')"  mat-raised-button class="rounded">
+                  <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/key.png">
-                  </a>
+                  <!-- </a> -->
                 </button>
             </span>
-              <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded space1">
-                  <a href="/dashboard">
+            <!-- call func on this -->
+            <!-- (click)="router.navigate(['/dashboard']);" -->
+            <button  (click)="goToPage('/dashboard')" mat-raised-button class="rounded space1">
+                  <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/resort.png">
-                  </a>
+                  <!-- </a> -->
                 </button>
               <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard']);" mat-raised-button class="rounded space1">
-                  <a href="/dashboard">
+                <button (click)="goToPage('/dashboard')"  mat-raised-button class="rounded space1">
+                  <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/laugh.png">
-                  </a>
+                  <!-- </a> -->
                 </button>
               <div> 
               Short-term Rental   |     Hotel    |   With Friends
