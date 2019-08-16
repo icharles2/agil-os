@@ -10,3 +10,21 @@ body {
  margin: auto;
  width: 80%
 } */
+
+.mat-button-toggle-label-content {
+  padding: 0px !important;
+}
+
+.mat-button-toggle-button {
+  width: 40px;
+  max-width: 40px;
+  min-width: 40px;
+  
+}
+
+
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: 40px;
+  padding: 0px !important;
+}

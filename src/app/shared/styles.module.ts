@@ -24,6 +24,7 @@ import {
   MatTableModule,
   MatProgressBarModule,
   MatTooltipModule,
+  MatButtonToggleModule,
 } from '@angular/material';
 
 @NgModule({
@@ -53,6 +54,7 @@ import {
     MatTableModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatButtonToggleModule,
   ],
   exports: [
     LayoutModule,
@@ -77,6 +79,7 @@ import {
     MatTableModule,
     MatProgressBarModule,
     MatTooltipModule,
+    MatButtonToggleModule,
   ],
 })
 export class StylesModule { }
