@@ -1,6 +1,6 @@
 <div id="content" #content>
 
-<div *ngIf="!isDoneLoading">
+<div *ngIf="!lifecycle.isDoneLoading">
     <mat-progress-bar
     class="progress"
     mode="query"
@@ -14,13 +14,13 @@
       <img
       mat-card-avatar
       class="example-header-image"
-      src={{trips.cityImg}}>
+      src={{trips.imgUrl}}>
       <mat-card-title>
         <div class="container">
           <div>{{trips.destination}}: {{trips.title}}</div>
           <div class="fill"></div>
-          <div *ngIf="total">
-          <div class="end">${{total}}</div>
+          <div *ngIf="trips.total">
+          <div class="end">{{trips.total | currency}}</div>
         </div>
         </div>
       </mat-card-title>
@@ -29,7 +29,7 @@
           <div class="lines">
             <div>Origin: {{trips.origin}}</div>
             <div>Departure Date: {{trips.departure}}</div>
-            <div>Return Date: {{trips.return}}</div>
+            <div>Return Date: {{trips.returnDate}}</div>
 
           </div>
       </mat-card-subtitle>
@@ -44,37 +44,36 @@
               <th>Average Cost</th> 
               <th> </th>
             </tr>
-      <div *ngIf="trips.transpo === 'flight'; else elseBlock">
-        <tr> 
+      <tr *ngIf="trips.transpo === 'flight'">
+        
         <td>Departing Flight: </td>
           
             <td *ngFor="let flight of prices.flight1" class="list">
-              ${{flight}}
+              {{flight | currency}}
             </td>
-          <td *ngIf="isDoneLoading"> 
+          <!-- <td *ngIf="isDoneLoading"> 
             <edit-buttons></edit-buttons>
-          </td>
+          </td> -->
         </tr> 
-        <tr> 
+        <tr *ngIf="trips.transpo === 'flight'"> 
           <td>Returning Flight: </td>
           
             <td *ngFor="let flight of prices.flight2" class="list">
-              ${{flight}}
+              {{flight | currency}}
             </td>
-            <td *ngIf="isDoneLoading"> 
+            <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
-            </td>
+            </td> -->
           </tr>
-          
-        </div>
     <tr *ngIf="trips.lodging === 'hotel'">
       <td>Hotel: </td>
       
         <td *ngFor="let hotel of prices.hotel" class="list">
-          ${{hotel}}
+          {{hotel | currency}}
         </td>
-        <td *ngIf="isDoneLoading"> 
-            <edit-buttons></edit-buttons>
+        <td *ngIf="isDoneLoading && !hotelsPrices"> 
+          Sorry No Hotels were found
+            <!-- <edit-buttons></edit-buttons> -->
         </td>
     </tr>
 
@@ -83,29 +82,35 @@
   <td>Rental Car: </td>
       
           <td *ngFor="let rental of prices.rental" class="list">
-            ${{rental}}
+            {{rental | currency}}
           </td>
-          <td *ngIf="isDoneLoading"> 
+          <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
-          </td>
+          </td> -->
       </tr>
-      <tr *ngIf="meals">
+      <tr *ngIf="lifecycle.food">
         <td>Price Per Meal: </td>
         
           <td *ngFor="let meal of prices.meals" class="list">
-            ${{meal}}
+            {{meal | currency}}
           </td>
-          <td *ngIf="isDoneLoading"> 
+          <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
-          </td>
+          </td> -->
       </tr>
-      <tr *ngIf="isDoneLoading">
+      <tr *ngIf="prices.mealsTotal">
         <td>Meals Total:</td>
         <td></td>
         <td></td>
-      <td> ${{prices.mealsTotal}}.00</td>
+      <td> {{prices.mealsTotal | currency}}</td>
       <td></td>
       </tr>
+      <tr *ngIf="trips.total">
+          <td>Total:</td>
+          <td></td>
+          <td></td>
+          <td class="end">{{trips.total | currency}}</td>
+          </tr>
     </table> 
     <br>
 <div class="road" *ngIf="trips.transpo === 'car'">
@@ -116,16 +121,16 @@
     <th> </th>
     <th> </th>
     <tr>
-     <td> Gas per gallon: </td>
-     <td>${{prices.gas}}</td>
-     <td>Gas Subtotal One Way: </td>
-     <td> ${{prices.gasTotal}}</td> 
+    <td> Gas per gallon: </td>
+    <td>{{prices.gas | currency}}</td>
+    <td>Gas Subtotal One Way: </td>
+    <td> {{prices.gasTotal | currency}}</td> 
     </tr>
     <tr>
             <td>Miles to travel One Way: </td>
             <td>{{trips.distance}}</td>
         <td> Gas Total: </td>
-            <td> ${{prices.gasTotal * 2}}</td>
+            <td> {{prices.gasTotal * 2 | currency}}</td>
     </tr>
   </table>
 </div>
