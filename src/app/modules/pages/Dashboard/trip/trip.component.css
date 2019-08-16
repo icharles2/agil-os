@@ -5,28 +5,7 @@
   margin-left: auto;
   margin-right: auto;
 
-  /* display: flex;
-  justify-content: space-between; */
 }
-
-/* .progress {
-  margin-top: 10%;
-  margin-bottom: 10%;
-  padding: 10px;
-  max-width: 80%;
-  display: flex;
-  align-content: center;
-  align-items: center;
-  height: 6px;
-} */
-
-/* table {
-  border-collapse: collapse;
-}
-
-table, th, td {
-  border: 1px solid black;
-} */
 
 th {
   text-align: left;
