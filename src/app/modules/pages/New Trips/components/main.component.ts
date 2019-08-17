@@ -46,17 +46,18 @@ export class MainComponent implements OnInit {
 
   setFormValues(obj) {
     obj['destination'] = this.form.get('destination').value;
-
     obj['title'] = this.form.get('tripName').value;
-
     obj['departure'] = this.date.dateSlice(this.form.get('departureDate').value);
     obj['returnDate'] = this.date.dateSlice(this.form.get('returnDate').value);
-
     obj['origin'] = 'New Orleans';
   }
 
   setPriceValue(obj, val) {
     obj['quality'] = val;
+  }
+
+  setRentalBoolean(obj, val) {
+    obj['rental'] = val;
   }
 
   setTranspoValue(obj, val) {
