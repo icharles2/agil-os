@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TreeService } from '../../../../services/tree.service';
 import { Trip } from '../../../../models/Trips';
 import { DateService } from '../../../../services/date.service';
 
@@ -28,7 +27,7 @@ export class MainComponent implements OnInit {
     departureDate: new FormControl(),
     returnDate: new FormControl()
   })
-  constructor(private _formBuilder: FormBuilder, private router: Router, private tree: TreeService, private date: DateService) { }
+  constructor(private _formBuilder: FormBuilder, private router: Router, private date: DateService) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
