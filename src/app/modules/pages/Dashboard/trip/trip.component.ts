@@ -22,15 +22,8 @@ export class TripComponent implements OnInit {
   trips: Trip;
   prices: Price;
   lifecycle: Lifecycle;
-  // tripLength: number;
-  // daysUntilTrip: number;
-  // count: number;
-  // lodging: boolean;
-  // meals: boolean;
-  // transpo: boolean;
-  // isDoneLoading: boolean;
-  // setTimeoutNow: any;
-  // total: number;
+  tempDeparture: string;
+  tempReturn: string;
 
   constructor(
     private budget: BudgetService,
@@ -56,6 +49,8 @@ export class TripComponent implements OnInit {
     //   total: 0,
     // };
     this.trips = history.state.data;
+    this.tempDeparture = this.trips['departure'];
+    this.tempReturn = this.trips['returnDate'];
     this.lifecycle = {
       food: false,
       transpo: false,
@@ -80,15 +75,18 @@ export class TripComponent implements OnInit {
     }
     setTimeout(
       () => {
-        this.getPricesTotal();
-        this.lifecycle['isDoneLoading'] = true;
+        this.getMealsTotal();
       },
-      6000,
+      3000,
+    );
+    setTimeout(
+      () => {
+        this.getPricesTotal();
+      },
+      11000,
     );
 
   }
-
-  
   // downloadPDF() {
   //   const doc = new jsPDF;
   //   const specialElementHandlers = {
@@ -108,22 +106,22 @@ export class TripComponent implements OnInit {
   }
 
   getPricesTotal() {
-    const { food, lodging, transpo, tripLength } = this.lifecycle;
-    const { tripTotal } = this.prices;
-    if (food && tripLength) {
-      this.prices.mealsTotal = ((this.prices.meals[2]) * tripLength) * 3;
-      tripTotal.push(this.prices.mealsTotal);
-      if (food && transpo && lodging) {
-        this.trips.total += tripTotal.reduce((a, b) => a + b);
-        return this.trips.total;
-      }
-    }
+    this.trips.total = this.prices.tripTotal.reduce((a, b) => a + b);
+    this.lifecycle['isDoneLoading'] = true;
+    console.log(this.trips.total);
+    return this.trips.total;
+  }
+
+  getMealsTotal() {
+    const { food, tripLength } = this.lifecycle;
+    const { meals, tripTotal } = this.prices;
+    this.prices.mealsTotal = ((this.prices.meals[2]) * tripLength) * 3;
+    tripTotal.push(this.prices.mealsTotal);
 
   }
   getTripPhoto() {
     this.budget.getTripPicture(this.trips['destination'])
       .subscribe((data: string) => {
-        
         this.trips['imgUrl'] = data;
       });
   }
