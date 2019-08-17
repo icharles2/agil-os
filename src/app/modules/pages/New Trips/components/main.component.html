@@ -88,11 +88,11 @@
               </button>
 
             <!-- call func on this -->
-              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'bus')" class="rounded space1" matStepperNext>
-                <img src="../../../../../assets/Icons/Bus.png">
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, true)" class="rounded space1" matStepperNext>
+                <img src="../../../../../assets/Icons/car-rental.png">
               </button>
             <div> 
-              Road Trip   |     Flight    |   Bus/Train
+              Road Trip/Your Car   |     Flight    |   Rental Car
               </div>
           </div>
         </mat-card>
