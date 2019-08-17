@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { EMPTY } from 'rxjs';
+import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
 import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
 
 @Component({
@@ -15,10 +17,20 @@ import { Lifecycle } from 'src/app/models/Lifecycle';
 })
 export class TripComponent implements OnInit {
   @ViewChild('content', { static: true }) content: ElementRef;
+  // private state$: Observable<object>;
 
   trips: Trip;
   prices: Price;
   lifecycle: Lifecycle;
+  // tripLength: number;
+  // daysUntilTrip: number;
+  // count: number;
+  // lodging: boolean;
+  // meals: boolean;
+  // transpo: boolean;
+  // isDoneLoading: boolean;
+  // setTimeoutNow: any;
+  // total: number;
 
   constructor(
     private budget: BudgetService,
@@ -26,22 +38,24 @@ export class TripComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    console.log('obj', history.state.data);
     this.prices = {
       tripTotal: [],
     };
-    this.trips = {
-      title: 'Cross Country Move',
-      origin: 'New Orleans',
-      destination: 'Chicago',
-      transpo: 'flight',
-      lodging: '',
-      departure: 'Tue Aug 20 2019 00:00:00 GMT-0500 (Central Daylight Time) ',
-      returnDate: 'Fri Aug 30 2019 00:00:00 GMT-0500 (Central Daylight Time) ',
-      quality: 3,
-      rental: false,
-      imgUrl: '',
-      total: 0,
-    };
+    // this.trips = {
+    //   title: 'Cross Country Move',
+    //   origin: 'New Orleans',
+    //   destination: 'Chicago',
+    //   transpo: 'flight',
+    //   lodging: 'hotel',
+    //   departure: '08/20/2019',
+    //   returnDate: '08/30/2019',
+    //   quality: 3,
+    //   rental: false,
+    //   imgUrl: '',
+    //   total: 0,
+    // };
+    this.trips = history.state.data;
     this.lifecycle = {
       food: false,
       transpo: false,
@@ -74,6 +88,15 @@ export class TripComponent implements OnInit {
 
   }
 
+  
+  // downloadPDF() {
+  //   const doc = new jsPDF;
+  //   const specialElementHandlers = {
+  //     '#editor': (element, renderer) => {
+  //       return true;
+  //     },
+  //   };
+  // const content = this.content.nativeElement;
   setTripLength(departure: string, returnDate: string) {
     this.lifecycle['tripLength'] = this.dates.getTripLength(departure, returnDate);
     return this.lifecycle['tripLength'];
