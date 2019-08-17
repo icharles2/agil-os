@@ -36,7 +36,7 @@
             <span>     
           </span>
           <div>
-            <button mat-raised-button color="accent" matStepperNext (click)="logInputs(); setFormValues(tripObj)" >Make Trip</button>
+            <button mat-raised-button color="accent" matStepperNext (click)="setFormValues(tripObj)" >Make Trip</button>
           </div>
         </mat-card>
         </form>
@@ -107,7 +107,7 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard']); getFinalObj(tripObj)"  mat-raised-button class="rounded">
+                <button (click)="router.navigate(['/dashboard'])"  mat-raised-button class="rounded">
                   <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/key.png">
                   <!-- </a> -->
