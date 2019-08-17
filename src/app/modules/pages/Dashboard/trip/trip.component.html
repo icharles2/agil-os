@@ -63,7 +63,30 @@
                       {{flight | currency}}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
-                <detailed-view></detailed-view>
+                <table *ngIf="prices.flight1">
+                    <tr>
+                      <td>
+                        <a href="{{details.flight1.lowFlight.URL}}" target="_blank" rel="noopener noreferrer">
+                            {{details.flight1.lowFlight.airline}}</a>
+                      </td>
+                      <td>
+                        <a href="{{details.flight1.highFlight.URL}}" target="_blank" rel="noopener noreferrer">
+                        {{details.flight1.highFlight.airline}}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>{{details.flight1.lowFlight.cabin}}</td>
+                      <td>{{details.flight1.highFlight.cabin}}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        {{details.flight1.lowFlight.flightPath.origin}} - {{details.flight1.lowFlight.flightPath.destination}} || {{details.flight1.lowFlight.stops}} stop
+                      </td>
+                      <td>
+                          {{details.flight1.highFlight.flightPath.origin}} - {{details.flight1.highFlight.flightPath.destination}} || {{details.flight1.highFlight.stops}} stop
+                        </td>
+                    </tr>
+                  </table>
             </mat-expansion-panel>
 
                 <mat-expansion-panel *ngIf="prices.flight2">
@@ -75,7 +98,30 @@
                           {{flight | currency}}
                       </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <detailed-view></detailed-view>
+                    <table *ngIf="prices.flight2">
+                        <tr>
+                          <td>
+                            <a href="{{details.flight2.lowFlight.URL}}" target="_blank" rel="noopener noreferrer">
+                                {{details.flight2.lowFlight.airline}}</a>
+                          </td>
+                          <td>
+                            <a href="{{details.flight2.highFlight.URL}}" target="_blank" rel="noopener noreferrer">
+                            {{details.flight2.highFlight.airline}}</a>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>{{details.flight2.lowFlight.cabin}}</td>
+                          <td>{{details.flight2.highFlight.cabin}}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            {{details.flight2.lowFlight.flightPath.origin}} - {{details.flight2.lowFlight.flightPath.destination}} || {{details.flight2.lowFlight.stops}} Stop
+                          </td>
+                          <td>
+                              {{details.flight2.highFlight.flightPath.origin}} - {{details.flight2.highFlight.flightPath.destination}} || {{details.flight2.highFlight.stops}} Stop
+                            </td>
+                        </tr>
+                      </table>
                     </mat-expansion-panel>
             <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
@@ -91,7 +137,26 @@
                         {{hotel | currency}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <detailed-view></detailed-view>
+                <table *ngIf="prices.hotel">
+                    <tr>
+                      <td>
+                        <a href="{{details.hotel.lowHotel.URL}}" target="_blank" rel="noopener noreferrer">
+                            {{details.hotel.lowHotel.name}}</a>
+                      </td>
+                      <td>
+                        <a href="{{details.hotel.highHotel.URL}}" target="_blank" rel="noopener noreferrer">
+                        {{details.hotel.highHotel.name}}</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Type: {{details.hotel.lowHotel.accomodationType}}</td>
+                      <td>Type: {{details.hotel.highHotel.accomodationType}}</td>
+                    </tr>
+                    <tr>
+                      <td>Reviewers Say: {{details.hotel.lowHotel.businessScore}}</td>
+                      <td>Reviewers Say: {{details.hotel.highHotel.businessScore}}</td>
+                    </tr>
+                  </table>
             </mat-expansion-panel>
           
             <mat-expansion-panel *ngIf="prices.rental">
@@ -103,10 +168,35 @@
                       {{rental | currency}}
                   </mat-panel-description>
               </mat-expansion-panel-header>
-              <detailed-view></detailed-view>
+              <table *ngIf="prices.rental">
+                  <tr>
+                    <td>
+                      <a href="{{details.rental.lowRental.url}}" target="_blank" rel="noopener noreferrer">
+                          {{details.rental.lowRental.brand}}
+                        </a>
+                    </td>
+                    <td>
+                      <a href="{{details.rental.highRental.url}}" target="_blank" rel="noopener noreferrer">
+                      {{details.rental.highRental.brand}}
+                    </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>{{details.rental.lowRental.carClass}}</td>
+                    <td>{{details.rental.highRental.carClass}}</td>
+                  </tr>
+                  <tr>
+                    <td>Passengers: {{details.rental.lowRental.passengers}}</td>
+                    <td>Passengers: {{details.rental.highRental.passengers}}</td>
+                  </tr>
+                  <tr>
+                      <td>Price/day: {{details.rental.lowRental.pricePerDay || currency}}</td>
+                      <td>Price/day: {{details.rental.highRental.pricePerDay || currency}}</td>
+                    </tr>
+                </table>
           </mat-expansion-panel>
 
-          <mat-expansion-panel *ngIf="prices.meals">
+          <mat-expansion-panel *ngIf="prices.meals" hideToggle="true">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                   Meals: 
@@ -121,7 +211,7 @@
               <edit-buttons></edit-buttons>
           </td> -->
       
-      <mat-expansion-panel *ngIf="prices.mealsTotal">
+      <mat-expansion-panel *ngIf="prices.mealsTotal" hideToggle="true">
         <mat-expansion-panel-header>
             <mat-panel-title>
               Meals Total: 
@@ -137,7 +227,7 @@
             </mat-panel-description>
         </mat-expansion-panel-header>
     </mat-expansion-panel>
-    <mat-expansion-panel *ngIf="trips.total">
+    <mat-expansion-panel *ngIf="trips.total" hideToggle="true">
       <mat-expansion-panel-header>
           <mat-panel-title>
             Total: 
