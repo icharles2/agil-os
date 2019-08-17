@@ -36,7 +36,7 @@
             <span>     
           </span>
           <div>
-            <button mat-raised-button color="accent" matStepperNext (click)="logInputs(); setFormValues(tripObj)" >Make Trip</button>
+            <button mat-raised-button color="accent" matStepperNext (click)="setFormValues(tripObj)" >Make Trip</button>
           </div>
         </mat-card>
         </form>
@@ -88,11 +88,11 @@
               </button>
 
             <!-- call func on this -->
-              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'bus')" class="rounded space1" matStepperNext>
-                <img src="../../../../../assets/Icons/Bus.png">
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, true)" class="rounded space1" matStepperNext>
+                <img src="../../../../../assets/Icons/car-rental.png">
               </button>
             <div> 
-              Road Trip   |     Flight    |   Bus/Train
+              Road Trip/Your Car   |     Flight    |   Rental Car
               </div>
           </div>
         </mat-card>
@@ -107,7 +107,7 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard']); getFinalObj(tripObj)"  mat-raised-button class="rounded">
+                <button (click)="router.navigate(['/dashboard'])"  mat-raised-button class="rounded">
                   <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/key.png">
                   <!-- </a> -->
