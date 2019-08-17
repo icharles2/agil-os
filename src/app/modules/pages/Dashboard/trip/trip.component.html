@@ -53,6 +53,7 @@
               </mat-panel-title>
               </mat-expansion-panel-header>
             </mat-expansion-panel>
+            
             <mat-expansion-panel *ngIf="prices.flight1">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -64,6 +65,7 @@
                 </mat-expansion-panel-header>
                 <detailed-view></detailed-view>
             </mat-expansion-panel>
+
                 <mat-expansion-panel *ngIf="prices.flight2">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
@@ -91,16 +93,7 @@
                 </mat-expansion-panel-header>
                 <detailed-view></detailed-view>
             </mat-expansion-panel>
-            <mat-expansion-panel *ngIf="prices.rental">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Rental Car: 
-                    </mat-panel-title>
-                    <mat-panel-description *ngFor="let rental of prices.rental" class="list">
-                        {{rental | currency}}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-            </mat-expansion-panel>
+          
             <mat-expansion-panel *ngIf="prices.rental">
               <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -112,6 +105,7 @@
               </mat-expansion-panel-header>
               <detailed-view></detailed-view>
           </mat-expansion-panel>
+
           <mat-expansion-panel *ngIf="prices.meals">
             <mat-expansion-panel-header>
                 <mat-panel-title>
