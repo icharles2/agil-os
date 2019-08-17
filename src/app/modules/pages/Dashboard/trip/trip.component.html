@@ -36,82 +36,129 @@
     </mat-card-header>
     <br>
     <mat-card-content>
-      <table style="width:100%">
-          <tr>
-              <th>Expense</th>
-              <th>Lowest Estimate</th>
-              <th>Highest Estimate</th>
-              <th>Average Cost</th> 
-              <th> </th>
-            </tr>
-      <tr *ngIf="trips.transpo === 'flight'">
-        
-        <td>Departing Flight: </td>
-          
-            <td *ngFor="let flight of prices.flight1" class="list">
-              {{flight | currency}}
-            </td>
-          <!-- <td *ngIf="isDoneLoading"> 
-            <edit-buttons></edit-buttons>
-          </td> -->
-        </tr> 
-        <tr *ngIf="trips.transpo === 'flight'"> 
-          <td>Returning Flight: </td>
-          
-            <td *ngFor="let flight of prices.flight2" class="list">
-              {{flight | currency}}
-            </td>
+      <mat-accordion style="width:100%">
+          <mat-expansion-panel [disabled]="true" hideToggle="true">
+              <mat-expansion-panel-header>
+              <mat-panel-title>
+                  Expense
+                </mat-panel-title>
+              <mat-panel-title>
+                  Lowest Estimate
+              </mat-panel-title>
+              <mat-panel-title>
+                  Highest Estimate
+              </mat-panel-title>
+              <mat-panel-title>
+                  Average Cost
+              </mat-panel-title>
+              </mat-expansion-panel-header>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="prices.flight1">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Departing Flight: 
+                  </mat-panel-title>
+                  <mat-panel-description *ngFor="let flight of prices.flight1" class="list">
+                      {{flight | currency}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <detailed-view></detailed-view>
+            </mat-expansion-panel>
+                <mat-expansion-panel *ngIf="prices.flight2">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        Returning Flight: 
+                      </mat-panel-title>
+                      <mat-panel-description *ngFor="let flight of prices.flight2" class="list">
+                          {{flight | currency}}
+                      </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <detailed-view></detailed-view>
+                    </mat-expansion-panel>
             <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
             </td> -->
-          </tr>
-    <tr *ngIf="trips.lodging === 'hotel'">
-      <td>Hotel: </td>
-      
-        <td *ngFor="let hotel of prices.hotel" class="list">
-          {{hotel | currency}}
-        </td>
-        <td *ngIf="isDoneLoading && !hotelsPrices"> 
-          Sorry No Hotels were found
-            <!-- <edit-buttons></edit-buttons> -->
-        </td>
-    </tr>
-
-
-<tr *ngIf="prices.rental">
-  <td>Rental Car: </td>
-      
-          <td *ngFor="let rental of prices.rental" class="list">
-            {{rental | currency}}
-          </td>
+            <mat-expansion-panel *ngIf="trips.lodging === 'hotel'">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Hotel: 
+                    </mat-panel-title>
+                    <mat-panel-description *ngIf="trips.lodging === 'hotel'">
+                        {{hotel | currency}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <detailed-view></detailed-view>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="prices.rental">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Rental Car: 
+                    </mat-panel-title>
+                    <mat-panel-description *ngFor="let rental of prices.rental" class="list">
+                        {{rental | currency}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="prices.rental">
+              <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Rental Car: 
+                  </mat-panel-title>
+                  <mat-panel-description *ngFor="let rental of prices.rental" class="list">
+                      {{rental | currency}}
+                  </mat-panel-description>
+              </mat-expansion-panel-header>
+              <detailed-view></detailed-view>
+          </mat-expansion-panel>
+          <mat-expansion-panel *ngIf="lifecycle.food">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Meals: 
+                </mat-panel-title>
+                <mat-panel-description *ngFor="let meal of prices.meals" class="list">
+                    {{meal | currency}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <detailed-view></detailed-view>
+        </mat-expansion-panel>
           <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
           </td> -->
-      </tr>
-      <tr *ngIf="lifecycle.food">
-        <td>Price Per Meal: </td>
-        
-          <td *ngFor="let meal of prices.meals" class="list">
-            {{meal | currency}}
-          </td>
-          <!-- <td *ngIf="isDoneLoading"> 
-              <edit-buttons></edit-buttons>
-          </td> -->
-      </tr>
-      <tr *ngIf="prices.mealsTotal">
-        <td>Meals Total:</td>
-        <td></td>
-        <td></td>
-      <td> {{prices.mealsTotal | currency}}</td>
-      <td></td>
-      </tr>
-      <tr *ngIf="trips.total">
-          <td>Total:</td>
-          <td></td>
-          <td></td>
-          <td class="end">{{trips.total | currency}}</td>
-          </tr>
-    </table> 
+      
+      <mat-expansion-panel *ngIf="prices.mealsTotal">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+              Meals Total: 
+            </mat-panel-title>
+            <mat-panel-description >
+          </mat-panel-description>
+          <mat-panel-description >
+          </mat-panel-description>
+          <mat-panel-description >
+          </mat-panel-description>
+            <mat-panel-description >
+                {{prices.mealsTotal | currency}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngIf="trips.total">
+      <mat-expansion-panel-header>
+          <mat-panel-title>
+            Total: 
+          </mat-panel-title>
+          <mat-panel-description >
+        </mat-panel-description>
+        <mat-panel-description >
+        </mat-panel-description>
+        <mat-panel-description >
+        </mat-panel-description>
+          <mat-panel-description class="end">
+            {{trips.total | currency}}
+          </mat-panel-description>
+      </mat-expansion-panel-header>
+  </mat-expansion-panel>
+      
+    </mat-accordion> 
     <br>
 <div class="road" *ngIf="trips.transpo === 'car'">
   
