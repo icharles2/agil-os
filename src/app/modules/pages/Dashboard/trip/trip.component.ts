@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { EMPTY } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
@@ -34,9 +34,9 @@ export class TripComponent implements OnInit {
       origin: 'New Orleans',
       destination: 'Chicago',
       transpo: 'flight',
-      lodging: 'hotel',
-      departure: '08/20/2019',
-      returnDate: '08/30/2019',
+      lodging: '',
+      departure: 'Tue Aug 20 2019 00:00:00 GMT-0500 (Central Daylight Time) ',
+      returnDate: 'Fri Aug 30 2019 00:00:00 GMT-0500 (Central Daylight Time) ',
       quality: 3,
       rental: false,
       imgUrl: '',
@@ -100,6 +100,7 @@ export class TripComponent implements OnInit {
   getTripPhoto() {
     this.budget.getTripPicture(this.trips['destination'])
       .subscribe((data: string) => {
+        
         this.trips['imgUrl'] = data;
       });
   }
@@ -127,15 +128,11 @@ export class TripComponent implements OnInit {
   getFlightsPrices(quality: number) {
     const { origin, destination, departure, returnDate } = this.trips;
     this.budget.getFlightPrice(quality, origin, destination, departure)
-    .pipe(
-      catchError(() => {
-        return EMPTY;
-      }),
-    )
       .subscribe((res, err) => {
         if (res) {
           this.setPrices(res, 'flight1');
           this.addToTotal(res);
+          console.log(res);
           this.setQuality(quality, 'flight');
         }
         if (err) {
@@ -147,6 +144,7 @@ export class TripComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'flight2');
         this.addToTotal(data);
+        console.log(data);
         this.lifecycle['transpo'] = true;
       });
   }
@@ -165,6 +163,7 @@ export class TripComponent implements OnInit {
       if (res) {
         this.setPrices(res, 'hotel');
         this.addToTotal(res);
+        console.log(res);
         this.setQuality(quality, 'hotel');
       } else {
         console.log('HTTP Hotels Error', err);
@@ -179,6 +178,7 @@ export class TripComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'rental');
         this.addToTotal(data);
+        console.log(data);
       });
   }
 
