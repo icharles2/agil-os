@@ -6,12 +6,12 @@ import { Injectable } from '@angular/core';
 export class DateService {
   constructor() {}
 
-  parseDateAPI(date1): string {
-    const yyyy = new Date().getFullYear();
-    const dateArr = date1.split('/');
-    const mm = dateArr[0];
-    const dd = dateArr[1];
-    return `${yyyy}-${mm}-${dd}`;
+  parseDateAPI(stringDate): string {
+    const dateDay = Number(stringDate.match(/\d+/)[0]);
+    const arr = stringDate.split('');
+    const monthStr = arr[1];
+    const dateMon = new Date(Date.parse(`${monthStr}, ${dateDay}, 2019`)).getMonth() + 1;
+    return `2019-${dateMon}-${dateDay}`;
   }
 
   parseDateLength(date1): object {
@@ -31,11 +31,9 @@ export class DateService {
 
   getTripLength(date1: string, date2: string): number {
     const oneDay = 24 * 60 * 60 * 1000;
-    const dateA = this.parseDateLength(date1);
-    const dateB = this.parseDateLength(date2);
     // hours*minutes*seconds*milliseconds
-    const firstDate = new Date(2019, dateA['mon'] - 1, dateA['day']);
-    const secondDate = new Date(2019, dateB['mon'] - 1, dateB['day']);
+    const firstDate = new Date(date1);
+    const secondDate = new Date(date2);
     const tripLength = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / oneDay));
     return tripLength;
   }

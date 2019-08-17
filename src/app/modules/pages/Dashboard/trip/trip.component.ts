@@ -17,20 +17,20 @@ import { Lifecycle } from 'src/app/models/Lifecycle';
 })
 export class TripComponent implements OnInit {
   @ViewChild('content', { static: true }) content: ElementRef;
-  private state$: Observable<object>;
+  // private state$: Observable<object>;
 
   trips: Trip;
   prices: Price;
   lifecycle: Lifecycle;
-  tripLength: number;
-  daysUntilTrip: number;
-  count: number;
-  lodging: boolean;
-  meals: boolean;
-  transpo: boolean;
-  isDoneLoading: boolean;
-  setTimeoutNow: any;
-  total: number;
+  // tripLength: number;
+  // daysUntilTrip: number;
+  // count: number;
+  // lodging: boolean;
+  // meals: boolean;
+  // transpo: boolean;
+  // isDoneLoading: boolean;
+  // setTimeoutNow: any;
+  // total: number;
 
   constructor(
     private budget: BudgetService,
@@ -38,22 +38,24 @@ export class TripComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    console.log('obj', history.state.data);
     this.prices = {
       tripTotal: [],
     };
-    this.trips = {
-      title: 'Cross Country Move',
-      origin: 'New Orleans',
-      destination: 'Chicago',
-      transpo: 'flight',
-      lodging: 'hotel',
-      departure: '08/20/2019',
-      returnDate: '08/30/2019',
-      quality: 3,
-      rental: false,
-      imgUrl: '',
-      total: 0,
-    };
+    // this.trips = {
+    //   title: 'Cross Country Move',
+    //   origin: 'New Orleans',
+    //   destination: 'Chicago',
+    //   transpo: 'flight',
+    //   lodging: 'hotel',
+    //   departure: '08/20/2019',
+    //   returnDate: '08/30/2019',
+    //   quality: 3,
+    //   rental: false,
+    //   imgUrl: '',
+    //   total: 0,
+    // };
+    this.trips = history.state.data;
     this.lifecycle = {
       food: false,
       transpo: false,

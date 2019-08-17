@@ -36,7 +36,7 @@
             <span>     
           </span>
           <div>
-            <button mat-raised-button color="accent" matStepperNext (click)="logInputs()" >Make Trip</button>
+            <button mat-raised-button color="accent" matStepperNext (click)="logInputs(); setFormValues(tripObj)" >Make Trip</button>
           </div>
         </mat-card>
         </form>
@@ -49,17 +49,17 @@
           <div>
                   <!-- <button mat-button matStepperPrevious>Back</button> -->
             <!-- call func on this -->
-              <button mat-raised-button class="rounded dollar" matStepperNext>
+              <button mat-raised-button (click)="setPriceValue(tripObj, 1)" class="rounded dollar" matStepperNext>
                 <img class="dollarimg1" src="../../../../../assets/dollars/oneDollar.png">
               </button>
             
             <!-- call func on this -->
-              <button mat-raised-button class="rounded dollar spacer" matStepperNext>
+              <button mat-raised-button (click)="setPriceValue(tripObj, 2)" class="rounded dollar spacer" matStepperNext>
                 <img class="dollarimg2" src="../../../../../assets/dollars/2dollars.png">
               </button>
             
             <!-- call func on this -->
-              <button mat-raised-button class="rounded dollar spacer1" matStepperNext>
+              <button mat-raised-button (click)="setPriceValue(tripObj, 3)" class="rounded dollar spacer1" matStepperNext>
                 <img class="dollarimg3" src="../../../../../assets/dollars/3dollars.png">
               </button>
           <div> 
@@ -78,17 +78,17 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
 
             <!-- call func on this -->
-              <button mat-raised-button class="rounded"matStepperNext>
+              <button mat-raised-button (click)="setTranspoValue(tripObj, 'car')" class="rounded"matStepperNext>
                 <img src="../../../../../assets/Icons/car.png">
               </button>
 
             <!-- call func on this -->
-              <button mat-raised-button class="rounded space1" matStepperNext>
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'flight')" class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/Plane Sized.png">
               </button>
 
             <!-- call func on this -->
-              <button mat-raised-button class="rounded space1" matStepperNext>
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'bus')" class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/Bus.png">
               </button>
             <div> 
@@ -107,7 +107,7 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard']); tree.setLodging(tripObj, 'hotel')"  mat-raised-button class="rounded">
+                <button (click)="router.navigate(['/dashboard']); getFinalObj(tripObj)"  mat-raised-button class="rounded">
                   <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/key.png">
                   <!-- </a> -->
@@ -115,7 +115,7 @@
             </span>
             <!-- call func on this -->
             <!-- (click)="router.navigate(['/dashboard']);" -->
-            <button  (click)="goToPage('/dashboard')" mat-raised-button class="rounded space1">
+            <button  (click)="goToPage('/dashboard'); setLodgingValue(tripObj, 'hotel')" mat-raised-button class="rounded space1">
                   <!-- <a href="/dashboard"> -->
                   <img src="../../../assets/Icons/resort.png">
                   <!-- </a> -->
