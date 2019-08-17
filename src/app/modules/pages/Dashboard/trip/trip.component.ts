@@ -5,6 +5,7 @@ import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
+import { Detail } from '../../../../models/Details';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import domToImage from 'dom-to-image';
@@ -21,6 +22,7 @@ export class TripComponent implements OnInit {
 
   trips: Trip;
   prices: Price;
+  details: Detail;
   lifecycle: Lifecycle;
   tempDeparture: string;
   tempReturn: string;
@@ -34,6 +36,12 @@ export class TripComponent implements OnInit {
     console.log('obj', history.state.data);
     this.prices = {
       tripTotal: [],
+    };
+    this.details = {
+      flight1: '',
+      flight2: '',
+      hotel: '',
+      rental: '',
     };
     // this.trips = {
     //   title: 'Cross Country Move',
@@ -153,7 +161,8 @@ export class TripComponent implements OnInit {
         if (res) {
           this.setPrices(res, 'flight1');
           this.addToTotal(res);
-          console.log(res);
+          this.details['flight1'] = res.detail;
+          console.log(this.details['flight1']);
           this.setQuality(quality, 'flight');
         }
         if (err) {
@@ -165,7 +174,8 @@ export class TripComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'flight2');
         this.addToTotal(data);
-        console.log(data);
+        this.details['flight2'] = data.detail;
+        console.log(this.details['flight2']);
         this.lifecycle['transpo'] = true;
       });
   }
@@ -179,12 +189,12 @@ export class TripComponent implements OnInit {
       }),
       shareReplay(),
     )
-
     .subscribe((res, err) => {
       if (res) {
         this.setPrices(res, 'hotel');
         this.addToTotal(res);
-        console.log(res);
+        this.details['hotel'] = res.detail;
+        console.log(this.details['hotel']);
         this.setQuality(quality, 'hotel');
       } else {
         console.log('HTTP Hotels Error', err);
@@ -199,7 +209,8 @@ export class TripComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'rental');
         this.addToTotal(data);
-        console.log(data);
+        this.details['rental'] = data.detail;
+        console.log(this.details['rental']);
       });
   }
 
