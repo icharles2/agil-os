@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
-export interface Transaction {
+export interface Expenses {
   expense: string;
+  lowest: number;
+  highest: number;
   average: number;
-  low: number;
-  high: number;
+  details: string;
 }
 
 @Component({
-  // moduleId: module.id,
 
   selector: 'Home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.css'],
+  
 })
-export class HomeComponent implements OnInit {
 
-  constructor() {}
+export class HomeComponent{
 
-  ngOnInit() {}
 }
