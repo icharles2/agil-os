@@ -6,6 +6,12 @@ import { Injectable } from '@angular/core';
 export class DateService {
   constructor() {}
 
+  dateSlice(date:string):string {
+    const dateStr = date.toString();
+    const index = dateStr.indexOf('2019');
+    return dateStr.slice(0, index + 4);
+  }
+
   parseDateAPI(stringDate): string {
     const dateDay = Number(stringDate.match(/\d+/)[0]);
     const arr = stringDate.split(' ');
