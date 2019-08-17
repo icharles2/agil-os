@@ -28,8 +28,8 @@
           <mat-divider inset="true"></mat-divider>
           <div class="lines">
             <div>Origin: {{trips.origin}}</div>
-            <div>Departure Date: {{trips.departure}}</div>
-            <div>Return Date: {{trips.returnDate}}</div>
+            <div>Departure Date: {{tempDeparture}}</div>
+            <div>Return Date: {{tempReturn}}</div>
 
           </div>
       </mat-card-subtitle>
@@ -78,12 +78,14 @@
             <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
             </td> -->
-            <mat-expansion-panel *ngIf="trips.lodging === 'hotel'">
+            <mat-expansion-panel *ngIf="prices.hotel">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                       Hotel: 
                     </mat-panel-title>
-                    <mat-panel-description *ngIf="trips.lodging === 'hotel'">
+                    <mat-panel-description 
+                    *ngFor="let hotel of prices.hotel"
+                    class="list">
                         {{hotel | currency}}
                     </mat-panel-description>
                 </mat-expansion-panel-header>
@@ -110,7 +112,7 @@
               </mat-expansion-panel-header>
               <detailed-view></detailed-view>
           </mat-expansion-panel>
-          <mat-expansion-panel *ngIf="lifecycle.food">
+          <mat-expansion-panel *ngIf="prices.meals">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                   Meals: 
