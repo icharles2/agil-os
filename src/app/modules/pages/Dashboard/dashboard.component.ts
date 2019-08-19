@@ -1,22 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
-export interface Transaction {
+export interface Expenses {
   expense: string;
+  lowest: number;
+  highest: number;
   average: number;
-  low: number;
-  high: number;
+  details: string;
 }
 
 @Component({
-  // moduleId: module.id,
 
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.css'],
 })
-export class DashboardView implements OnInit {
-
-  constructor() {}
+export class DashboardView {
 
   ngOnInit() {}
 }

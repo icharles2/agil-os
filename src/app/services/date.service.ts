@@ -6,27 +6,18 @@ import { Injectable } from '@angular/core';
 export class DateService {
   constructor() {}
 
+  dateSlice(date:string):string {
+    const dateStr = date.toString();
+    const index = dateStr.indexOf('2019');
+    return dateStr.slice(0, index + 4);
+  }
+
   parseDateAPI(stringDate): string {
-    const dateDay = Number(stringDate.match(/\d+/)[0]);
-    const arr = stringDate.split('');
-    const monthStr = arr[1];
-    const dateMon = new Date(Date.parse(`${monthStr}, ${dateDay}, 2019`)).getMonth() + 1;
-    return `2019-${dateMon}-${dateDay}`;
-  }
-
-  parseDateLength(date1): object {
-    const dateArr = date1.split('-');
-    const mm = dateArr[1];
-    const dd = dateArr[2];
-    return { mon: mm, day: dd };
-  }
-
-  getMonthString(stringDate): object {
     const dateDay = Number(stringDate.match(/\d+/)[0]);
     const arr = stringDate.split(' ');
     const monthStr = arr[1];
     const dateMon = new Date(Date.parse(`${monthStr}, ${dateDay}, 2019`)).getMonth() + 1;
-    return { mon: dateMon, day: dateDay };
+    return `2019-${dateMon}-${dateDay}`;
   }
 
   getTripLength(date1: string, date2: string): number {
@@ -39,14 +30,11 @@ export class DateService {
   }
 
   getTripCountdown(tripDeparture): number {
-    // this function is not returning the number expected
-    // Use at Own Risk
     const oneDay = 24 * 60 * 60 * 1000;
-    const date1 = this.getMonthString(tripDeparture);
-    const firstDate = new Date(2019, date1['mon'], date1['day']);
+    const firstDate = new Date(tripDeparture);
     const todayDate = new Date();
     const tripCountdown = Math.round(
-      Math.abs((firstDate.getTime() - todayDate.getTime()) / oneDay),
+      Math.abs((todayDate.getTime() - firstDate.getTime()) / oneDay),
     );
     return tripCountdown;
   }

@@ -5,6 +5,7 @@ import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
+import { Detail } from '../../../../models/Details';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import domToImage from 'dom-to-image';
@@ -21,16 +22,10 @@ export class BudgetComponent implements OnInit {
 
   trips: Trip;
   prices: Price;
+  details: Detail;
   lifecycle: Lifecycle;
-  // tripLength: number;
-  // daysUntilTrip: number;
-  // count: number;
-  // lodging: boolean;
-  // meals: boolean;
-  // transpo: boolean;
-  // isDoneLoading: boolean;
-  // setTimeoutNow: any;
-  // total: number;
+  tempDeparture: string;
+  tempReturn: string;
 
   constructor(
     private budget: BudgetService,
@@ -41,6 +36,12 @@ export class BudgetComponent implements OnInit {
     console.log('obj', history.state.data);
     this.prices = {
       tripTotal: [],
+    };
+    this.details = {
+      flight1: '',
+      flight2: '',
+      hotel: '',
+      rental: '',
     };
     // this.trips = {
     //   title: 'Cross Country Move',
@@ -56,6 +57,8 @@ export class BudgetComponent implements OnInit {
     //   total: 0,
     // };
     this.trips = history.state.data;
+    this.tempDeparture = this.trips['departure'];
+    this.tempReturn = this.trips['returnDate'];
     this.lifecycle = {
       food: false,
       transpo: false,
@@ -80,15 +83,84 @@ export class BudgetComponent implements OnInit {
     }
     setTimeout(
       () => {
-        this.getPricesTotal();
-        this.lifecycle['isDoneLoading'] = true;
+        this.getMealsTotal();
       },
-      6000,
+      3000,
+    );
+    setTimeout(
+      () => {
+        this.getPricesTotal();
+      },
+      11000,
     );
 
   }
 
-  
+  editHotelPrice(price) {
+    if (this.prices.hotelQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getHotelPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+      );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFlight1Price(price) {
+    if (this.prices.flightQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getFlightsPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+      );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFlight2Price(price) {
+    if (this.prices.flightQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getFlightsPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+    );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFoodPrice(price) {
+    if (this.prices.mealsQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getMealsPrices(price);
+      setTimeout(
+        () => {
+          this.getMealsTotal();
+        },
+        3000,
+      );
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        2000,
+      );
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
   // downloadPDF() {
   //   const doc = new jsPDF;
   //   const specialElementHandlers = {
@@ -108,16 +180,17 @@ export class BudgetComponent implements OnInit {
   }
 
   getPricesTotal() {
-    const { food, lodging, transpo, tripLength } = this.lifecycle;
-    const { tripTotal } = this.prices;
-    if (food && tripLength) {
-      this.prices.mealsTotal = ((this.prices.meals[2]) * tripLength) * 3;
-      tripTotal.push(this.prices.mealsTotal);
-      if (food && transpo && lodging) {
-        this.trips.total += tripTotal.reduce((a, b) => a + b);
-        return this.trips.total;
-      }
-    }
+    this.trips.total = this.prices.tripTotal.reduce((a, b) => a + b);
+    this.lifecycle['isDoneLoading'] = true;
+    console.log(this.trips.total);
+    return this.trips.total;
+  }
+
+  getMealsTotal() {
+    const { food, tripLength } = this.lifecycle;
+    const { meals, tripTotal } = this.prices;
+    this.prices.mealsTotal = ((this.prices.meals[2]) * tripLength) * 3;
+    tripTotal.push(this.prices.mealsTotal);
 
   }
   getTripPhoto() {
@@ -150,15 +223,12 @@ export class BudgetComponent implements OnInit {
   getFlightsPrices(quality: number) {
     const { origin, destination, departure, returnDate } = this.trips;
     this.budget.getFlightPrice(quality, origin, destination, departure)
-    .pipe(
-      catchError(() => {
-        return EMPTY;
-      }),
-    )
       .subscribe((res, err) => {
         if (res) {
           this.setPrices(res, 'flight1');
           this.addToTotal(res);
+          this.details['flight1'] = res.detail;
+          console.log(this.details['flight1']);
           this.setQuality(quality, 'flight');
         }
         if (err) {
@@ -170,6 +240,8 @@ export class BudgetComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'flight2');
         this.addToTotal(data);
+        this.details['flight2'] = data.detail;
+        console.log(this.details['flight2']);
         this.lifecycle['transpo'] = true;
       });
   }
@@ -183,11 +255,12 @@ export class BudgetComponent implements OnInit {
       }),
       shareReplay(),
     )
-
     .subscribe((res, err) => {
       if (res) {
         this.setPrices(res, 'hotel');
         this.addToTotal(res);
+        this.details['hotel'] = res.detail;
+        console.log(this.details['hotel']);
         this.setQuality(quality, 'hotel');
       } else {
         console.log('HTTP Hotels Error', err);
@@ -202,6 +275,8 @@ export class BudgetComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'rental');
         this.addToTotal(data);
+        this.details['rental'] = data.detail;
+        console.log(this.details['rental']);
       });
   }
 

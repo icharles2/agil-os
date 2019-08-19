@@ -7,6 +7,19 @@
 
 }
 
+table {
+  width: 100%;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 th {
   text-align: left;
 }
