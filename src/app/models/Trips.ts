@@ -8,8 +8,9 @@ export class Trip {
     public lodging: string | number,
     public departure: string,
     public returnDate: string,
-    public rental: boolean,
+    public rental: boolean | string,
     public imgUrl?: string,
     public total?: number,
+    public user?: number,
   ) {}
 }
