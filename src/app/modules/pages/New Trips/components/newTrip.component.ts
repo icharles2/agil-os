@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Trip } from '../../../../models/Trips';
 import { DateService } from '../../../../services/date.service';
 
 @Component({
   selector: 'dashboard-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css'],
+  templateUrl: '../components/newTrip.component.html',
+  styleUrls: ['../components/newTrip.component.css'],
 })
-export class MainComponent implements OnInit {
+export class NewTripComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -67,9 +68,7 @@ export class MainComponent implements OnInit {
   setLodgingValue(obj, val) {
     obj['lodging'] = val;
   }
-
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`], { state: { data: this.tripObj } });
   }
-
 }

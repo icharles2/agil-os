@@ -11,12 +11,11 @@ export interface Expenses {
 
 @Component({
 
-  selector: 'Home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.css'],
-  
+  selector: 'dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.css'],
 })
+export class DashboardView {
 
-export class HomeComponent{
-
+  ngOnInit() {}
 }

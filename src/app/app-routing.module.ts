@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LogComponent } from './modules/pages/Login/login.component';
 import { SignComponent } from './modules/pages/Signup/signup.component';
+import { DashboardView } from './modules/pages/Dashboard/dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LogComponent,
-  },
-  {
-    path: 'signup',
+    path: '',
     component: SignComponent,
   },
   {
@@ -18,18 +14,23 @@ const routes: Routes = [
       import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule),
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./modules/pages/Dashboard/home.module').then(mod => mod.HomeModule),
+    path: 'budget',
+    loadChildren: () => import('./modules/pages/Dashboard/dashboard.module').then(mod => mod.DashboardModule),
   },
   {
     path: 'landing',
     component: SignComponent,
   },
   {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full',
+    path: 'home',
+    loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
+
+  // {
+  //   path: '',
+  //   redirectTo: '',
+  //   pathMatch: 'full',
+  // },
 ];
 
 @NgModule({

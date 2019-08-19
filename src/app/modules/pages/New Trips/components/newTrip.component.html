@@ -1,3 +1,4 @@
+  <main-nav></main-nav>
     <mat-horizontal-stepper style="width:80%; margin: 80px auto" #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
@@ -111,24 +112,17 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
-                <button (click)="router.navigate(['/dashboard'])"  mat-raised-button class="rounded">
-                  <!-- <a href="/dashboard"> -->
+                <button (click)="router.navigate(['/budget']); getFinalObj(tripObj)"  mat-raised-button class="rounded">
                   <img src="../../../assets/Icons/key.png">
-                  <!-- </a> -->
                 </button>
             </span>
             <!-- call func on this -->
-            <!-- (click)="router.navigate(['/dashboard']);" -->
-            <button  (click)="goToPage('/dashboard'); setLodgingValue(tripObj, 'hotel')" mat-raised-button class="rounded space1">
-                  <!-- <a href="/dashboard"> -->
+            <button  (click)="goToPage('/budget'); setLodgingValue(tripObj, 'hotel')" mat-raised-button class="rounded space1">
                   <img src="../../../assets/Icons/resort.png">
-                  <!-- </a> -->
                 </button>
               <!-- call func on this -->
-                <button (click)="goToPage('/dashboard')"  mat-raised-button class="rounded space1">
-                  <!-- <a href="/dashboard"> -->
+                <button (click)="goToPage('/budget')"  mat-raised-button class="rounded space1">
                   <img src="../../../assets/Icons/laugh.png">
-                  <!-- </a> -->
                 </button>
               </div>
               <div> 
