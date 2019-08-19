@@ -87,6 +87,29 @@
                         </td>
                     </tr>
                   </table>
+                  <mat-action-row>
+                      Change Price
+                  <mat-button-toggle-group #group="matButtonToggleGroup">
+                      <mat-button-toggle 
+                      class="box" 
+                      value="1" 
+                      aria-label="Cheapest option"
+                      (click)="editFlight1Price(1)"> $ </mat-button-toggle>
+                      <mat-button-toggle 
+                      class="box" 
+                      value="2" 
+                      aria-label="Middle option"
+                      (click)="editFlight1Price(2)">$$ </mat-button-toggle>
+                      <mat-button-toggle 
+                      style="padding: 0px" 
+                      class="box" 
+                      value="3" 
+                      aria-label="Extravegent option"
+                      (click)="editFlight1Price(3)">
+                        $$$
+                      </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </mat-action-row>
             </mat-expansion-panel>
 
                 <mat-expansion-panel *ngIf="prices.flight2">
@@ -122,6 +145,29 @@
                             </td>
                         </tr>
                       </table>
+                      <mat-action-row>
+                          Change Price
+                      <mat-button-toggle-group #group="matButtonToggleGroup">
+                          <mat-button-toggle 
+                          class="box" 
+                          value="1" 
+                          aria-label="Cheapest option"
+                          (click)="editFlight2Price(1)"> $ </mat-button-toggle>
+                          <mat-button-toggle 
+                          class="box" 
+                          value="2" 
+                          aria-label="Middle option"
+                          (click)="editFlight2Price(2)">$$ </mat-button-toggle>
+                          <mat-button-toggle 
+                          style="padding: 0px" 
+                          class="box" 
+                          value="3" 
+                          aria-label="Extravegent option"
+                          (click)="editFlight2Price(3)">
+                            $$$
+                          </mat-button-toggle>
+                        </mat-button-toggle-group>
+                    </mat-action-row>
                     </mat-expansion-panel>
             <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
@@ -157,6 +203,29 @@
                       <td>Reviewers Say: {{details.hotel.highHotel.businessScore}}</td>
                     </tr>
                   </table>
+                  <mat-action-row>
+                    Change Price
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+                        <mat-button-toggle 
+                        class="box" 
+                        value="1" 
+                        aria-label="Cheapest option"
+                        (click)="editHotelPrice(1)"> $ </mat-button-toggle>
+                        <mat-button-toggle 
+                        class="box" 
+                        value="2" 
+                        aria-label="Middle option"
+                        (click)="editHotelPrice(2)">$$ </mat-button-toggle>
+                        <mat-button-toggle 
+                        style="padding: 0px" 
+                        class="box" 
+                        value="3" 
+                        aria-label="Extravegent option"
+                        (click)="editHotelPrice(3)">
+                          $$$
+                        </mat-button-toggle>
+                      </mat-button-toggle-group>
+                  </mat-action-row>
             </mat-expansion-panel>
           
             <mat-expansion-panel *ngIf="prices.rental">
@@ -196,7 +265,7 @@
                 </table>
           </mat-expansion-panel>
 
-          <mat-expansion-panel *ngIf="prices.meals" hideToggle="true">
+          <mat-expansion-panel *ngIf="prices.meals">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                   Meals: 
@@ -205,7 +274,28 @@
                     {{meal | currency}}
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <detailed-view></detailed-view>
+            <mat-action-row>
+            <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle 
+                class="box" 
+                value="1" 
+                aria-label="Cheapest option"
+                (click)="editFoodPrice(1)"> $ </mat-button-toggle>
+                <mat-button-toggle 
+                class="box" 
+                value="2" 
+                aria-label="Middle option"
+                (click)="editFoodPrice(2)">$$ </mat-button-toggle>
+                <mat-button-toggle 
+                style="padding: 0px" 
+                class="box" 
+                value="3" 
+                aria-label="Extravegent option"
+                (click)="editFoodPrice(3)">
+                  $$$
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+          </mat-action-row>
         </mat-expansion-panel>
           <!-- <td *ngIf="isDoneLoading"> 
               <edit-buttons></edit-buttons>
