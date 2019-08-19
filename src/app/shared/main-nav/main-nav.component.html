@@ -5,7 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     <mat-toolbar>PLNNR</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="dashboard">
+      <a mat-list-item href="budget">
           <mat-icon>home</mat-icon> Home</a>
       <a mat-list-item href="newtrip">
           <mat-icon>add</mat-icon> New Trip</a>
@@ -26,9 +26,8 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a ma-list-item class="logo spacer" href="dashboard">PLNNR</a>
+      <a ma-list-item class="logo spacer" href="budget">PLNNR</a>
       <span class="spacer2"></span>
-      <!-- <button mat-raised-button color="accent" routerLink="/login">Login</button> -->
       <span class="v1"></span>
       <button mat-icon-button>
         <mat-icon>notifications</mat-icon>
@@ -58,7 +57,7 @@
                 <a ma-list-item href="landing">Log out</a>
             </button>
             <button mat-menu-item>
-                <a ma-list-item href="login">Switch User</a>
+                <a ma-list-item>Switch User</a>
                 <!-- <span>Switch User</span> -->
               </button>
             </mat-menu>

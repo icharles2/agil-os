@@ -1,18 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MainComponent } from './components/main.component';
-import { HomeComponent } from '../Dashboard/home.component';
+import { NewTripComponent } from './components/newTrip.component';
+import { DashboardView } from '../Dashboard/budget.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: NewTripComponent,
   },
-
-  // {
-  //   path: 'dashboard',
-  //   component: HomeComponent
-  // }
 ];
 
 @NgModule({

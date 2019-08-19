@@ -11,10 +11,10 @@ export interface Transaction {
   // moduleId: module.id,
 
   selector: 'Home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.css'],
+  templateUrl: './budget.component.html',
+  styleUrls: ['./budget.css'],
 })
-export class HomeComponent implements OnInit {
+export class DashboardView implements OnInit {
 
   constructor() {}
 
