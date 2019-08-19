@@ -95,6 +95,72 @@ export class TripComponent implements OnInit {
     );
 
   }
+
+  editHotelPrice(price) {
+    if (this.prices.hotelQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getHotelPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+      );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFlight1Price(price) {
+    if (this.prices.flightQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getFlightsPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+      );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFlight2Price(price) {
+    if (this.prices.flightQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getFlightsPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+    );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFoodPrice(price) {
+    if (this.prices.mealsQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getMealsPrices(price);
+      setTimeout(
+        () => {
+          this.getMealsTotal();
+        },
+        3000,
+      );
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        2000,
+      );
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
   // downloadPDF() {
   //   const doc = new jsPDF;
   //   const specialElementHandlers = {
