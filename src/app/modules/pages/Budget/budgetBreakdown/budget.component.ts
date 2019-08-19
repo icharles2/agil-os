@@ -59,6 +59,7 @@ export class BudgetComponent implements OnInit {
     //   total: 0,
     // };
     this.trips = history.state.data;
+    // this.trips.user = 2;
     this.tempDeparture = this.trips['departure'];
     this.tempReturn = this.trips['returnDate'];
     this.lifecycle = {
@@ -99,25 +100,30 @@ export class BudgetComponent implements OnInit {
 
   transpoId() {
     // let { transpo } = this.trips;
-    if (this.trips.transpo === 'car') {
-      this.trips.transpo = 2;
-    } else if (this.trips.transpo === 'flight') {
-      this.trips.rental = false;
-      this.trips.transpo = 3;
+    if (this.trips['transpo'] === 'car') {
+      this.trips['transpo'] = 2;
+      if (this.trips['rental'] === true) {
+        this.trips['rental'] = 'true';
+      }
+    } else if (this.trips['transpo'] === 'flight') {
+      this.trips['rental'] = 'false';
+      this.trips['transpo'] = 3;
     }
   }
 
   lodgingId() {
-    if (this.trips.lodging === 'hotel') {
-      this.trips.lodging = 6;
-    } else if (this.trips.lodging === 'with friends') {
-      this.trips.lodging = 7;
+    if (this.trips['lodging'] === 'hotel') {
+      this.trips['lodging'] = 6;
+    } else if (this.trips['lodging'] === 'with friends') {
+      this.trips['lodging'] = 7;
     }
   }
 
   saveTrip() {
     this.transpoId();
     this.lodgingId();
+    this.trips['user'] = 1;
+    this.trips['total'] = Number(this.trips['total'].toFixed(2));
     // need to make a user get request for current user
     // for now it is hardcoded
     this.post.createTrip(this.trips)
