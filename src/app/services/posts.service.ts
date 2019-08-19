@@ -11,17 +11,18 @@ export class PostService {
 
   createTrip(trip): Observable<Object> {
     return this.http.post('http://localhost:3000/trips/create', {
-      name: trip.title,
-      departureDate: trip.departure,
-      arrivalDate: trip.returnDate,
-      origin: trip.origin,
-      destination: trip.destination,
-      user: trip.user,
-      quality: trip.quality,
-      lodging: trip.lodging,
-      transportation: trip.transpo,
-      rental: trip.rental,
-      // cityImg: trip.cityImg,
+      name: trip['title'],
+      departureDate: trip['departure'],
+      arrivalDate: trip['returnDate'],
+      origin: trip['origin'],
+      destination: trip['destination'],
+      user: trip['user'],
+      quality: trip['quality'],
+      lodging: trip['lodging'],
+      transportation: trip['transpo'],
+      isRental: trip['rental'],
+      pic: trip['imgUrl'],
+      total: trip['total'],
     });
   }
 }
