@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StylesModule } from 'src/app/shared/styles.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { BudgetComponent } from './budgetBreakdown/budget.component';
-import { DashboardView } from './budget.component';
+import { DashboardView } from './dashboard.component';
 // import { AppModule } from 'src/app/app.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';

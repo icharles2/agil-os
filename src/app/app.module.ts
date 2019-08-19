@@ -9,7 +9,7 @@ import { StylesModule } from './shared/styles.module';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 import { BudgetService } from './services/budget.service';
 import { DateService } from './services/date.service';
-import { DashboardView } from './modules/pages/Dashboard/budget.component';
+import { DashboardView } from './modules/pages/Dashboard/dashboard.component';
 
 @NgModule({
   declarations: [AppComponent, SignComponent],

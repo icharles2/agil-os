@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BudgetComponent } from './budgetBreakdown/budget.component';
-import { DashboardView } from './budget.component';
+import { DashboardView } from './dashboard.component';
 // import { }
 
 const routes: Routes = [

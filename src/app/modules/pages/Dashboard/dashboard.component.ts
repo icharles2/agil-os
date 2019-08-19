@@ -11,8 +11,8 @@ export interface Transaction {
   // moduleId: module.id,
 
   selector: 'Home',
-  templateUrl: './budget.component.html',
-  styleUrls: ['./budget.css'],
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.css'],
 })
 export class DashboardView implements OnInit {
 

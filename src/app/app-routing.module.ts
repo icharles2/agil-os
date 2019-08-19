@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignComponent } from './modules/pages/Signup/signup.component';
-import { DashboardView } from './modules/pages/Dashboard/budget.component';
+import { DashboardView } from './modules/pages/Dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'budget',
-    loadChildren: () => import('./modules/pages/Dashboard/budget.module').then(mod => mod.DashboardModule),
+    loadChildren: () => import('./modules/pages/Dashboard/dashboard.module').then(mod => mod.DashboardModule),
   },
   {
     path: 'landing',
