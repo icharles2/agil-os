@@ -118,6 +118,8 @@ export class BudgetComponent implements OnInit {
   saveTrip() {
     this.transpoId();
     this.lodgingId();
+    // need to make a user get request for current user
+    // for now it is hardcoded
     this.post.createTrip(this.trips)
     .subscribe(res => console.log('Trip', res));
   }
