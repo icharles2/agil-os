@@ -71,5 +71,4 @@ export class NewTripComponent implements OnInit {
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`], { state: { data: this.tripObj } });
   }
-
 }
