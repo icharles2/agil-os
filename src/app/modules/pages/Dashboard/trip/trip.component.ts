@@ -3,6 +3,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
+import { PostService } from '../../../../services/posts.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
 import { Detail } from '../../../../models/Details';
@@ -30,6 +31,7 @@ export class TripComponent implements OnInit {
   constructor(
     private budget: BudgetService,
     private dates: DateService,
+    private post: PostService,
     ) {}
 
   ngOnInit() {
@@ -93,7 +95,31 @@ export class TripComponent implements OnInit {
       },
       11000,
     );
+  }
 
+  transpoId() {
+    // let { transpo } = this.trips;
+    if (this.trips.transpo === 'car') {
+      this.trips.transpo = 2;
+    } else if (this.trips.transpo === 'flight') {
+      this.trips.rental = false;
+      this.trips.transpo = 3;
+    }
+  }
+
+  lodgingId() {
+    if (this.trips.lodging === 'hotel') {
+      this.trips.lodging = 6;
+    } else if (this.trips.lodging === 'with friends') {
+      this.trips.lodging = 7;
+    }
+  }
+
+  saveTrip() {
+    this.transpoId();
+    this.lodgingId();
+    this.post.createTrip(this.trips)
+    .subscribe(res => console.log('Trip', res));
   }
 
   editHotelPrice(price) {
