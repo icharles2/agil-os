@@ -14,10 +14,10 @@ import { Lifecycle } from 'src/app/models/Lifecycle';
 
 @Component({
   selector: 'app-trip',
-  templateUrl: './trip.component.html',
-  styleUrls: ['./trip.component.css'],
+  templateUrl: './budget.component.html',
+  styleUrls: ['./budget.component.css'],
 })
-export class TripComponent implements OnInit {
+export class BudgetComponent implements OnInit {
   @ViewChild('content', { static: true }) content: ElementRef;
   // private state$: Observable<object>;
 
