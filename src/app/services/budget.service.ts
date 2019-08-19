@@ -23,13 +23,6 @@ export class BudgetService {
 
   constructor(private http: HttpClient) {}
 
-  createTrip(trip): Observable<Object> {
-    return this.http.post('http://localhost:3000/trips/create', {
-      content: trip.content,
-      submittedBy: trip.submittedBy,
-    });
-  }
-
   getHotelPrice(quality: number, destination: string, departure: string, returnDate: string): any {
     return this.http.get(`${this.hotelUrl}${quality}/${destination}/${departure}/${returnDate}`);
   }

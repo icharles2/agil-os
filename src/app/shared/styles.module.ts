@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LandingNavComponent } from './landing-nav/landing-nav.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatMenuModule,
@@ -26,6 +27,7 @@ import {
   MatProgressBarModule,
   MatTooltipModule,
   MatButtonToggleModule,
+  MatSelectModule,
 } from '@angular/material';
 
 @NgModule({
@@ -54,6 +56,8 @@ import {
     MatTooltipModule,
     MatButtonToggleModule,
     FlexLayoutModule,
+    MatSelectModule,
+    FormsModule,
   ],
   exports: [
     LayoutModule,
@@ -80,6 +84,8 @@ import {
     MatTooltipModule,
     MatButtonToggleModule,
     FlexLayoutModule,
+    MatSelectModule,
+    FormsModule,
   ],
 })
 export class StylesModule {}

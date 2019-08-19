@@ -1,6 +1,5 @@
 export class Post {
   constructor(
-   id: number,
    name: string,
    departureDate: string,
    arrivalDate: string,
@@ -10,5 +9,6 @@ export class Post {
    quality: number,
    lodging: number,
    transportation: number,
+   cityImg: string,
   ) {}
 }

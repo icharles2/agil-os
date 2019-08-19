@@ -3,6 +3,7 @@ import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
+import { PostService } from '../../../../services/posts.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
 import { Detail } from '../../../../models/Details';
@@ -30,6 +31,7 @@ export class BudgetComponent implements OnInit {
   constructor(
     private budget: BudgetService,
     private dates: DateService,
+    private post: PostService,
     ) {}
 
   ngOnInit() {
@@ -57,6 +59,7 @@ export class BudgetComponent implements OnInit {
     //   total: 0,
     // };
     this.trips = history.state.data;
+    // this.trips.user = 2;
     this.tempDeparture = this.trips['departure'];
     this.tempReturn = this.trips['returnDate'];
     this.lifecycle = {
@@ -93,7 +96,125 @@ export class BudgetComponent implements OnInit {
       },
       11000,
     );
+  }
 
+  transpoId() {
+    // let { transpo } = this.trips;
+    if (this.trips['transpo'] === 'car') {
+      this.trips['transpo'] = 2;
+      if (this.trips['rental'] === true) {
+        this.trips['rental'] = 'true';
+      }
+    } else if (this.trips['transpo'] === 'flight') {
+      this.trips['rental'] = 'false';
+      this.trips['transpo'] = 3;
+    }
+  }
+
+  lodgingId() {
+    if (this.trips['lodging'] === 'hotel') {
+      this.trips['lodging'] = 6;
+    } else if (this.trips['lodging'] === 'with friends') {
+      this.trips['lodging'] = 7;
+    }
+  }
+
+  flightTotal(flight1, flight2) {
+    const low = (flight1[0] + flight2[0]) / 2;
+    const high = (flight1[1] + flight2[1]) / 2;
+    const average = (flight1[2] + flight2[2]) / 2;
+    const total = flight1[2] + flight2[2];
+    Number(low.toFixed(2));
+    Number(high.toFixed(2));
+    Number(average.toFixed(2));
+    Number(total.toFixed(2));
+    return [low, high, average, total];
+  }
+
+  priceId(category) {
+    if (category === 'flight') {
+      return 3;
+    } else if (category === 'car') {
+      return 2;
+    } else if (category === 'rental') {
+      return 4;
+    } else if (category === 'hotel') {
+      return 6;
+    } else if (category === 'with friends') {
+      return 7;
+    } else if (category === 'meals') {
+      return 8;
+    }
+  }
+
+  saveTrip() {
+    this.transpoId();
+    this.lodgingId();
+    this.trips['user'] = 1;
+    this.trips['total'] = Number(this.trips['total'].toFixed(2));
+    // need to make a user get request for current user
+    // for now it is hardcoded
+    this.post.createTrip(this.trips)
+    .subscribe((res) => {
+      console.log('Trip', res);
+      // if both these prices don't exist we want error handling
+      if (this.prices['flight1'] && this.prices['flight2']) {
+        const flight = this.flightTotal(this.prices['flight1'], this.prices['flight2']);
+        this.post.savePrice(
+            flight[0],
+            flight[1],
+            flight[2],
+            res['id'],
+            this.prices['flightQ'],
+            this.priceId('flight'),
+            flight[3],
+        )
+        .subscribe(res => console.log('Flight price', res));
+      }
+      if (this.prices['rental']) {
+        this.post.savePrice(
+          this.prices['rental'][0],
+          this.prices['rental'][1],
+          this.prices['rental'][2],
+          res['id'],
+          this.trips['quality'],
+          this.priceId('rental'),
+          this.prices['rental'][2],
+        )
+        .subscribe(res => console.log('Rental price', res));
+      }
+      if (this.prices['hotel']) {
+        this.post.savePrice(
+          this.prices['hotel'][0],
+          this.prices['hotel'][1],
+          this.prices['hotel'][2],
+          res['id'],
+          this.prices['hotelQ'],
+          this.priceId('hotel'),
+          this.prices['hotel'][2],
+        )
+        .subscribe(res => console.log('Hotel price', res));
+      }
+      if (this.trips['transpo'] === 'car' || this.trips['transpo'] === 2) {
+        this.post.saveCars(
+          this.prices['gasTotal'],
+          this.trips['distance'],
+          this.prices['gas'],
+          res['id'],
+        )
+        .subscribe(res => console.log('Gas price', res));
+      }
+      this.post.savePrice(
+        this.prices['meals'][0],
+        this.prices['meals'][1],
+        this.prices['meals'][2],
+        res['id'],
+        this.prices['mealsQ'],
+        this.priceId('meals'),
+        this.prices['mealsTotal'],
+        )
+        .subscribe(res => console.log('Meal price', res));
+    });
   }
 
   editHotelPrice(price) {

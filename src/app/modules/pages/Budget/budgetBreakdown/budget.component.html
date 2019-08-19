@@ -363,6 +363,8 @@
     <mat-card-actions>
       <button 
       mat-raised-button 
+      (click)="saveTrip()"
+      matTooltip="Save This Trip to Your Account"
       >SAVE</button>
       <button mat-raised-button
       (click)="downloadPDF()"
