@@ -1,4 +1,4 @@
-    <mat-horizontal-stepper #stepper>
+    <mat-horizontal-stepper style="width:80%; margin: 80px auto" #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Trip Details</ng-template>
@@ -45,8 +45,8 @@
         <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Price Range</ng-template>
         <mat-card>
-          <h3>How Much Do You Want To Spend?</h3> 
-          <div>
+          <h3 fxLayout="row" fxLayoutAlign="center start">How Much Do You Want To Spend?</h3> 
+          <div fxLayout="row" fxLayoutAlign="space-between center">
                   <!-- <button mat-button matStepperPrevious>Back</button> -->
             <!-- call func on this -->
               <button mat-raised-button (click)="setPriceValue(tripObj, 1)" class="rounded dollar" matStepperNext>
@@ -62,10 +62,13 @@
               <button mat-raised-button (click)="setPriceValue(tripObj, 3)" class="rounded dollar spacer1" matStepperNext>
                 <img class="dollarimg3" src="../../../../../assets/dollars/3dollars.png">
               </button>
-          <div> 
-                Thrifty   |     Reasonable    |   Lavish
             </div>
-          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center"> 
+                <p>Thrifty</p>
+                <p>Reasonable</p>
+                <p>Lavish</p>
+            </div>
+          
         </mat-card>
         </form>
       </mat-step>
@@ -73,8 +76,8 @@
         <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Transportation</ng-template>
         <mat-card>
-          <h3>How Do You Want To Get There? </h3> 
-          <div>
+          <h3 fxLayout="row" fxLayoutAlign="center start">How Do You Want To Get There? </h3> 
+          <div fxLayout="row" fxLayoutAlign="space-between center">
               <!-- <button mat-button matStepperPrevious>Back</button> -->
 
             <!-- call func on this -->
@@ -91,10 +94,11 @@
               <button mat-raised-button  (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, true)" class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/car-rental.png">
               </button>
+            </div>
             <div> 
               Road Trip/Your Car   |     Flight    |   Rental Car
-              </div>
-          </div>
+            </div>
+          
         </mat-card>
       </form>
       </mat-step>
@@ -102,8 +106,8 @@
           <form *ngIf="fourthFormGroup" [formGroup]="fourthFormGroup">
           <ng-template matStepLabel>Lodging</ng-template>
           <mat-card>
-              <h3>Where will you be staying?</h3>
-            <div>
+              <h3 fxLayout="row" fxLayoutAlign="center start">Where will you be staying?</h3>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
@@ -126,11 +130,12 @@
                   <img src="../../../assets/Icons/laugh.png">
                   <!-- </a> -->
                 </button>
+              </div>
               <div> 
               Short-term Rental   |     Hotel    |   With Friends
               </div>
               <router-outlet></router-outlet>
-            </div>
+            
           </mat-card>
           </form>
         </mat-step>

@@ -5,6 +5,7 @@ import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
+import { Detail } from '../../../../models/Details';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import domToImage from 'dom-to-image';
@@ -21,6 +22,7 @@ export class TripComponent implements OnInit {
 
   trips: Trip;
   prices: Price;
+  details: Detail;
   lifecycle: Lifecycle;
   tempDeparture: string;
   tempReturn: string;
@@ -34,6 +36,12 @@ export class TripComponent implements OnInit {
     console.log('obj', history.state.data);
     this.prices = {
       tripTotal: [],
+    };
+    this.details = {
+      flight1: '',
+      flight2: '',
+      hotel: '',
+      rental: '',
     };
     // this.trips = {
     //   title: 'Cross Country Move',
@@ -86,6 +94,72 @@ export class TripComponent implements OnInit {
       11000,
     );
 
+  }
+
+  editHotelPrice(price) {
+    if (this.prices.hotelQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getHotelPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+      );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFlight1Price(price) {
+    if (this.prices.flightQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getFlightsPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+      );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFlight2Price(price) {
+    if (this.prices.flightQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getFlightsPrices(price);
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        4000,
+    );
+      console.log('I was edited', price);
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
+  }
+  editFoodPrice(price) {
+    if (this.prices.mealsQ !== price) {
+      this.lifecycle.isDoneLoading = false;
+      this.getMealsPrices(price);
+      setTimeout(
+        () => {
+          this.getMealsTotal();
+        },
+        3000,
+      );
+      setTimeout(
+        () => {
+          this.getPricesTotal();
+        },
+        2000,
+      );
+    } else {
+      console.log(`You have already selected ${price}`);
+    }
   }
   // downloadPDF() {
   //   const doc = new jsPDF;
@@ -153,7 +227,8 @@ export class TripComponent implements OnInit {
         if (res) {
           this.setPrices(res, 'flight1');
           this.addToTotal(res);
-          console.log(res);
+          this.details['flight1'] = res.detail;
+          console.log(this.details['flight1']);
           this.setQuality(quality, 'flight');
         }
         if (err) {
@@ -165,7 +240,8 @@ export class TripComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'flight2');
         this.addToTotal(data);
-        console.log(data);
+        this.details['flight2'] = data.detail;
+        console.log(this.details['flight2']);
         this.lifecycle['transpo'] = true;
       });
   }
@@ -179,12 +255,12 @@ export class TripComponent implements OnInit {
       }),
       shareReplay(),
     )
-
     .subscribe((res, err) => {
       if (res) {
         this.setPrices(res, 'hotel');
         this.addToTotal(res);
-        console.log(res);
+        this.details['hotel'] = res.detail;
+        console.log(this.details['hotel']);
         this.setQuality(quality, 'hotel');
       } else {
         console.log('HTTP Hotels Error', err);
@@ -199,7 +275,8 @@ export class TripComponent implements OnInit {
       .subscribe((data) => {
         this.setPrices(data, 'rental');
         this.addToTotal(data);
-        console.log(data);
+        this.details['rental'] = data.detail;
+        console.log(this.details['rental']);
       });
   }
 
