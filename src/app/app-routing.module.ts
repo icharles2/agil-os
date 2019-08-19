@@ -21,6 +21,11 @@ const routes: Routes = [
     path: 'landing',
     component: SignComponent,
   },
+  {
+    path: 'home',
+    loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
+  },
+
   // {
   //   path: '',
   //   redirectTo: '',

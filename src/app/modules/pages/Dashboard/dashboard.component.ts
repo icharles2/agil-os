@@ -10,7 +10,7 @@ export interface Transaction {
 @Component({
   // moduleId: module.id,
 
-  selector: 'Home',
+  selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.css'],
 })

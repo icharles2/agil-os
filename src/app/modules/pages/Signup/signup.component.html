@@ -12,10 +12,10 @@
       <!-- login form -->
       <h1 class="login-welcome-text">Welcome to PLNNR</h1> 
       <h2 class="login-welcome-text">Create an Account!</h2>
-      <form (submit)="login()" method="post" class="login-form">
+      <form (click)="router.navigate(['/home'])" method="post" class="login-form">
         <input type="text" autofocus placeholder="Account Username" name="username" class="login-input">
         <input type="password" placeholder="Hometown" name="password" class="login-input">
-        <input type="submit" name="submit" placeholder="Log in" class="login-btn">
+        <input type="text" (click)="router.navigate(['/home'])" name="submit" placeholder="Log in" class="login-btn">
       </form>
     </main>
     <!-- linking to signup -->
