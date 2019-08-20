@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +8,10 @@ import { Observable, of } from 'rxjs';
 export class PostService {
 
   constructor(private http: HttpClient) {}
+  url: string = 'http://localhost:3000/';
 
   createTrip(trip): Observable<Object> {
-    return this.http.post('http://localhost:3000/trips/create', {
+    return this.http.post(`${this.url}trips/create`, {
       name: trip['title'],
       departureDate: trip['departure'],
       arrivalDate: trip['returnDate'],
@@ -27,7 +28,7 @@ export class PostService {
   }
 
   savePrice(low, high, average, trips, quality, category, subTotal): Observable<Object> {
-    return this.http.post('http://localhost:3000/prices/create', {
+    return this.http.post(`${this.url}prices/create`, {
       low,
       high,
       average,
@@ -39,11 +40,20 @@ export class PostService {
   }
 
   saveCars(total, distance, price, tripId):Observable<Object> {
-    return this.http.post('http://localhost:3000/cars/create', {
+    return this.http.post(`${this.url}cars/create`, {
       total,
       tripDistance: distance,
       pricePerGal: price,
       trips: tripId,
+    });
+  }
+
+  saveUsers(username, hometown, email, pic):Observable<Object> {
+    return this.http.post(`${this.url}users/create`, {
+      username,
+      hometown,
+      email,
+      pic,
     });
   }
 
