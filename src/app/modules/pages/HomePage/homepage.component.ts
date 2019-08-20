@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   // moduleId: module.id,
@@ -8,4 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./homepage.component.css'],
 })
 
-export class HomePageComponent {}
+export class HomePageComponent implements OnInit{
+
+  constructor(
+
+    ) {}
+
+  ngOnInit() {
+  }
+}
