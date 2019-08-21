@@ -1,0 +1,7 @@
+<app-trip-item 
+  *ngFor="let trip of trips"
+  [trip]="trip"
+  (deleteTrip)="deleteTrip($event)"
+  >
+ 
+</app-trip-item>

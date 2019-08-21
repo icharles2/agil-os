@@ -6,16 +6,16 @@ import { map, share } from 'rxjs/operators';
 @Component({
   selector: 'main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.css']
+  styleUrls: ['./main-nav.component.css'],
 })
 export class MainNavComponent {
+  screenWidth: number;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      share()
-    );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
-
+  constructor() {
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+    // set screenWidth on screen size change
+      this.screenWidth = window.innerWidth;
+    };
+  }
 }

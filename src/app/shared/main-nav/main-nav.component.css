@@ -4,7 +4,6 @@
 
 .sidenav {
   width: 200px;
-  
 }
 
 .mat-list-base .mat-list-item {
@@ -12,7 +11,7 @@
 }
 
 .spacer {
-  margin-left: 70px
+  margin-left: 70px;
 }
 
 .spacer2 {
@@ -42,19 +41,21 @@
 }
 
 .v1 {
-  border-left: 1px solid #FCFAFA;
-  
+  border-left: 1px solid #fcfafa;
+
   height: 100%;
 }
 
 .iconz {
   font-size: 30px;
- 
 }
 
 .mat-toolbar.mat-primary {
+  /* position: sticky; */
+  position: sticky !important; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; 
   color: #ffffff;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  
+  /* z-index: 1; */
 }

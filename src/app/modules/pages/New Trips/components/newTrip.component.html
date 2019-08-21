@@ -1,0 +1,155 @@
+  <main-nav></main-nav>
+    <mat-horizontal-stepper 
+    style="width:70%; margin: 80px auto" 
+    class="stepContainer"
+    #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Trip Details</ng-template>
+          <mat-card>
+          <h3>Enter your trip details</h3>
+          <!-- need to call func on this >> use formControl to get the input value-->
+            <mat-form-field [formGroup]="form">
+              <input matInput 
+              placeholder="Destination"
+              formControlName="destination"
+              id="autocomplete"
+              required>
+            </mat-form-field>
+          <!-- call func on this -->
+            <span>
+              <mat-form-field class="space" [formGroup]="form" >
+              <input matInput formControlName="tripName" placeholder="Trip Name" >
+              </mat-form-field>
+            </span>
+          <div>
+            <!-- call func on this -->
+              <mat-form-field [formGroup]="form">
+              <input matInput [matDatepicker]="picker1" formControlName="departureDate" placeholder="Departure Date">
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            <!-- call func on this -->
+              <mat-form-field class="space" [formGroup]="form" >
+              <input matInput  formControlName="returnDate" [matDatepicker]="picker2"      
+              placeholder="Return Date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+          </div>
+            <span>     
+          </span>
+          <div>
+            <button mat-raised-button color="accent" matStepperNext (click)="setFormValues(tripObj)" >Make Trip</button>
+          </div>
+        </mat-card>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Price Range</ng-template>
+        <mat-card>
+          <h3 fxLayout="row" fxLayoutAlign="center start">How Much Do You Want To Spend?</h3> 
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+                  <!-- <button mat-button matStepperPrevious>Back</button> -->
+            <!-- call func on this -->
+            <div class="item">
+              <button mat-raised-button (click)="setPriceValue(tripObj, 1)" class="rounded dollar" matStepperNext>
+                <img class="dollarimg1" src="../../../../../assets/dollars/oneDollar.png">
+              </button>
+              <span class="caption">Thrifty</span>
+            </div>
+            <!-- call func on this -->
+            <div class="item">
+              <button mat-raised-button (click)="setPriceValue(tripObj, 2)" class="rounded dollar spacer" matStepperNext>
+                <img class="dollarimg2" src="../../../../../assets/dollars/2dollars.png">
+              </button>
+              <span class="caption">Reasonable</span>
+            </div>
+            <!-- call func on this -->
+            <div class="item">
+              <button mat-raised-button (click)="setPriceValue(tripObj, 3)" class="rounded dollar spacer1" matStepperNext>
+                <img class="dollarimg3" src="../../../../../assets/dollars/3dollars.png">
+              </button>
+              <span class="caption">Lavish</span>
+            </div>
+            
+            </div>
+         
+          
+        </mat-card>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="thirdFormGroup">
+        <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Transportation</ng-template>
+        <mat-card>
+          <h3 fxLayout="row" fxLayoutAlign="center start">How Do You Want To Get There? </h3> 
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+              <!-- <button mat-button matStepperPrevious>Back</button> -->
+
+            <!-- call func on this -->
+            <div class="item">
+              <button mat-raised-button (click)="setTranspoValue(tripObj, 'car')" class="rounded"matStepperNext>
+                <img src="../../../../../assets/Icons/car.png">
+              </button>
+              <span class="caption">Road Trip (My Car)</span>
+            </div>
+            <!-- call func on this -->
+            <div class="item">
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'flight')" class="rounded space1" matStepperNext>
+                <img src="../../../../../assets/Icons/Plane Sized.png">
+              </button>
+              <span class="caption">Flight</span>
+            </div>
+            <!-- call func on this -->
+            <div class="item">
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, true)" class="rounded space1" matStepperNext>
+                <img src="../../../../../assets/Icons/car-rental.png">
+              </button>
+              <span class="caption">Rental Car</span>
+            </div>
+            </div>
+            
+          
+        </mat-card>
+      </form>
+      </mat-step>
+      <mat-step [stepControl]="fourthFormGroup">
+          <form *ngIf="fourthFormGroup" [formGroup]="fourthFormGroup">
+          <ng-template matStepLabel>Lodging</ng-template>
+          <mat-card>
+              <h3 fxLayout="row" fxLayoutAlign="center start">Where will you be staying?</h3>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+              <!-- <button mat-button matStepperPrevious>Back</button> -->
+            <span> 
+              <!-- call func on this -->
+              <div class="item">
+                <button (click)="router.navigate(['/budget']); getFinalObj(tripObj)"  mat-raised-button class="rounded">
+                  <img src="../../../assets/Icons/key.png">
+                </button>
+                <span class="caption">Short-term Rental</span>
+            </div>
+            </span>
+            <!-- call func on this -->
+            <div class="item">
+            <button  (click)="goToPage('/budget'); setLodgingValue(tripObj, 'hotel')" mat-raised-button class="rounded space1">
+                  <img src="../../../assets/Icons/resort.png">
+                </button>
+                <span class="caption">Hotel</span>
+            </div>
+              <!-- call func on this -->
+              <div class="item">
+                <button (click)="goToPage('/budget') ; setLodgingValue(tripObj, 'with friends')"  mat-raised-button class="rounded space1">
+                  <img src="../../../assets/Icons/laugh.png">
+                </button>
+                <span class="caption">With Friends</span>
+            </div>
+              </div>
+             
+              <router-outlet></router-outlet>
+            
+          </mat-card>
+          </form>
+        </mat-step>
+    </mat-horizontal-stepper>

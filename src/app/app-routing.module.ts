@@ -1,39 +1,41 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LogComponent } from './modules/pages/Login/login.component';
 import { SignComponent } from './modules/pages/Signup/signup.component';
-
+import { DashboardView } from './modules/pages/Budget/dashboard.component';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LogComponent,
-  },
-  {
-    path: 'signup',
+    path: '',
     component: SignComponent,
   },
-  { 
-    path: 'newtrip', 
-    loadChildren: () => import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule) 
+  {
+    path: 'newtrip',
+    loadChildren: () =>
+      import('./modules/pages/New Trips/components/newTrip.module').then(mod => mod.NewTripModule),
   },
-  { 
-    path: 'dashboard', 
-    loadChildren: () => import('./modules/pages/Dashboard/home.module').then(mod => mod.HomeModule)
+  {
+    path: 'budget',
+    loadChildren: () => import('./modules/pages/Budget/dashboard.module').then(mod => mod.DashboardModule),
   },
   {
     path: 'landing',
     component: SignComponent,
+    // /modules/pages/Budget/home.module
   },
   {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full'
+    path: 'home',
+    loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
+
+  // {
+  //   path: '',
+  //   redirectTo: '',
+  //   pathMatch: 'full',
+  // },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -1,8 +1,6 @@
 export class Price {
   flight1?: number[]; // done
   flight2?: number[]; // done
-  flight1Avg?: number;
-  flight2Avg?: number;
   flightQ?: number; // done
   meals?: number[]; // done
   mealsQ?: number; // done

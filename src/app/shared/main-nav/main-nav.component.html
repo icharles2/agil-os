@@ -1,11 +1,11 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+      [mode]="(screenWidth > 1040) ? 'side' : 'over'"
+      [opened]="screenWidth > 1040">
     <mat-toolbar>PLNNR</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="dashboard">
+      <a mat-list-item href="home">
           <mat-icon>home</mat-icon> Home</a>
       <a mat-list-item href="newtrip">
           <mat-icon>add</mat-icon> New Trip</a>
@@ -17,18 +17,24 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+    <mat-toolbar 
+    class="mat-toolbar mat-primary"
+
+    color="primary">
+    <div [ngStyle]="{'display' : (screenWidth > 1040) ? 'none' : 'block'}">
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <a ma-list-item class="logo spacer" href="dashboard">PLNNR</a>
+    </div>
+      <a ma-list-item class="logo spacer" href="home">PLNNR</a>
       <span class="spacer2"></span>
-      <!-- <button mat-raised-button color="accent" routerLink="/login">Login</button> -->
       <span class="v1"></span>
       <button mat-icon-button>
         <mat-icon>notifications</mat-icon>
@@ -58,7 +64,7 @@
                 <a ma-list-item href="landing">Log out</a>
             </button>
             <button mat-menu-item>
-                <a ma-list-item href="login">Switch User</a>
+                <a ma-list-item>Switch User</a>
                 <!-- <span>Switch User</span> -->
               </button>
             </mat-menu>
@@ -66,5 +72,4 @@
       <ng-content></ng-content>
     </mat-toolbar>
    
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  
