@@ -4,7 +4,12 @@
   margin-bottom: 2%;
   margin-left: auto;
   margin-right: auto;
+}
 
+.progress {
+  position: fixed !important; /* For macOS/iOS Safari */
+  /* Sets the sticky toolbar to be on top */
+  z-index: 1000; 
 }
 
 table {
