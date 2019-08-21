@@ -10,8 +10,10 @@ export class PostService {
   constructor(private http: HttpClient) {}
   url: string = 'http://localhost:3000/';
 
-  createTrip(trip): Observable<Object> {
+  createTrip(trip, total, status = 'confirmed', sharedBy = null): Observable<Object> {
     return this.http.post(`${this.url}trips/create`, {
+      status,
+      sharedBy,
       name: trip['title'],
       departureDate: trip['departure'],
       arrivalDate: trip['returnDate'],
@@ -22,6 +24,9 @@ export class PostService {
       lodging: trip['lodging'],
       transportation: trip['transpo'],
       isRental: trip['rental'],
+      mealTotal: total['mealTotal'],
+      lodgingTotal: total['lodgingTotal'],
+      transportationTotal: total['transportationTotal'],
       pic: trip['imgUrl'],
       total: trip['total'],
     });
