@@ -7,6 +7,7 @@ import { PostService } from '../../../../services/posts.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
 import { Detail } from '../../../../models/Details';
+import { Subtotal } from '../../../../models/Subtotals';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 // import domToImage from 'dom-to-image';
@@ -25,6 +26,7 @@ export class BudgetComponent implements OnInit {
   prices: Price;
   details: Detail;
   lifecycle: Lifecycle;
+  totals: Subtotal;
   tempDeparture: string;
   tempReturn: string;
 
@@ -45,19 +47,11 @@ export class BudgetComponent implements OnInit {
       hotel: '',
       rental: '',
     };
-    // this.trips = {
-    //   title: 'Cross Country Move',
-    //   origin: 'New Orleans',
-    //   destination: 'Chicago',
-    //   transpo: 'flight',
-    //   lodging: 'hotel',
-    //   departure: '08/20/2019',
-    //   returnDate: '08/30/2019',
-    //   quality: 3,
-    //   rental: false,
-    //   imgUrl: '',
-    //   total: 0,
-    // };
+    this.totals = {
+      mealTotal: '',
+      lodgingTotal: '',
+      transportationTotal: '',
+    };
     this.trips = history.state.data;
     // this.trips.user = 2;
     this.tempDeparture = this.trips['departure'];
@@ -147,14 +141,40 @@ export class BudgetComponent implements OnInit {
     }
   }
 
+  transpoTotal() {
+    if (this.trips['rental'] === true) {
+      this.totals['transportationTotal'] = this.prices['rental'][2] + this.prices['gasTotal'];
+    } else if (this.trips['transpo'] === 2) {
+      this.totals['transportationTotal'] = this.prices['gasTotal'];
+    } else if (this.trips['transpo'] === 3) {
+      this.totals['transportationTotal'] = this.prices['flight1'][2] +
+      this.prices['flight2'][2];
+    }
+  }
+
+  lodgingTotal() {
+    if (this.trips['lodging'] === 6) {
+      this.totals['lodgingTotal'] = this.prices['hotel'][2];
+    } else {
+      this.totals['lodgingTotal'] = 0;
+    }
+  }
+
+  mealsTotal() {
+    this.totals['mealTotal'] =  this.prices['mealsTotal'];
+  }
+
   saveTrip() {
     this.transpoId();
     this.lodgingId();
+    this.transpoTotal();
+    this.mealsTotal();
+    this.lodgingTotal();
     this.trips['user'] = 1;
     this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
     // for now it is hardcoded
-    this.post.createTrip(this.trips)
+    this.post.createTrip(this.trips, this.totals)
     .subscribe((res) => {
       console.log('Trip', res);
       // if both these prices don't exist we want error handling
@@ -303,17 +323,6 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-  // downloadPDF() {
-  //   const doc = new jsPDF;
-  //   const specialElementHandlers = {
-  //     '#editor': (element, renderer) => {
-  //       return true;
-  //     },
-  //   };
-  // const content = this.content.nativeElement;
-
-  // }
-
   setTripLength(departure: string, returnDate: string) {
     this.lifecycle['tripLength'] = this.dates.getTripLength(departure, returnDate);
     return this.lifecycle['tripLength'];
@@ -437,18 +446,4 @@ export class BudgetComponent implements OnInit {
       this.lifecycle['transpo'] = true;
     });
   }
-  // downloadPDF() {
-  //   const doc = new jsPDF;
-  //   const specialElementHandlers = {
-  //     '#editor': (element, renderer) => {
-  //       return true;
-  //     },
-  //   };
-  //   const content = this.content.nativeElement;
-  //   doc.fromHTML(content.innerHTML, 15, 15, {
-  //     width: 190,
-  //     elementHandlers: specialElementHandlers,
-  //   });
-  //   doc.save('test.pdf');
-  // }
 }
