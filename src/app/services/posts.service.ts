@@ -27,7 +27,9 @@ export class PostService {
     });
   }
 
-  savePrice(low, high, average, trips, quality, category, subTotal): Observable<Object> {
+  savePrice(
+    low, high, average, trips, quality, category, categoryNumber, subTotal,
+    ): Observable<Object> {
     return this.http.post(`${this.url}prices/create`, {
       low,
       high,
@@ -35,6 +37,7 @@ export class PostService {
       trips,
       quality,
       category,
+      categoryNumber,
       subTotal,
     });
   }
