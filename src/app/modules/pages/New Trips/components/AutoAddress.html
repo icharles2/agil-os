@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <div class="container">
     <h1>Simple Google Place</h1>
-    <input type="text" ngx-google-place #places="ngx-places" (onSelect)="onAddressChange($event)">
+    <input type="text" ngx-google-place (onSelect)="onAddressChange($event)">
     <p>{{formattedAddress}}</p>
 </div>
