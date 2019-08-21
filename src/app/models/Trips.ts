@@ -13,4 +13,5 @@ export class Trip {
     public total?: number,
     public user?: number,
   ) {}
+
 }
