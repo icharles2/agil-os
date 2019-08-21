@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { Trip } from '../../../../models/Trips';
 import { DateService } from '../../../../services/date.service';
 // '../components/newTrip.component.html'
+// '../components/AutoAddress.html'
 @Component({
   selector: 'dashboard-main',
-  templateUrl: '../components/AutoAddress.html',
+  templateUrl: '../components/newTrip.component.html',
   styleUrls: ['../components/newTrip.component.css'],
 })
 export class NewTripComponent implements OnInit {
@@ -19,10 +20,7 @@ export class NewTripComponent implements OnInit {
       country: ['USA']
     }
   }
-  onAddressChange(event: any) {
-    // console.log('Address change:', event);
-    this.formattedAddress = event.formatted_address;
-  }
+
 
 
   firstFormGroup: FormGroup;
@@ -84,5 +82,10 @@ export class NewTripComponent implements OnInit {
   }
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`], { state: { data: this.tripObj } });
+  }
+  
+  handleAddressChange(event: any) {
+    // console.log('Address change:', event);
+    this.formattedAddress = event.formatted_address;
   }
 }
