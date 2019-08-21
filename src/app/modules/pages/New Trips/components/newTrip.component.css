@@ -1,6 +1,24 @@
+.stepContainer {
+  min-width: 600px;
+}
+
+.mat-card {
+  min-width: 600px;
+}
 .rounded {
   border-radius: 50%;
   padding: 40px;
+}
+
+.item {
+  vertical-align: top;
+  display: inline-block;
+  text-align: center;
+}
+
+.caption {
+  display: block;
+  padding: 20px;
 }
 
 .dollar {
