@@ -3,13 +3,27 @@ import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Trip } from '../../../../models/Trips';
 import { DateService } from '../../../../services/date.service';
-
+// '../components/newTrip.component.html'
 @Component({
   selector: 'dashboard-main',
-  templateUrl: '../components/newTrip.component.html',
+  templateUrl: '../components/AutoAddress.html',
   styleUrls: ['../components/newTrip.component.css'],
 })
 export class NewTripComponent implements OnInit {
+
+  formattedAddress = '';
+
+  options = {
+    types: ['(cities)'],
+    componentRestriction: {
+      country: ['USA']
+    }
+  }
+  onAddressChange(event: any) {
+    // console.log('Address change:', event);
+    this.formattedAddress = event.formatted_address;
+  }
+
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;

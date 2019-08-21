@@ -10,15 +10,19 @@ import { SignComponent } from './modules/pages/Signup/signup.component';
 import { BudgetService } from './services/budget.service';
 import { DateService } from './services/date.service';
 import { DashboardView } from './modules/pages/Budget/dashboard.component';
+import { NgxGooglePlaceAutocompleteDirective } from 'ngx-google-place-autocomplete'
+
+
 
 @NgModule({
-  declarations: [AppComponent, SignComponent],
+  declarations: [AppComponent, SignComponent ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     StylesModule,
     AppRoutingModule,
     HttpClientModule,
+  
   ],
   exports: [HttpClientModule],
   providers: [BudgetService, DateService],
