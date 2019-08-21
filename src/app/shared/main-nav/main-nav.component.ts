@@ -9,10 +9,13 @@ import { map, share } from 'rxjs/operators';
   styleUrls: ['./main-nav.component.css'],
 })
 export class MainNavComponent {
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(result => result.matches),
-    share(),
-  );
+  screenWidth: number;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor() {
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+    // set screenWidth on screen size change
+      this.screenWidth = window.innerWidth;
+    };
+  }
 }

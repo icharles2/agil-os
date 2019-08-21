@@ -1,8 +1,8 @@
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+      [mode]="(screenWidth > 1040) ? 'side' : 'over'"
+      [opened]="screenWidth > 1040">
     <mat-toolbar>PLNNR</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item href="home">
@@ -17,15 +17,22 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+    <mat-toolbar 
+    class="mat-toolbar mat-primary"
+
+    color="primary">
+    <div [ngStyle]="{'display' : (screenWidth > 1040) ? 'none' : 'block'}">
       <button
         type="button"
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+    </div>
       <a ma-list-item class="logo spacer" href="home">PLNNR</a>
       <span class="spacer2"></span>
       <span class="v1"></span>
@@ -65,5 +72,4 @@
       <ng-content></ng-content>
     </mat-toolbar>
    
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  

@@ -51,8 +51,11 @@
 }
 
 .mat-toolbar.mat-primary {
+  /* position: sticky; */
+  position: sticky !important; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; 
   color: #ffffff;
-  position: sticky;
-  top: 0;
-  z-index: 1;
+  
+  /* z-index: 1; */
 }
