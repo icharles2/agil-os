@@ -56,9 +56,13 @@ export class NewTripComponent implements OnInit {
       fourthCtrl: ['', Validators.required],
     });
   }
+  handleAddressChange(event: any) {
+    console.log('Address change:', event);
+    this.formattedAddress = event.formatted_address;
+  }
 
   setFormValues(obj) {
-    obj['destination'] = this.form.get('destination').value;
+    obj['destination'] = this.formattedAddress.split(',')[0];
     obj['title'] = this.form.get('tripName').value;
     obj['departure'] = this.date.dateSlice(this.form.get('departureDate').value);
     obj['returnDate'] = this.date.dateSlice(this.form.get('returnDate').value);
@@ -83,9 +87,5 @@ export class NewTripComponent implements OnInit {
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`], { state: { data: this.tripObj } });
   }
-  
-  handleAddressChange(event: any) {
-    // console.log('Address change:', event);
-    this.formattedAddress = event.formatted_address;
-  }
+
 }
