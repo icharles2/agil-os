@@ -363,15 +363,32 @@
     </mat-card-content>
     
     <mat-card-actions>
+        <div>
       <button 
       mat-raised-button 
       (click)="saveTrip()"
       matTooltip="Save This Trip to Your Account"
-      >SAVE</button>
+      >SAVE TO DASHBOARD</button>
+     
       <button mat-raised-button
       (click)="captureScreen()"
       matTooltip="Share Your Trip As A PDF"
-      >SHARE</button>
+      >SAVE TO PDF</button>
+      <button 
+    matTooltip="Share Your Trip With Another Plnnr"
+    mat-raised-button (click)="openDialog()">SHARE ON PLNNR</button>
+  
+  <span *ngIf="email">
+    You Trip Was Sent
+  </span>
+      </div>
+      <span *ngIf="lifecycle.wasSaved">
+          You Trip Was Saved
+        </span>
+      <!-- <button mat-raised-button
+      (click)="captureScreen()"
+      matTooltip="Share Your Trip With Another Plnnr"
+      >SHARE</button> -->
     </mat-card-actions>
   </div>
   </mat-card>
