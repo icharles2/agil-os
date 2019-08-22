@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
@@ -10,9 +10,14 @@ import { Detail } from '../../../../models/Details';
 import { Subtotal } from '../../../../models/Subtotals';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+
+export interface DialogData {
+  email: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-trip',
@@ -30,15 +35,15 @@ export class BudgetComponent implements OnInit {
   totals: Subtotal;
   tempDeparture: string;
   tempReturn: string;
+  email: string;
+  name: string;
 
   constructor(
-    
     private budget: BudgetService,
     private dates: DateService,
     private post: PostService,
+    public dialog: MatDialog,
     ) {}
-
-  
 
   ngOnInit() {
     console.log('obj', history.state.data);
@@ -65,6 +70,7 @@ export class BudgetComponent implements OnInit {
       transpo: false,
       lodging: this.trips['lodging'] === 'hotel' ? false : true,
       isDoneLoading: false,
+      wasSaved: false,
     };
     this.getTripPhoto();
     this.setDates();
@@ -94,6 +100,18 @@ export class BudgetComponent implements OnInit {
       },
       11000,
     );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: { name: this.name, email: this.email },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.email = result;
+    });
   }
 
   transpoId() {
@@ -174,6 +192,7 @@ export class BudgetComponent implements OnInit {
     this.transpoTotal();
     this.mealsTotal();
     this.lodgingTotal();
+    this.lifecycle['wasSaved'] = true;
     this.trips['user'] = 1;
     this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
@@ -450,4 +469,20 @@ export class BudgetComponent implements OnInit {
       this.lifecycle['transpo'] = true;
     });
   }
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: '../dialog/dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
