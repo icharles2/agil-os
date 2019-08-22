@@ -9,7 +9,9 @@
 </div>
 <br>
 <mat-card class="example-card" >
-  <div layout-align="space-between end">
+  <div id="contentToConvert"
+ 
+  >
     <mat-card-header>
       <img
       mat-card-avatar
@@ -367,7 +369,7 @@
       matTooltip="Save This Trip to Your Account"
       >SAVE</button>
       <button mat-raised-button
-      (click)="downloadPDF()"
+      (click)="captureScreen()"
       matTooltip="Share Your Trip As A PDF"
       >SHARE</button>
     </mat-card-actions>

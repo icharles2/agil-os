@@ -7,9 +7,10 @@ import { PostService } from '../../../../services/posts.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
 import { Detail } from '../../../../models/Details';
+import { Subtotal } from '../../../../models/Subtotals';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import domToImage from 'dom-to-image';
+// import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 
@@ -26,6 +27,7 @@ export class BudgetComponent implements OnInit {
   prices: Price;
   details: Detail;
   lifecycle: Lifecycle;
+  totals: Subtotal;
   tempDeparture: string;
   tempReturn: string;
 
@@ -49,9 +51,11 @@ export class BudgetComponent implements OnInit {
       hotel: '',
       rental: '',
     };
-
-  
-
+    this.totals = {
+      mealTotal: '',
+      lodgingTotal: '',
+      transportationTotal: '',
+    };
     this.trips = history.state.data;
     // this.trips.user = 2;
     this.tempDeparture = this.trips['departure'];
@@ -141,14 +145,40 @@ export class BudgetComponent implements OnInit {
     }
   }
 
+  transpoTotal() {
+    if (this.trips['rental'] === true) {
+      this.totals['transportationTotal'] = this.prices['rental'][2] + this.prices['gasTotal'];
+    } else if (this.trips['transpo'] === 2) {
+      this.totals['transportationTotal'] = this.prices['gasTotal'];
+    } else if (this.trips['transpo'] === 3) {
+      this.totals['transportationTotal'] = this.prices['flight1'][2] +
+      this.prices['flight2'][2];
+    }
+  }
+
+  lodgingTotal() {
+    if (this.trips['lodging'] === 6) {
+      this.totals['lodgingTotal'] = this.prices['hotel'][2];
+    } else {
+      this.totals['lodgingTotal'] = 0;
+    }
+  }
+
+  mealsTotal() {
+    this.totals['mealTotal'] =  this.prices['mealsTotal'];
+  }
+
   saveTrip() {
     this.transpoId();
     this.lodgingId();
+    this.transpoTotal();
+    this.mealsTotal();
+    this.lodgingTotal();
     this.trips['user'] = 1;
-    this.trips['total'] = Number(this.trips['total'].toFixed(2));
+    this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
     // for now it is hardcoded
-    this.post.createTrip(this.trips)
+    this.post.createTrip(this.trips, this.totals)
     .subscribe((res) => {
       console.log('Trip', res);
       // if both these prices don't exist we want error handling
@@ -160,6 +190,7 @@ export class BudgetComponent implements OnInit {
             flight[2],
             res['id'],
             this.prices['flightQ'],
+            this.priceId('flight'),
             this.priceId('flight'),
             flight[3],
         )
@@ -173,6 +204,7 @@ export class BudgetComponent implements OnInit {
           res['id'],
           this.trips['quality'],
           this.priceId('rental'),
+          this.priceId('rental'),
           this.prices['rental'][2],
         )
         .subscribe(res => console.log('Rental price', res));
@@ -184,6 +216,7 @@ export class BudgetComponent implements OnInit {
           this.prices['hotel'][2],
           res['id'],
           this.prices['hotelQ'],
+          this.priceId('hotel'),
           this.priceId('hotel'),
           this.prices['hotel'][2],
         )
@@ -204,6 +237,7 @@ export class BudgetComponent implements OnInit {
         this.prices['meals'][2],
         res['id'],
         this.prices['mealsQ'],
+        this.priceId('meals'),
         this.priceId('meals'),
         this.prices['mealsTotal'],
         )
@@ -276,14 +310,23 @@ export class BudgetComponent implements OnInit {
       console.log(`You have already selected ${price}`);
     }
   }
-  // downloadPDF() {
-  //   const doc = new jsPDF;
-  //   const specialElementHandlers = {
-  //     '#editor': (element, renderer) => {
-  //       return true;
-  //     },
-  //   };
-  // const content = this.content.nativeElement;
+
+  captureScreen() {
+    const data = document.getElementById('contentToConvert');
+    html2canvas(data).then((canvas) => {
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('MYPdf.pdf'); // Generated PDF
+    });
+  }
+
   setTripLength(departure: string, returnDate: string) {
     this.lifecycle['tripLength'] = this.dates.getTripLength(departure, returnDate);
     return this.lifecycle['tripLength'];
@@ -407,18 +450,4 @@ export class BudgetComponent implements OnInit {
       this.lifecycle['transpo'] = true;
     });
   }
-  // downloadPDF() {
-  //   const doc = new jsPDF;
-  //   const specialElementHandlers = {
-  //     '#editor': (element, renderer) => {
-  //       return true;
-  //     },
-  //   };
-  //   const content = this.content.nativeElement;
-  //   doc.fromHTML(content.innerHTML, 15, 15, {
-  //     width: 190,
-  //     elementHandlers: specialElementHandlers,
-  //   });
-  //   doc.save('test.pdf');
-  // }
 }

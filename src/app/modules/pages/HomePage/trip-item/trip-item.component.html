@@ -1,9 +1,65 @@
-<mat-card>
-    <p>
-        {{ trip.name }}
-        <button mat-raised-button
-        (click)="onDelete(trip)"
-        class="del">x</button>
-      </p>
-</mat-card>
+
+    <mat-card class="example-card" >
+        <div layout-align="space-between end">
+          <mat-card-header>
+            <img
+            mat-card-avatar
+            class="example-header-image"
+            src={{trip.pic}}>
+            <button mat-stroked-button 
+            matTooltip="Delete Trip Permanently"
+            (click)="onDelete(trip)"
+            class="del">X</button>
+            <mat-card-title>
+              <div class="container"
+              fxLayout
+              fxLayout.xs="column"
+              fxLayoutAlign="center"
+              fxLayoutGap.xs="0">
+                <div class="item item-4" fxFlex>{{trip.destination}}: {{trip.name}}</div>
+                <span class="end">{{trip.total | currency}}</span>
+              </div>
+            </mat-card-title>
+                  <mat-card-subtitle>
+                <mat-divider inset="true"></mat-divider>
+                <div class="lines">
+                  <div>Origin: {{trip.origin}}</div>
+                  <div>Departure Date: {{trip.departureDate}}</div>
+                  <div>Return Date: {{trip.arrivalDate}}</div>
+      
+                </div>
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <br>
+            <table>
+              <tr>
+                <td>Meals Total:</td>
+                <td>{{trip.mealTotal | currency}}</td>
+              </tr>
+             <tr>
+               <td>
+                 Transportation Total: 
+               </td>
+               <td>
+                 {{trip.transportationTotal | currency}}
+               </td>
+             </tr>
+             <tr>
+               <td>
+                 Lodging Total:
+               </td>
+               <td>
+                 {{trip.lodgingTotal | currency}}
+               </td>
+             </tr>
+                <!-- <td>Meals:</td>
+                <td>{{price.subTotal | currency}}</td> -->
+                
+              
+            </table>
+            </mat-card-content>
+               
+            
+
 
