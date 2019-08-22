@@ -28,6 +28,7 @@ import {
   MatTooltipModule,
   MatButtonToggleModule,
   MatSelectModule,
+  MatDialogModule,
 } from '@angular/material';
 
 @NgModule({
@@ -58,6 +59,7 @@ import {
     FlexLayoutModule,
     MatSelectModule,
     FormsModule,
+    MatDialogModule,
   ],
   exports: [
     LayoutModule,
@@ -86,6 +88,7 @@ import {
     FlexLayoutModule,
     MatSelectModule,
     FormsModule,
+    MatDialogModule,
   ],
 })
 export class StylesModule {}
