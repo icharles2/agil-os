@@ -3,13 +3,25 @@ import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Trip } from '../../../../models/Trips';
 import { DateService } from '../../../../services/date.service';
-
+// '../components/newTrip.component.html'
+// '../components/AutoAddress.html'
 @Component({
   selector: 'dashboard-main',
   templateUrl: '../components/newTrip.component.html',
   styleUrls: ['../components/newTrip.component.css'],
 })
 export class NewTripComponent implements OnInit {
+
+  formattedAddress = '';
+
+  options = {
+    types: ['(cities)'],
+    componentRestriction: {
+      country: ['USA']
+    }
+  }
+
+
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -44,9 +56,13 @@ export class NewTripComponent implements OnInit {
       fourthCtrl: ['', Validators.required],
     });
   }
+  handleAddressChange(event: any) {
+    console.log('Address change:', event);
+    this.formattedAddress = event.formatted_address;
+  }
 
   setFormValues(obj) {
-    obj['destination'] = this.form.get('destination').value;
+    obj['destination'] = this.formattedAddress.split(',')[0];
     obj['title'] = this.form.get('tripName').value;
     obj['departure'] = this.date.dateSlice(this.form.get('departureDate').value);
     obj['returnDate'] = this.date.dateSlice(this.form.get('returnDate').value);
@@ -71,4 +87,5 @@ export class NewTripComponent implements OnInit {
   goToPage(pageName: string) {
     this.router.navigate([`${pageName}`], { state: { data: this.tripObj } });
   }
+
 }
