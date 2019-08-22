@@ -1,5 +1,8 @@
   <main-nav></main-nav>
-    <mat-horizontal-stepper style="width:80%; margin: 80px auto" #stepper>
+    <mat-horizontal-stepper 
+    style="width:70%; margin: 80px auto" 
+    class="stepContainer"
+    #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Trip Details</ng-template>
@@ -52,25 +55,29 @@
           <div fxLayout="row" fxLayoutAlign="space-between center">
                   <!-- <button mat-button matStepperPrevious>Back</button> -->
             <!-- call func on this -->
+            <div class="item">
               <button mat-raised-button (click)="setPriceValue(tripObj, 1)" class="rounded dollar" matStepperNext>
                 <img class="dollarimg1" src="../../../../../assets/dollars/oneDollar.png">
               </button>
-            
+              <span class="caption">Thrifty</span>
+            </div>
             <!-- call func on this -->
+            <div class="item">
               <button mat-raised-button (click)="setPriceValue(tripObj, 2)" class="rounded dollar spacer" matStepperNext>
                 <img class="dollarimg2" src="../../../../../assets/dollars/2dollars.png">
               </button>
-            
+              <span class="caption">Reasonable</span>
+            </div>
             <!-- call func on this -->
+            <div class="item">
               <button mat-raised-button (click)="setPriceValue(tripObj, 3)" class="rounded dollar spacer1" matStepperNext>
                 <img class="dollarimg3" src="../../../../../assets/dollars/3dollars.png">
               </button>
+              <span class="caption">Lavish</span>
             </div>
-          <div fxLayout="row" fxLayoutAlign="space-between center"> 
-                <p>Thrifty</p>
-                <p>Reasonable</p>
-                <p>Lavish</p>
+            
             </div>
+         
           
         </mat-card>
         </form>
@@ -84,23 +91,28 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
 
             <!-- call func on this -->
+            <div class="item">
               <button mat-raised-button (click)="setTranspoValue(tripObj, 'car')" class="rounded"matStepperNext>
                 <img src="../../../../../assets/Icons/car.png">
               </button>
-
+              <span class="caption">Road Trip (My Car)</span>
+            </div>
             <!-- call func on this -->
+            <div class="item">
               <button mat-raised-button  (click)="setTranspoValue(tripObj, 'flight')" class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/Plane Sized.png">
               </button>
-
+              <span class="caption">Flight</span>
+            </div>
             <!-- call func on this -->
+            <div class="item">
               <button mat-raised-button  (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, true)" class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/car-rental.png">
               </button>
+              <span class="caption">Rental Car</span>
             </div>
-            <div> 
-              Road Trip/Your Car   |     Flight    |   Rental Car
             </div>
+            
           
         </mat-card>
       </form>
@@ -114,22 +126,29 @@
               <!-- <button mat-button matStepperPrevious>Back</button> -->
             <span> 
               <!-- call func on this -->
+              <div class="item">
                 <button (click)="router.navigate(['/budget']); getFinalObj(tripObj)"  mat-raised-button class="rounded">
                   <img src="../../../assets/Icons/key.png">
                 </button>
+                <span class="caption">Short-term Rental</span>
+            </div>
             </span>
             <!-- call func on this -->
+            <div class="item">
             <button  (click)="goToPage('/budget'); setLodgingValue(tripObj, 'hotel')" mat-raised-button class="rounded space1">
                   <img src="../../../assets/Icons/resort.png">
                 </button>
+                <span class="caption">Hotel</span>
+            </div>
               <!-- call func on this -->
+              <div class="item">
                 <button (click)="goToPage('/budget') ; setLodgingValue(tripObj, 'with friends')"  mat-raised-button class="rounded space1">
                   <img src="../../../assets/Icons/laugh.png">
                 </button>
+                <span class="caption">With Friends</span>
+            </div>
               </div>
-              <div> 
-              Short-term Rental   |     Hotel    |   With Friends
-              </div>
+             
               <router-outlet></router-outlet>
             
           </mat-card>

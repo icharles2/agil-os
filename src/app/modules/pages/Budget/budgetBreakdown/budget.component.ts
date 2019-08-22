@@ -9,7 +9,7 @@ import { Trip } from '../../../../models/Trips';
 import { Detail } from '../../../../models/Details';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import domToImage from 'dom-to-image';
+// import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
 
 @Component({
@@ -151,7 +151,7 @@ export class BudgetComponent implements OnInit {
     this.transpoId();
     this.lodgingId();
     this.trips['user'] = 1;
-    this.trips['total'] = Number(this.trips['total'].toFixed(2));
+    this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
     // for now it is hardcoded
     this.post.createTrip(this.trips)
@@ -167,6 +167,7 @@ export class BudgetComponent implements OnInit {
             res['id'],
             this.prices['flightQ'],
             this.priceId('flight'),
+            this.priceId('flight'),
             flight[3],
         )
         .subscribe(res => console.log('Flight price', res));
@@ -179,6 +180,7 @@ export class BudgetComponent implements OnInit {
           res['id'],
           this.trips['quality'],
           this.priceId('rental'),
+          this.priceId('rental'),
           this.prices['rental'][2],
         )
         .subscribe(res => console.log('Rental price', res));
@@ -190,6 +192,7 @@ export class BudgetComponent implements OnInit {
           this.prices['hotel'][2],
           res['id'],
           this.prices['hotelQ'],
+          this.priceId('hotel'),
           this.priceId('hotel'),
           this.prices['hotel'][2],
         )
@@ -210,6 +213,7 @@ export class BudgetComponent implements OnInit {
         this.prices['meals'][2],
         res['id'],
         this.prices['mealsQ'],
+        this.priceId('meals'),
         this.priceId('meals'),
         this.prices['mealsTotal'],
         )
@@ -282,6 +286,23 @@ export class BudgetComponent implements OnInit {
       console.log(`You have already selected ${price}`);
     }
   }
+
+  captureScreen() {
+    const data = document.getElementById('contentToConvert');
+    html2canvas(data).then((canvas) => {
+      const imgWidth = 208;
+      const pageHeight = 295;
+      const imgHeight = canvas.height * imgWidth / canvas.width;
+      const heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
+      const position = 0;
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+      pdf.save('MYPdf.pdf'); // Generated PDF
+    });
+  }
+
   // downloadPDF() {
   //   const doc = new jsPDF;
   //   const specialElementHandlers = {
@@ -290,6 +311,9 @@ export class BudgetComponent implements OnInit {
   //     },
   //   };
   // const content = this.content.nativeElement;
+
+  // }
+
   setTripLength(departure: string, returnDate: string) {
     this.lifecycle['tripLength'] = this.dates.getTripLength(departure, returnDate);
     return this.lifecycle['tripLength'];
