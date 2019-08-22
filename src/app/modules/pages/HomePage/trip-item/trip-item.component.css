@@ -6,6 +6,11 @@
   margin-right: auto;
 
 }
+button{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 
 .end {
   margin-left: 200px;

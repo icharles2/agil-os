@@ -6,13 +6,18 @@
             mat-card-avatar
             class="example-header-image"
             src={{trip.pic}}>
+            <button mat-stroked-button 
+            matTooltip="Delete Trip Permanently"
+            (click)="onDelete(trip)"
+            class="del">X</button>
             <mat-card-title>
-              <div class="container">
-                <div>{{trip.destination}}: {{trip.name}}</div>
-                <div class="fill"></div>
-                <div *ngIf="trip.total">
-                <div class="end">{{trip.total | currency}}</div>
-              </div>
+              <div class="container"
+              fxLayout
+              fxLayout.xs="column"
+              fxLayoutAlign="center"
+              fxLayoutGap.xs="0">
+                <div class="item item-4" fxFlex>{{trip.destination}}: {{trip.name}}</div>
+                <span class="end">{{trip.total | currency}}</span>
               </div>
             </mat-card-title>
                   <mat-card-subtitle>
@@ -30,20 +35,31 @@
             <table>
               <tr>
                 <td>Meals Total:</td>
-                <td>{{trip.price[0]}}</td>
+                <td>{{trip.mealTotal | currency}}</td>
               </tr>
-              <tr *ngFor="let price of trip.price">
-                <td>Meals Total: {{price[0]}}</td>
+             <tr>
+               <td>
+                 Transportation Total: 
+               </td>
+               <td>
+                 {{trip.transportationTotal | currency}}
+               </td>
+             </tr>
+             <tr>
+               <td>
+                 Lodging Total:
+               </td>
+               <td>
+                 {{trip.lodgingTotal | currency}}
+               </td>
+             </tr>
                 <!-- <td>Meals:</td>
                 <td>{{price.subTotal | currency}}</td> -->
                 
               
             </table>
             </mat-card-content>
-            <mat-card-actions>
-                <button mat-button
-                (click)="onDelete(trip)"
-                class="del">x</button>
-            </mat-card-actions>
+               
+            
 
 

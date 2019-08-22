@@ -90,14 +90,14 @@
 
             <!-- call func on this -->
             <div class="item">
-              <button mat-raised-button (click)="setTranspoValue(tripObj, 'car')" class="rounded"matStepperNext>
+              <button mat-raised-button (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, false)" class="rounded"matStepperNext>
                 <img src="../../../../../assets/Icons/car.png">
               </button>
               <span class="caption">Road Trip (My Car)</span>
             </div>
             <!-- call func on this -->
             <div class="item">
-              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'flight')" class="rounded space1" matStepperNext>
+              <button mat-raised-button  (click)="setTranspoValue(tripObj, 'flight'); setRentalBoolean(tripObj, false)" class="rounded space1" matStepperNext>
                 <img src="../../../../../assets/Icons/Plane Sized.png">
               </button>
               <span class="caption">Flight</span>
