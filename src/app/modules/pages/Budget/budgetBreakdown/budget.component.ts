@@ -11,6 +11,7 @@ import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 
 @Component({
   selector: 'app-trip',
@@ -29,10 +30,13 @@ export class BudgetComponent implements OnInit {
   tempReturn: string;
 
   constructor(
+    
     private budget: BudgetService,
     private dates: DateService,
     private post: PostService,
     ) {}
+
+  
 
   ngOnInit() {
     console.log('obj', history.state.data);
@@ -45,19 +49,9 @@ export class BudgetComponent implements OnInit {
       hotel: '',
       rental: '',
     };
-    // this.trips = {
-    //   title: 'Cross Country Move',
-    //   origin: 'New Orleans',
-    //   destination: 'Chicago',
-    //   transpo: 'flight',
-    //   lodging: 'hotel',
-    //   departure: '08/20/2019',
-    //   returnDate: '08/30/2019',
-    //   quality: 3,
-    //   rental: false,
-    //   imgUrl: '',
-    //   total: 0,
-    // };
+
+  
+
     this.trips = history.state.data;
     // this.trips.user = 2;
     this.tempDeparture = this.trips['departure'];

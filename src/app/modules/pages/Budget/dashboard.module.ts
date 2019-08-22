@@ -10,10 +10,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { EditButtonsComponent } from './edit-buttons/edit-buttons.component';
+import { DialogOverviewExample, DialogOverviewExampleDialog } from './dialog/dialog.component';
 // import { BudgetService } from '../../../../budget.service';
 
 @NgModule({
-  declarations: [DashboardView, BudgetComponent, EditButtonsComponent],
+  declarations: [
+    DashboardView,
+    BudgetComponent,
+    EditButtonsComponent,
+    DialogOverviewExample,
+    DialogOverviewExampleDialog],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -26,5 +32,6 @@ import { EditButtonsComponent } from './edit-buttons/edit-buttons.component';
   providers: [
     // BudgetService,
   ],
+  entryComponents: [DialogOverviewExample, DialogOverviewExampleDialog],
 })
 export class DashboardModule {}
