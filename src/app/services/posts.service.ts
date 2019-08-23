@@ -10,6 +10,12 @@ export class PostService {
   constructor(private http: HttpClient) {}
   url: string = 'http://localhost:3000/';
 
+  updateTrip(trip):Observable<Object> {
+    return this.http.put(`${this.url}trips/${trip.id}`, {
+      status: 'confirmed',
+    });
+  }
+
   createTrip(trip, total, status = 'confirmed', sharedBy = null): Observable<Object> {
     return this.http.post(`${this.url}trips/create`, {
       status,

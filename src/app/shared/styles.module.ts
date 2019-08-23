@@ -9,6 +9,7 @@ import { MainNavComponent } from './main-nav/main-nav.component';
 import { LandingNavComponent } from './landing-nav/landing-nav.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   MatButtonModule,
   MatMenuModule,
@@ -28,6 +29,8 @@ import {
   MatTooltipModule,
   MatButtonToggleModule,
   MatSelectModule,
+  MatDialogModule,
+  MatBadgeModule,
 } from '@angular/material';
 
 @NgModule({
@@ -58,6 +61,9 @@ import {
     FlexLayoutModule,
     MatSelectModule,
     FormsModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatSnackBarModule,
   ],
   exports: [
     LayoutModule,
@@ -86,6 +92,9 @@ import {
     FlexLayoutModule,
     MatSelectModule,
     FormsModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatSnackBarModule,
   ],
 })
 export class StylesModule {}
