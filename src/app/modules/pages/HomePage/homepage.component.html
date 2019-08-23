@@ -69,7 +69,7 @@
             <span class="v1"></span>
             <img class="avatar" src="../../assets/profile.png" alt="Avatar">
             <!-- Will need to make this dynamic -->
-            <span class=username>Mary Kennedy</span>
+            <span class=username>Lisa Smith</span>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>arrow_drop_down</mat-icon>
               </button>
@@ -85,7 +85,7 @@
             <!-- <router-outlet></router-outlet> -->
             <ng-content></ng-content>
           </mat-toolbar>
-         <div class="container">
+          <div class="container">
             <div class="heading">Dashboard</div>
             <div class="sub">Welcome Back, Lisa!</div>
             <div fxLayout="row" 
@@ -96,7 +96,7 @@
                 fxLayout="column"
                 fxLayoutAlign="center center">
                   <div class="number">9</div>
-                 <span class="under">Days Left</span> 
+                  <span class="under">Days Left</span> 
                 </div>
                 <div class="countdown2"
                 fxLayout="column"
@@ -129,7 +129,7 @@
               fxLayout="column"
                 fxLayoutAlign="center center">
                   <div class="number">{{notifications}}</div>
-                 <span class="under">Pending Shares</span> 
+                  <span class="under">Pending Shares</span> 
                 </div>
                 <div class="countdown2"
                 fxLayout="column"
@@ -146,6 +146,6 @@
             [counter]="counter"
             (count)="count($event)"
             (notify)="notify($event)"></app-trips>
-         </div>
+          </div>
   
 </div>
