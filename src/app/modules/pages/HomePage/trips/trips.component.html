@@ -2,6 +2,8 @@
   *ngFor="let trip of trips"
   [trip]="trip"
   (deleteTrip)="deleteTrip($event)"
+  (approveTrip)="approveTrip($event)"
+  (denyTrip)="denyTrip($event)"
   >
- 
+
 </app-trip-item>

@@ -6,15 +6,16 @@
             mat-card-avatar
             class="example-header-image"
             src={{trip.pic}}>
-            <button mat-stroked-button 
+            <button 
+            mat-stroked-button 
             matTooltip="Delete Trip Permanently"
-            (click)="onDelete(trip)"
+            (click)="doAll(trip)"
             class="del">X</button>
             <mat-card-title>
               <div class="container"
               fxLayout
               fxLayout.xs="column"
-              fxLayoutAlign="center"
+              fxLayoutAlign="end center"
               fxLayoutGap.xs="0">
                 <div class="item item-4" fxFlex>{{trip.destination}}: {{trip.name}}</div>
                 <span class="end">{{trip.total | currency}}</span>
@@ -32,34 +33,53 @@
           </mat-card-header>
           <mat-card-content>
             <br>
-            <table>
-              <tr>
-                <td>Meals Total:</td>
-                <td>{{trip.mealTotal | currency}}</td>
-              </tr>
-             <tr>
-               <td>
-                 Transportation Total: 
-               </td>
-               <td>
+            <div class="container"
+            fxLayout="row"
+            fxLayout.xs="column"
+            fxLayoutAlign="end center">
+            <div fxFlexOffset="10" fxFlex="90" class="item">
+                Meals:
+            </div> 
+              <span fxFlex="20" class="item">{{trip.mealTotal | currency}}</span>  
+                </div>
+              
+                <div class="container"
+                fxLayout="row"
+                fxLayout.xs="column"
+                fxLayoutAlign="end center">
+                <div fxFlexOffset="10" fxFlex="90" class="item">
+                    Transportation: 
+                </div>
+                <span class="item" fxFlex="20">
                  {{trip.transportationTotal | currency}}
-               </td>
-             </tr>
-             <tr>
-               <td>
-                 Lodging Total:
-               </td>
-               <td>
-                 {{trip.lodgingTotal | currency}}
-               </td>
-             </tr>
+                </span>
+              </div>
+              <div class="container"
+                fxLayout="row"
+                fxLayout.xs="column"
+                fxLayoutAlign="end center">
+
+                <div fxFlexOffset="10" fxFlex="90" class="item">
+                Lodging:
+              </div>
+              <span class="item" fxFlex="20">
+                  {{trip.lodgingTotal | currency}}
+                </span>
+              </div>
                 <!-- <td>Meals:</td>
                 <td>{{price.subTotal | currency}}</td> -->
                 
               
-            </table>
+            
             </mat-card-content>
-               
+                <mat-card-actions>
+                 <div *ngIf="trip.status === 'pending'">
+                    <button (click)="onApprove(trip)" mat-raised-button>Approve</button>
+                    <button 
+                    (click)="onDeny(trip)" 
+                    mat-raised-button>Deny</button>
+                  </div>
+                </mat-card-actions>
             
 
 

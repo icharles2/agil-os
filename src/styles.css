@@ -24,3 +24,7 @@ body {
   line-height: 40px;
   padding: 0px !important;
 }
+
+.mat-card-header-text {
+  width: 540px !important;
+}

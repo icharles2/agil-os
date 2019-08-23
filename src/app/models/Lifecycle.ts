@@ -6,5 +6,6 @@ export class Lifecycle {
     public transpo: boolean,
     public tripLength?: number,
     public distance?: string,
+    public wasSaved?: boolean,
   ) {}
 }

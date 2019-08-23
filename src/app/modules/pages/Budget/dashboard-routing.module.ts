@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { BudgetComponent } from './budgetBreakdown/budget.component';
 import { DashboardView } from './dashboard.component';
 
+
 const routes: Routes = [
   {
     path: '',
     component: DashboardView,
   },
+
 ];
 
 @NgModule({
