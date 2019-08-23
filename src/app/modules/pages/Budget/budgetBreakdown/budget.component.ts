@@ -140,7 +140,6 @@ export class BudgetComponent implements OnInit {
     });
   }
 
-
   shareTrip(email) {
     this.transpoId();
     this.lodgingId();
@@ -381,6 +380,7 @@ export class BudgetComponent implements OnInit {
   editHotelPrice(price) {
     if (this.prices.hotelQ !== price) {
       this.lifecycle.isDoneLoading = false;
+      this.prices['tripTotal'].push(-(this.prices['hotel']));
       this.getHotelPrices(price);
       setTimeout(
         () => {
@@ -396,6 +396,7 @@ export class BudgetComponent implements OnInit {
   editFlight1Price(price) {
     if (this.prices.flightQ !== price) {
       this.lifecycle.isDoneLoading = false;
+      this.prices['tripTotal'].push(-(this.prices['flightTotal']));
       this.getFlightsPrices(price);
       setTimeout(
         () => {
@@ -426,6 +427,7 @@ export class BudgetComponent implements OnInit {
   editFoodPrice(price) {
     if (this.prices.mealsQ !== price) {
       this.lifecycle.isDoneLoading = false;
+      this.prices['tripTotal'].push(-(this.prices['mealsTotal']));
       this.getMealsPrices(price);
       setTimeout(
         () => {
