@@ -23,4 +23,12 @@ export class GetService {
     return this.http.get(`${this.url}prices/trips/${trip.id}`);
   }
 
+  getUserById(id) {
+    return this.http.get(`${this.url}users/${id}`);
+  }
+
+  getUser(email) {
+    return this.http.get(`${this.url}users/email/${email}`);
+  }
+
 }

@@ -1,6 +1,151 @@
 <div>
 
-<main-nav></main-nav>
+    <mat-sidenav-container class="sidenav-container">
+        <mat-sidenav #drawer class="sidenav" fixedInViewport
+            [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+            [mode]="(screenWidth > 1040) ? 'side' : 'over'"
+            [opened]="screenWidth > 1040">
+          <mat-toolbar>PLNNR</mat-toolbar>
+          <mat-nav-list>
+            <a mat-list-item href="home">
+                <mat-icon>home</mat-icon> Home</a>
+            <a mat-list-item href="newtrip">
+                <mat-icon>add</mat-icon> New Trip</a>
+            <a mat-list-item href="edit">
+                <mat-icon>edit</mat-icon> Edit</a>
+            <a mat-list-item href="share"
+            >
+            <mat-icon>share</mat-icon> Share</a>
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+          </mat-sidenav-content>
+        </mat-sidenav-container>
+          <mat-toolbar 
+          class="mat-toolbar mat-primary"
+      
+          color="primary">
+          <div [ngStyle]="{'display' : (screenWidth > 1040) ? 'none' : 'block'}">
+            <button
+              type="button"
+              aria-label="Toggle sidenav"
+              mat-icon-button
+              (click)="drawer.toggle()"
+              >
+              <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+          </div>
+            <a ma-list-item class="logo spacer" href="home">PLNNR</a>
+            <span class="spacer2"></span>
+            <span class="v1"></span>
+            <button mat-icon-button>
+              <mat-icon
+              [matBadge]="notifications"
+              [matBadgeHidden]="notifications<=0"
+              matBadgeColor="accent"
+              [matMenuTriggerFor]="notification"
+              [matMenuTriggerData]="{notifications: notifications}">
+                notifications</mat-icon>
+            </button>
+            <mat-menu #notification="matMenu">
+                <ng-template matMenuContent let-notifications="notifications">
+                  <button mat-menu-item>You Have {{notifications}} New Trips</button>
+                  <!-- <button mat-menu-item>{{name}}</button> -->
+                </ng-template>
+              </mat-menu>
+            <span class="v1"></span>
+            <button mat-icon-button [matMenuTriggerFor]="settings" aria-label="Settings button for User settings and dark mode">
+              <mat-icon>settings</mat-icon>
+            </button>
+            <mat-menu #settings="matMenu">
+                <button mat-menu-item>
+                    <a ma-list-item href="#">Change Hometown</a>
+                </button>
+                <button mat-menu-item>
+                    <a ma-list-item href="#">Dark Mode</a>
+                    <!-- <span>Switch User</span> -->
+                  </button>
+                </mat-menu>
+            <span class="v1"></span>
+            <img class="avatar" src="../../assets/profile.png" alt="Avatar">
+            <!-- Will need to make this dynamic -->
+            <span class=username>Mary Kennedy</span>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>arrow_drop_down</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                  <button mat-menu-item>
+                      <a ma-list-item href="landing">Log out</a>
+                  </button>
+                  <button mat-menu-item>
+                      <a ma-list-item>Switch User</a>
+                      <!-- <span>Switch User</span> -->
+                    </button>
+                  </mat-menu>
+            <!-- <router-outlet></router-outlet> -->
+            <ng-content></ng-content>
+          </mat-toolbar>
+         <div class="container">
+            <div class="heading">Dashboard</div>
+            <div class="sub">Welcome Back, Lisa!</div>
+            <div fxLayout="row" 
+            fxLayoutAlign="space-between">
+            <div fxLayout="row"
+            fxLayoutAlign="center center">
+                <div class="countdown"
+                fxLayout="column"
+                fxLayoutAlign="center center">
+                  <div class="number">9</div>
+                 <span class="under">Days Left</span> 
+                </div>
+                <div class="countdown2"
+                fxLayout="column"
+                fxLayoutAlign="center center">
+                <div class="label">
+                Until Your Next Trip
+              </div>
+              </div>
+            </div>
+            <div fxLayout="row"
+            fxLayoutAlign="center center">
+              <div class="countdown"
+              fxLayout="column"
+                fxLayoutAlign="center center">
+                  <div class="number">{{counter}}</div>
+                  <span class="under">Trips</span> 
+                </div>
+                <div class="countdown2"
+                fxLayout="column"
+                fxLayoutAlign="center center">
+                <div class="label1">
+                Planned   
+                Since 2019
+              </div>
+              </div>
+            </div>
+            <div fxLayout="row"
+            fxLayoutAlign="center center">
+              <div class="countdown"
+              fxLayout="column"
+                fxLayoutAlign="center center">
+                  <div class="number">{{notifications}}</div>
+                 <span class="under">Pending Shares</span> 
+                </div>
+                <div class="countdown2"
+                fxLayout="column"
+                fxLayoutAlign="center center">
+                <div class="label3">
+                    From Friends
+              </div>
+              </div>
+            </div>
+            </div>
+            
+            <app-trips 
+            [notifications]="notifications" 
+            [counter]="counter"
+            (count)="count($event)"
+            (notify)="notify($event)"></app-trips>
+         </div>
   
-  <app-trips></app-trips>
 </div>

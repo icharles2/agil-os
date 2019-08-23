@@ -37,7 +37,10 @@
       <span class="spacer2"></span>
       <span class="v1"></span>
       <button mat-icon-button>
-        <mat-icon>notifications</mat-icon>
+        <mat-icon
+        [matBadge]="notification"
+        matBadgeColor="accent">
+          notifications</mat-icon>
       </button>
       <span class="v1"></span>
       <button mat-icon-button [matMenuTriggerFor]="settings" aria-label="Settings button for User settings and dark mode">
@@ -56,7 +59,7 @@
       <img class="avatar" src="../../assets/profile.png" alt="Avatar">
       <!-- Will need to make this dynamic -->
       <span class=username>Mary Kennedy</span>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <button mat-icon-button aria-label="Example icon-button with a menu">
           <mat-icon>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
