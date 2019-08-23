@@ -56,13 +56,19 @@ export class PostService {
     });
   }
 
-  saveUsers(username, hometown, email, pic):Observable<Object> {
+
+  /* we use this func on the signup page therefor we need to import this service in signup.component
+  subscribe into the signup component off this call
+  */
+  saveUsers(username, hometown, email, password):Observable<Object> {
     return this.http.post(`${this.url}users/create`, {
       username,
       hometown,
       email,
-      pic,
+      password,
+      // pic,
     });
   }
+
 
 }

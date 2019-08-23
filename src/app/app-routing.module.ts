@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 import { DashboardView } from './modules/pages/Budget/dashboard.component';
+import { LogComponent } from './modules/pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'home',
     loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
+  {
+    path: 'login',
+    component: LogComponent,
+  }
 
   // {
   //   path: '',
