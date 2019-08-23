@@ -9,7 +9,6 @@
             <button 
             mat-stroked-button 
             matTooltip="Delete Trip Permanently"
-           
             (click)="doAll(trip)"
             class="del">X</button>
             <mat-card-title>
@@ -51,24 +50,20 @@
                 <div fxFlexOffset="10" fxFlex="90" class="item">
                     Transportation: 
                 </div>
-                 
                 <span class="item" fxFlex="20">
                  {{trip.transportationTotal | currency}}
-               </span>
-             
+                </span>
               </div>
-
               <div class="container"
                 fxLayout="row"
                 fxLayout.xs="column"
                 fxLayoutAlign="end center">
 
                 <div fxFlexOffset="10" fxFlex="90" class="item">
-               Lodging:
+                Lodging:
               </div>
-                 
               <span class="item" fxFlex="20">
-                 {{trip.lodgingTotal | currency}}
+                  {{trip.lodgingTotal | currency}}
                 </span>
               </div>
                 <!-- <td>Meals:</td>
@@ -77,12 +72,14 @@
               
             
             </mat-card-content>
-               <mat-card-actions>
+                <mat-card-actions>
                  <div *ngIf="trip.status === 'pending'">
-                   <button (click)="onApprove(trip)" mat-raised-button>Approve</button>
-                   <button (click)="onDeny(trip)"mat-raised-button>Deny</button>
-                 </div>
-               </mat-card-actions>
+                    <button (click)="onApprove(trip)" mat-raised-button>Approve</button>
+                    <button 
+                    (click)="onDeny(trip)" 
+                    mat-raised-button>Deny</button>
+                  </div>
+                </mat-card-actions>
             
 
 
