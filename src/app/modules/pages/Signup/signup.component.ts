@@ -39,17 +39,23 @@ export class SignComponent implements OnInit {
 
   registerUser() {
     const user = this.getUserInfo();
+    // console.log(typeof user);
     // pass this user to the post request
-    this.post.saveUsers(user.username, user.hometown, user.email, user.password)
+    // if any of the inputs are empty dont run this query
+    return this.post.saveUsers(user.username, user.hometown, user.email, user.password)
     .subscribe(
       (data) => {
         // user was successfuly saved
         // redirect to the homepage with the user data to give to the main nav
         // router.navigate(['/home']) and also send the data back for the dashboard and main nav to render
+
+        console.log('user posted', data);
+        this.router.navigate(['/home']);
       },
       (err) => {
         // user could not be saved
         // display an alert/error saying email already exist or invalid hometown/name etc.
+        console.log('user not saved', err);
       },
     );
   }
