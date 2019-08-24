@@ -485,13 +485,29 @@ export class BudgetComponent implements OnInit {
 
   }
   getTripPhoto() {
-    this.budget.getTripPicture(this.trips['destination'])
+    let destination = this.trips['destination'];
+    if (destination === 'Portland, ME, USA'){
+      destination = 'Portland, ME';
+    }
+    if (destination === 'Portland, OR, USA') {
+      destination = 'Portland, OR';
+    }
+    if (destination === 'Birmingham, AL, USA') {
+      destination = 'Birmingham, AL';
+    } 
+    if (destination === 'Washington, DC, USA') {
+      destination = 'Washington, D.C.';
+    } else {
+      destination = this.trips['destination'].split(',')[0];
+    }
+    // this.trips['destination'].split(',')[0]
+    this.budget.getTripPicture(destination)
       .subscribe((data: string) => {
         this.trips['imgUrl'] = data;
       });
   }
   getMealsPrices(quality: number) {
-    this.budget.getMealsPrice(this.trips['destination'], quality)
+    this.budget.getMealsPrice(this.trips['destination'].split(',')[0], quality)
     .subscribe((data) => {
       this.setPrices(data, 'meals');
       this.lifecycle['food'] = true;
