@@ -31,4 +31,8 @@ export class GetService {
     return this.http.get(`${this.url}users/email/${email}`);
   }
 
+  verifyUser(email, password) {
+    return this.http.get(`${this.url}users/password/${email}/${password}`);
+  }
+
 }

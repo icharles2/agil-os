@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 import { DashboardView } from './modules/pages/Budget/dashboard.component';
 import { LandingComponent } from './modules/pages/landing/landing.component';
+import { LogComponent } from './modules/pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -27,9 +28,8 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
   {
-    path: '',
-    redirectTo: '',
-    pathMatch: 'full',
+    path: 'login',
+    component: LogComponent,
   },
 ];
 
