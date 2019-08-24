@@ -19,19 +19,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/Budget/dashboard.module').then(mod => mod.DashboardModule),
   },
   {
-    path: 'landing',
-    component: SignComponent,
-    // /modules/pages/Budget/home.module
-  },
-  {
     path: 'home',
     loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
   {
     path: 'login',
     component: LogComponent,
-  }
-
+  },
   // {
   //   path: '',
   //   redirectTo: '',

@@ -14,9 +14,9 @@
       <p class="login-welcome-text" (click)="router.navigate(['/'])">Dont have an account? Sign up</p>
 
       <form method="post" class="login-form">
-        <input type="text" autofocus placeholder="email" name="username" class="login-input">
-        <input type="password" placeholder="password" name="password" class="login-input">
-        <input (click)="router.navigate(['/home'])" name="submit" placeholder="Log In" class="login-btn">
+        <input type="text" autofocus placeholder="email" name="email" id="email" class="login-input">
+        <input type="password" placeholder="password" name="password" id="password" class="login-input">
+        <input (click)="verifyUser()" name="submit" placeholder="Log In" class="login-btn">
       </form>
     </main>
   </div>
