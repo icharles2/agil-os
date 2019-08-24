@@ -34,12 +34,16 @@ export class LogComponent implements OnInit {
       (data) => {
         // if successful login, redirect to home with the user info, need to make get request for user info
         // send user info to dashboard components
-       console.log(data);
+        if (Object.keys(data).length === 0) {
+          console.log('user not found');
+        } else {
+          console.log('user found', data[0]);
+        }
       },
       (err) => {
         // if err send alert saying email and password does not match
         // possibly pop up asking if theyve forgoten theyre password
-        console.log('no user matches', err);
+        console.log('error in your validation', err);
       },
     );
   }
