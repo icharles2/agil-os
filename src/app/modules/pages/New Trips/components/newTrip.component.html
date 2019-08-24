@@ -1,9 +1,12 @@
   <main-nav></main-nav>
+  <div class="white">
     <mat-horizontal-stepper 
     style="width:70%; margin: 80px auto" 
     class="stepContainer"
     #stepper>
       <mat-step [stepControl]="firstFormGroup">
+        <br>
+        <br>
         <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Trip Details</ng-template>
           <mat-card>
@@ -11,7 +14,6 @@
           <!-- need to call func on this >> use formControl to get the input value-->
             <mat-form-field [formGroup]="form">
               <input matInput 
-
               placeholder="Destination"
               formControlName="destination"
               id="autocomplete"
@@ -47,6 +49,8 @@
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
+          <br>
+          <br>
         <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Price Range</ng-template>
         <mat-card>
@@ -82,6 +86,8 @@
         </form>
       </mat-step>
       <mat-step [stepControl]="thirdFormGroup">
+          <br>
+          <br>
         <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Transportation</ng-template>
         <mat-card>
@@ -117,6 +123,8 @@
       </form>
       </mat-step>
       <mat-step [stepControl]="fourthFormGroup">
+          <br>
+          <br>
           <form *ngIf="fourthFormGroup" [formGroup]="fourthFormGroup">
           <ng-template matStepLabel>Lodging</ng-template>
           <mat-card>
@@ -154,3 +162,6 @@
           </form>
         </mat-step>
     </mat-horizontal-stepper>
+  </div>
+    <div class="right-triangle">
+      </div>

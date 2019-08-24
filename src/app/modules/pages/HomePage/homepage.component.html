@@ -75,7 +75,7 @@
               </button>
               <mat-menu #menu="matMenu">
                   <button mat-menu-item>
-                      <a ma-list-item href="landing">Log out</a>
+                      <a ma-list-item href="/">Log out</a>
                   </button>
                   <button mat-menu-item>
                       <a ma-list-item>Switch User</a>
@@ -85,9 +85,9 @@
             <!-- <router-outlet></router-outlet> -->
             <ng-content></ng-content>
           </mat-toolbar>
-         <div class="container">
+          <div class="container">
             <div class="heading">Dashboard</div>
-            <div class="sub">Welcome Back, Lisa!</div>
+            <div class="sub">Welcome Back, Mary!</div>
             <div fxLayout="row" 
             fxLayoutAlign="space-between">
             <div fxLayout="row"
@@ -96,7 +96,7 @@
                 fxLayout="column"
                 fxLayoutAlign="center center">
                   <div class="number">9</div>
-                 <span class="under">Days Left</span> 
+                  <span class="under">Days Left</span> 
                 </div>
                 <div class="countdown2"
                 fxLayout="column"
@@ -129,7 +129,7 @@
               fxLayout="column"
                 fxLayoutAlign="center center">
                   <div class="number">{{notifications}}</div>
-                 <span class="under">Pending Shares</span> 
+                  <span class="under">Pending Shares</span> 
                 </div>
                 <div class="countdown2"
                 fxLayout="column"
@@ -146,6 +146,6 @@
             [counter]="counter"
             (count)="count($event)"
             (notify)="notify($event)"></app-trips>
-         </div>
+          </div>
   
 </div>
