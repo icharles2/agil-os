@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 import { DashboardView } from './modules/pages/Budget/dashboard.component';
+import { LandingComponent } from './modules/pages/landing/landing.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SignComponent,
+    component: LandingComponent,
   },
   {
     path: 'newtrip',
@@ -18,20 +19,18 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/Budget/dashboard.module').then(mod => mod.DashboardModule),
   },
   {
-    path: 'landing',
+    path: 'signup',
     component: SignComponent,
-    // /modules/pages/Budget/home.module
   },
   {
     path: 'home',
     loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
-
-  // {
-  //   path: '',
-  //   redirectTo: '',
-  //   pathMatch: 'full',
-  // },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
