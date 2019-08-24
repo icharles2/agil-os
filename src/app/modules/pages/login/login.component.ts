@@ -44,7 +44,6 @@ export class LogComponent implements OnInit {
         (err) => {
           // if err send alert saying email and password does not match
           // possibly pop up asking if theyve forgoten theyre password
-
           // alert saying invalid credentials or 'forgot to put your email/password!'
           // this only happens when both or one of the input fields is empty
           console.log('error in your validation', err);
