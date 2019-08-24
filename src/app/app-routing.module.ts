@@ -3,16 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 import { DashboardView } from './modules/pages/Budget/dashboard.component';
 import { LandingComponent } from './modules/pages/landing/landing.component';
-import { LoginComponent } from './modules/pages/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
     component: LandingComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
   },
   {
     path: 'newtrip',
