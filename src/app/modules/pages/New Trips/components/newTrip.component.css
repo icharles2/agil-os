@@ -1,3 +1,7 @@
+body {
+  background-color: #FFFFFF
+}
+
 .stepContainer {
   min-width: 600px;
 }
@@ -50,4 +54,18 @@
 
 img {
   width: 100px;
+}
+
+
+
+.right-triangle {
+  position: fixed;
+  bottom: 0%;
+  right: 0%;
+  
+  height: 30%;
+  width: 30%;
+  background: transparent linear-gradient(51deg, #E9EDF8 0%, #FFFFFF 100%) 0% 0% no-repeat padding-box;
+  -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+  clip-path:  polygon(100% 0, 0% 100%, 100% 100%);
 }

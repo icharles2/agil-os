@@ -2,7 +2,6 @@
 
 body {
   margin: 0;
-  background-color: #eeeeee;
 }
 
 /* mat-progress-bar .mat-progress-bar-buffer {
@@ -23,4 +22,8 @@ body {
 .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
   line-height: 40px;
   padding: 0px !important;
+}
+
+.mat-card-header-text {
+  width: 540px !important;
 }

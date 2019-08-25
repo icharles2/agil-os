@@ -6,10 +6,11 @@
   margin-right: auto;
 
 }
-button{
-  position: absolute;
-  top: 0;
-  right: 0;
+
+.del {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
 }
 
 .end {
@@ -32,3 +33,9 @@ button{
 .lines {
   line-height: 18px;
 }
+
+.item {
+  font-size: 18px;
+  line-height: 26px;
+}
+

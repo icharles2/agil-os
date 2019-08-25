@@ -1,0 +1,23 @@
+<landing-nav></landing-nav>
+<!-- <br>
+<mat-card class="landing">
+  Welcome to Plnnr!
+  <br>
+  Sign Up Now!
+</mat-card> -->
+<div class="main__container">
+  <div class="login-card">
+
+    <main class="login-content">
+      <!-- login form -->
+      <h1 class="login-welcome-text">Log In here</h1>
+      <p class="login-welcome-text" (click)="router.navigate(['/'])">Dont have an account? Sign up</p>
+
+      <form method="post" class="login-form">
+        <input type="text" autofocus placeholder="email" name="email" id="email" class="login-input">
+        <input type="password" placeholder="password" name="password" id="password" class="login-input">
+        <input (click)="verifyUser()" name="submit" placeholder="Log In" class="login-btn">
+      </form>
+    </main>
+  </div>
+</div>

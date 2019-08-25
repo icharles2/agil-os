@@ -1,17 +1,24 @@
-import { Component, OnInit, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
 import { PostService } from '../../../../services/posts.service';
+import { GetService } from '../../../../services/get.service';
 import { Price } from '../../../../models/Prices';
 import { Trip } from '../../../../models/Trips';
 import { Detail } from '../../../../models/Details';
 import { Subtotal } from '../../../../models/Subtotals';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
+
+export interface DialogData {
+  email: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-trip',
@@ -29,11 +36,16 @@ export class BudgetComponent implements OnInit {
   totals: Subtotal;
   tempDeparture: string;
   tempReturn: string;
+  email: string;
+  name: string;
 
   constructor(
     private budget: BudgetService,
     private dates: DateService,
     private post: PostService,
+    private get: GetService,
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog,
     ) {}
 
   ngOnInit() {
@@ -61,6 +73,7 @@ export class BudgetComponent implements OnInit {
       transpo: false,
       lodging: this.trips['lodging'] === 'hotel' ? false : true,
       isDoneLoading: false,
+      wasSaved: false,
     };
     this.getTripPhoto();
     this.setDates();
@@ -90,6 +103,128 @@ export class BudgetComponent implements OnInit {
       },
       11000,
     );
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '250px',
+      data: { name: this.name, email: this.email },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+      this.email = result;
+      if (this.email) {
+        this.openSnackBar('Trip was Shared!', '');
+      }
+      this.shareTrip(this.email);
+    });
+  }
+
+  saveCalls() {
+    this.openSnackBar('Trip was Saved', 'Undo');
+    this.saveTrip();
+  }
+
+  openSnackBar(message, action) {
+    const snackBarRef = this._snackBar.open(message, action, {
+      duration: 3000,
+    });
+    snackBarRef.afterDismissed().subscribe(() => {
+      console.log('The snackbar');
+    });
+
+    snackBarRef.onAction().subscribe(() => {
+
+      console.log('The snackbar action was triggered');
+    });
+  }
+
+  shareTrip(email) {
+    this.transpoId();
+    this.lodgingId();
+    this.transpoTotal();
+    this.mealsTotal();
+    this.lodgingTotal();
+    this.get.getUserById(1)
+    .subscribe((res) => {
+      console.log('Current User', res['username']);
+      this.trips['sharedBy'] = res['username'];
+    });
+    this.get.getUser(this.email)
+    .subscribe((res) => {
+      console.log('User', res['id']);
+      this.trips['user'] = res['id'];
+    });
+    this.trips['user'] = 1;
+    this.trips['total'] = Number((this.trips['total']).toFixed(2));
+    // need to make a user get request for current user
+    // for now it is hardcoded
+    this.post.createTrip(this.trips, this.totals, 'pending', this.trips['sharedBy'])
+    .subscribe((res) => {
+      console.log('Trip', res);
+      // if both these prices don't exist we want error handling
+      if (this.prices['flight1'] && this.prices['flight2']) {
+        const flight = this.flightTotal(this.prices['flight1'], this.prices['flight2']);
+        this.post.savePrice(
+            flight[0],
+            flight[1],
+            flight[2],
+            res['id'],
+            this.prices['flightQ'],
+            this.priceId('flight'),
+            this.priceId('flight'),
+            flight[3],
+        )
+        .subscribe(res => console.log('Flight price', res));
+      }
+      if (this.prices['rental']) {
+        this.post.savePrice(
+          this.prices['rental'][0],
+          this.prices['rental'][1],
+          this.prices['rental'][2],
+          res['id'],
+          this.trips['quality'],
+          this.priceId('rental'),
+          this.priceId('rental'),
+          this.prices['rental'][2],
+        )
+        .subscribe(res => console.log('Rental price', res));
+      }
+      if (this.prices['hotel']) {
+        this.post.savePrice(
+          this.prices['hotel'][0],
+          this.prices['hotel'][1],
+          this.prices['hotel'][2],
+          res['id'],
+          this.prices['hotelQ'],
+          this.priceId('hotel'),
+          this.priceId('hotel'),
+          this.prices['hotel'][2],
+        )
+        .subscribe(res => console.log('Hotel price', res));
+      }
+      if (this.trips['transpo'] === 'car' || this.trips['transpo'] === 2) {
+        this.post.saveCars(
+          this.prices['gasTotal'],
+          this.trips['distance'],
+          this.prices['gas'],
+          res['id'],
+        )
+        .subscribe(res => console.log('Gas price', res));
+      }
+      this.post.savePrice(
+        this.prices['meals'][0],
+        this.prices['meals'][1],
+        this.prices['meals'][2],
+        res['id'],
+        this.prices['mealsQ'],
+        this.priceId('meals'),
+        this.priceId('meals'),
+        this.prices['mealsTotal'],
+        )
+        .subscribe(res => console.log('Meal price', res));
+    });
   }
 
   transpoId() {
@@ -170,6 +305,7 @@ export class BudgetComponent implements OnInit {
     this.transpoTotal();
     this.mealsTotal();
     this.lodgingTotal();
+    this.lifecycle['wasSaved'] = true;
     this.trips['user'] = 1;
     this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
@@ -244,6 +380,7 @@ export class BudgetComponent implements OnInit {
   editHotelPrice(price) {
     if (this.prices.hotelQ !== price) {
       this.lifecycle.isDoneLoading = false;
+      this.prices['tripTotal'].push(-(this.prices['hotel']));
       this.getHotelPrices(price);
       setTimeout(
         () => {
@@ -259,6 +396,7 @@ export class BudgetComponent implements OnInit {
   editFlight1Price(price) {
     if (this.prices.flightQ !== price) {
       this.lifecycle.isDoneLoading = false;
+      this.prices['tripTotal'].push(-(this.prices['flightTotal']));
       this.getFlightsPrices(price);
       setTimeout(
         () => {
@@ -289,6 +427,7 @@ export class BudgetComponent implements OnInit {
   editFoodPrice(price) {
     if (this.prices.mealsQ !== price) {
       this.lifecycle.isDoneLoading = false;
+      this.prices['tripTotal'].push(-(this.prices['mealsTotal']));
       this.getMealsPrices(price);
       setTimeout(
         () => {
@@ -446,4 +585,20 @@ export class BudgetComponent implements OnInit {
       this.lifecycle['transpo'] = true;
     });
   }
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: '../dialog/dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

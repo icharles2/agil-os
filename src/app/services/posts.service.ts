@@ -10,6 +10,12 @@ export class PostService {
   constructor(private http: HttpClient) {}
   url: string = 'http://localhost:3000/';
 
+  updateTrip(trip):Observable<Object> {
+    return this.http.put(`${this.url}trips/${trip.id}`, {
+      status: 'confirmed',
+    });
+  }
+
   createTrip(trip, total, status = 'confirmed', sharedBy = null): Observable<Object> {
     return this.http.post(`${this.url}trips/create`, {
       status,
@@ -56,13 +62,19 @@ export class PostService {
     });
   }
 
-  saveUsers(username, hometown, email, pic):Observable<Object> {
+
+  /* we use this func on the signup page therefor we need to import this service in signup.component
+  subscribe into the signup component off this call
+  */
+  saveUsers(username, hometown, email, password):Observable<Object> {
     return this.http.post(`${this.url}users/create`, {
       username,
       hometown,
       email,
-      pic,
+      password,
+      // pic,
     });
   }
+
 
 }

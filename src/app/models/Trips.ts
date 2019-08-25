@@ -12,5 +12,7 @@ export class Trip {
     public imgUrl?: string,
     public total?: number,
     public user?: number,
+    public sharedBy?: string,
   ) {}
+
 }
