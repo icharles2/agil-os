@@ -32,13 +32,13 @@ export class LogComponent implements OnInit {
     return this.get.verifyUser(user.email, user.password)
       .subscribe(
         (data) => {
-          // if successful login, redirect to home with the user info, need to make get request for user info
-          // send user info to dashboard components
           if (Object.keys(data).length === 0) {
-            // send alert saying 
+            // send alert saying email and password do not match
             console.log('user not found');
           } else {
             console.log('user found', data[0]);
+            this.router.navigate(['/home']);
+            // redirect to home with the user data for the main nav to render the info
           }
         },
         (err) => {
