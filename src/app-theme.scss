@@ -95,3 +95,8 @@ $pl-theme: mat-light-theme($pl-palette-primary, $pl-palette-accent);
 // include the custom theme object into the angular material theme
 @include angular-material-theme($pl-theme);
 
+// $alt-theme: mat-dark-theme($pl-palette-primary, $pl-palette-accent);
+
+// .alternative {
+//   @include angular-material-theme($alt-theme);
+// }

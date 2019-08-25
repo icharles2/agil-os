@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {OverlayModule} from '@angular/cdk/overlay';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,9 +25,10 @@ import { LandingComponent } from './modules/pages/landing/landing.component';
     StylesModule,
     AppRoutingModule,
     HttpClientModule,
-  
+    ReactiveFormsModule,
+    OverlayModule,
   ],
-  exports: [HttpClientModule],
+  exports: [HttpClientModule, OverlayModule],
   providers: [BudgetService, DateService],
   bootstrap: [AppComponent],
 })
