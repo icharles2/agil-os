@@ -1,5 +1,5 @@
-body {
-  background-color: #FFFFFF
+html {
+  background-color: var(--bg);
 }
 
 .stepContainer {
@@ -65,7 +65,8 @@ img {
   
   height: 30%;
   width: 30%;
-  background: transparent linear-gradient(51deg, #E9EDF8 0%, #FFFFFF 100%) 0% 0% no-repeat padding-box;
+  background: var(--triangle);
   -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
   clip-path:  polygon(100% 0, 0% 100%, 100% 100%);
+  z-index: -1;
 }

@@ -31,6 +31,7 @@ import {
   MatSelectModule,
   MatDialogModule,
   MatBadgeModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 
 @NgModule({
@@ -64,6 +65,7 @@ import {
     MatDialogModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
   ],
   exports: [
     LayoutModule,
@@ -95,6 +97,7 @@ import {
     MatDialogModule,
     MatBadgeModule,
     MatSnackBarModule,
+    MatSlideToggleModule,
   ],
 })
 export class StylesModule {}
