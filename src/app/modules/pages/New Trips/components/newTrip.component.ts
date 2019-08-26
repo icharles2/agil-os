@@ -60,9 +60,8 @@ export class NewTripComponent implements OnInit {
   }
 
   setFormValues(obj) {
-    obj['destination'] = 
+    obj['destination'] = this.formattedAddress;
     // this.form.get('destination').value
-    this.formattedAddress
     // .split(',')[0];
     obj['title'] = this.form.get('tripName').value;
     obj['departure'] = this.date.dateSlice(this.form.get('departureDate').value);

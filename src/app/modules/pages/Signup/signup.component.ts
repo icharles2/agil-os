@@ -14,14 +14,26 @@ export class SignComponent implements OnInit {
   saltRounds = 10;
   inputPassword = 'password';
   username: string;
+
+  formattedAddress = '';
+
+  options = {
+    types: ['(cities)'],
+    componentRestriction: {
+      country: ['USA'],
+    },
+  };
+
   constructor(private router: Router, private get: GetService, private post: PostService) {}
   ngOnInit() {}
 
   getUserInfo() {
     const username = ((document.getElementById('username') as HTMLInputElement).value);
-    const hometown = ((document.getElementById('hometown') as HTMLInputElement).value);
+    // const hometown = ((document.getElementById('hometown') as HTMLInputElement).value);
+    const hometown = this.formattedAddress.split(',')[0];
     const email = ((document.getElementById('email') as HTMLInputElement).value);
     const password = ((document.getElementById('password') as HTMLInputElement).value);
+
     // on submit user info is taken, either we pass the result of this func to the service or we call the func in here
     console.log({
       username,
@@ -29,12 +41,18 @@ export class SignComponent implements OnInit {
       email,
       password,
     });
+
     return {
       username,
       hometown,
       email,
       password,
     };
+  }
+
+  handleAddressChange(event: any) {
+    console.log('Address change:', event);
+    this.formattedAddress = event.formatted_address;
   }
 
   registerUser() {

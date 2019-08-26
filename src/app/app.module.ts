@@ -15,6 +15,8 @@ import { DashboardView } from './modules/pages/Budget/dashboard.component';
 import { LogComponent } from './modules/pages/login/login.component';
 import { LandingComponent } from './modules/pages/landing/landing.component';
 // import { NgxGooglePlaceAutocompleteDirective } from 'ngx-google-place-autocomplete'
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
+
 
 @NgModule({
   declarations: [AppComponent, SignComponent, LogComponent, LandingComponent],
@@ -26,6 +28,7 @@ import { LandingComponent } from './modules/pages/landing/landing.component';
     HttpClientModule,
     ReactiveFormsModule,
     OverlayModule,
+    GooglePlaceModule,
   ],
   exports: [HttpClientModule, OverlayModule],
   providers: [BudgetService, DateService, ThemeService],

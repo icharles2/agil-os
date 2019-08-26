@@ -488,7 +488,7 @@ export class BudgetComponent implements OnInit {
   }
   getTripPhoto() {
     let destination = this.trips['destination'].split(',')[0];
-    if (this.trips['destination'] === 'Portland, ME, USA'){
+    if (this.trips['destination'] === 'Portland, ME, USA') {
       destination = 'Portland, ME';
     }
     if (this.trips['destination'] === 'Portland, OR, USA') {
@@ -509,7 +509,7 @@ export class BudgetComponent implements OnInit {
       });
   }
   getMealsPrices(quality: number) {
-    const destination = this.trips['destination'].split(',')[0]
+    const destination = this.trips['destination'].split(',')[0];
     this.budget.getMealsPrice(destination, quality)
     .subscribe((data) => {
       this.setPrices(data, 'meals');
