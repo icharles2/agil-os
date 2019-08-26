@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   // moduleId: module.id,
@@ -9,11 +11,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class HomePageComponent implements OnInit{
+  isDarkTheme: Observable<boolean>;
   notifications: number = 0;
   counter = 0;
   screenWidth: number;
   constructor(
-
+    private themeService: ThemeService,
     ) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
@@ -23,6 +26,11 @@ export class HomePageComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.isDarkTheme = this.themeService.isDarkTheme;
+  }
+
+  toggleDarkTheme(checked: boolean) {
+    this.themeService.setDarkTheme(checked);
   }
 
   count(num) {
