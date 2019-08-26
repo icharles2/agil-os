@@ -17,6 +17,8 @@
           <!-- need to call func on this >> use formControl to get the input value-->
             <mat-form-field [formGroup]="form">
               <input matInput 
+              ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places"
+              (onAddressChange)="handleAddressChange($event)"
               placeholder="Destination"
               formControlName="destination"
               id="autocomplete"
