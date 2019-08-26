@@ -1,0 +1,82 @@
+
+
+<div>
+    <landing-nav></landing-nav>
+
+
+<div id="landing" class="page"
+fxLayoutAlign="space-evenly">
+<div class="container"
+fxLayout="column"
+
+fxFlex="28"
+fxFlexAlign="auto"
+fxLayoutAlign="space-evenly stretch">
+  <div class="header item">
+      See the costs of your next vacation. <br>Plan accordingly.
+  </div>
+  <div class="subheader item">
+      Want to get away but don’t think you can afford it? <br>We show you the costs to take the guesswork out of trip planning.
+  </div>
+  <div>
+      <button 
+      mat-raised-button 
+      color="accent" 
+      class="signBtn item"
+      (click)="router.navigate(['/signup'])">Sign up now</button>
+  </div>
+</div>
+<div class="container2">
+    <mat-card class="graph"
+    fxLayout="column"
+    fxLayoutAlign="space-evenly stretch">
+        <div class="title item">Las Vegas- Summer Trip</div> 
+        <div class="flight">
+          <span fxLayout="column" fxFlexOffset="15px" fxLayoutAlign="center start" class="label item">Flight</span>
+        </div>
+        <div class="hotel item">
+          <span fxLayout="column" fxFlexOffset="15px" fxLayoutAlign="center start"
+          class="label">Hotel</span>
+        </div>
+        <div class="rental item">
+            <span fxLayout="column" fxFlexOffset="15px" fxLayoutAlign="center start"
+            class="label">Rental Car</span>
+          </div>
+          <div class="meals item">
+              <span fxLayout="column" fxFlexOffset="15px" fxLayoutAlign="center start"
+              class="label">Meals</span>
+          </div>
+          <div class="gas item">
+              <span fxLayout="column" fxFlexOffset="15px" fxLayoutAlign="center start"
+                class="label">Gas</span>
+          </div>
+          <div class="total item">
+              <span fxLayout="column" fxFlexOffset="15px" fxLayoutAlign="center start"
+                class="label">Total</span>
+          </div>
+          <div class="bottom"
+          fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="row" class="average">
+              <div class="aDot"></div>
+              <span class="aLabel">Averaged Costs</span>
+            </div>
+            <div fxLayout="row" class="totalKey">
+              <div class="tDot"></div>
+              <span class="aLabel">Total Breakdown</span>
+            </div>
+          </div>
+        </mat-card>
+</div>
+<div class="footer"
+>
+    © 2019 Plnnr All Rights Reserved
+</div>
+<div class="language">
+  English
+  <span fxFlexOffset="10px">
+    <svg xmlns="http://www.w3.org/2000/svg" width="11.414" height="7.121" viewBox="0 0 11.414 7.121"><defs><style>.a{fill:#b1b5be;}</style></defs><g transform="translate(-6.293 -9.293)"><path class="a" d="M16.293,9.293,12,13.586,7.707,9.293,6.293,10.707,12,16.414l5.707-5.707Z"/></g>
+    </svg>
+  </span>
+  </div>
+  <div class="right-triangle"></div>
+</div>

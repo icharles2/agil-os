@@ -1,5 +1,24 @@
 .spacer {
-  margin-left: 70px;
+  margin-left: 12%;
+  width: 87px;
+  height: 34px;
+  text-align: left;
+  font: Bold 25px/34px Open Sans;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  opacity: 1;
+}
+
+.bt {
+  margin-right: 10%; 
+  width: 173px;
+  height: 43px;
+  border-radius: 10px;
+  opacity: 1;
+  text-align: center;
+  font: Bold 17px/23px Open Sans;
+  letter-spacing: 0;
+  color: #191818;
 }
 
 .spacer2 {
@@ -10,5 +29,5 @@
   color: #ffffff;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 1000;
 }

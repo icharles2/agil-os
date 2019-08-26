@@ -14,4 +14,5 @@ export class Trip {
     public user?: number,
     public sharedBy?: string,
   ) {}
+
 }

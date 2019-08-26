@@ -17,11 +17,9 @@ export class NewTripComponent implements OnInit {
   options = {
     types: ['(cities)'],
     componentRestriction: {
-      country: ['USA']
-    }
-  }
-
-
+      country: ['USA'],
+    },
+  };
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;

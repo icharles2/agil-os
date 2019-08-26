@@ -9,7 +9,7 @@
             <button 
             mat-stroked-button 
             matTooltip="Delete Trip Permanently"
-            (click)="doAll(trip)"
+            (click)="openDialog(trip)"
             class="del">X</button>
             <mat-card-title>
               <div class="container"
@@ -51,7 +51,7 @@
                     Transportation: 
                 </div>
                 <span class="item" fxFlex="20">
-                 {{trip.transportationTotal | currency}}
+                  {{trip.transportationTotal | currency}}
                 </span>
               </div>
               <div class="container"

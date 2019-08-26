@@ -1,4 +1,4 @@
-<div>
+<div class="mat-app-background">
 
     <mat-sidenav-container class="sidenav-container">
         <mat-sidenav #drawer class="sidenav" fixedInViewport
@@ -62,7 +62,7 @@
                     <a ma-list-item href="#">Change Hometown</a>
                 </button>
                 <button mat-menu-item>
-                    <a ma-list-item href="#">Dark Mode</a>
+                    <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
                     <!-- <span>Switch User</span> -->
                   </button>
                 </mat-menu>
@@ -75,7 +75,7 @@
               </button>
               <mat-menu #menu="matMenu">
                   <button mat-menu-item>
-                      <a ma-list-item href="landing">Log out</a>
+                      <a ma-list-item href="/">Log out</a>
                   </button>
                   <button mat-menu-item>
                       <a ma-list-item>Switch User</a>
@@ -85,19 +85,19 @@
             <!-- <router-outlet></router-outlet> -->
             <ng-content></ng-content>
           </mat-toolbar>
-         <div class="container">
+          <div class="container">
             <div class="heading">Dashboard</div>
-            <div class="sub">Welcome Back, Lisa!</div>
-            <div fxLayout="row" 
+            <div class="sub">Welcome Back, Mary!</div>
+            <div class="line" fxLayout="row" 
             fxLayoutAlign="space-between">
             <div fxLayout="row"
             fxLayoutAlign="center center">
-                <div class="countdown"
+                <mat-card class="countdown"
                 fxLayout="column"
                 fxLayoutAlign="center center">
                   <div class="number">9</div>
-                 <span class="under">Days Left</span> 
-                </div>
+                  <span class="under">Days Left</span> 
+                </mat-card>
                 <div class="countdown2"
                 fxLayout="column"
                 fxLayoutAlign="center center">
@@ -129,7 +129,7 @@
               fxLayout="column"
                 fxLayoutAlign="center center">
                   <div class="number">{{notifications}}</div>
-                 <span class="under">Pending Shares</span> 
+                  <span class="under">Pending Shares</span> 
                 </div>
                 <div class="countdown2"
                 fxLayout="column"
@@ -146,6 +146,6 @@
             [counter]="counter"
             (count)="count($event)"
             (notify)="notify($event)"></app-trips>
-         </div>
+          </div>
   
 </div>

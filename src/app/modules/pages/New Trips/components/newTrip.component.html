@@ -1,9 +1,15 @@
+  <div>
+
+  
   <main-nav></main-nav>
+  <div class="white">
     <mat-horizontal-stepper 
     style="width:70%; margin: 80px auto" 
     class="stepContainer"
     #stepper>
       <mat-step [stepControl]="firstFormGroup">
+        <br>
+        <br>
         <form *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Trip Details</ng-template>
           <mat-card>
@@ -48,6 +54,8 @@
         </form>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
+          <br>
+          <br>
         <form *ngIf="secondFormGroup" [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Price Range</ng-template>
         <mat-card>
@@ -75,21 +83,19 @@
               </button>
               <span class="caption">Lavish</span>
             </div>
-            
             </div>
-         
-          
         </mat-card>
         </form>
       </mat-step>
       <mat-step [stepControl]="thirdFormGroup">
+          <br>
+          <br>
         <form *ngIf="thirdFormGroup" [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Transportation</ng-template>
         <mat-card>
           <h3 fxLayout="row" fxLayoutAlign="center start">How Do You Want To Get There? </h3> 
           <div fxLayout="row" fxLayoutAlign="space-between center">
               <!-- <button mat-button matStepperPrevious>Back</button> -->
-
             <!-- call func on this -->
             <div class="item">
               <button mat-raised-button (click)="setTranspoValue(tripObj, 'car'); setRentalBoolean(tripObj, false)" class="rounded"matStepperNext>
@@ -112,12 +118,12 @@
               <span class="caption">Rental Car</span>
             </div>
             </div>
-            
-          
         </mat-card>
       </form>
       </mat-step>
       <mat-step [stepControl]="fourthFormGroup">
+          <br>
+          <br>
           <form *ngIf="fourthFormGroup" [formGroup]="fourthFormGroup">
           <ng-template matStepLabel>Lodging</ng-template>
           <mat-card>
@@ -148,10 +154,12 @@
                 <span class="caption">With Friends</span>
             </div>
               </div>
-             
               <router-outlet></router-outlet>
-            
           </mat-card>
           </form>
         </mat-step>
     </mat-horizontal-stepper>
+  </div>
+    <div class="right-triangle">
+      </div>
+    </div>

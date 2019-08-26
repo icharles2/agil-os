@@ -11,17 +11,24 @@
     <main class="login-content">
       <!-- login form -->
       <h1 class="login-welcome-text">Welcome to PLNNR</h1> 
-      <h2 class="login-welcome-text">Create an Account!</h2>
-      <form (click)="router.navigate(['/home'])" method="post" class="login-form">
-        <input type="text" autofocus placeholder="Account Username" name="username" class="login-input">
-        <input type="password" placeholder="Hometown" name="password" class="login-input">
-        <input  (click)="router.navigate(['/home'])"  name="submit" placeholder="Log in" class="login-btn">
+      <form  (submit)="onSubmit()" method="post" class="login-form">
+        <input autofocus placeholder="Username" id="username" name="username" class="login-input">
+        <input placeholder="Hometown" id="hometown" class="login-input">
+        <input type="email" placeholder="Email" id="email" class="login-input">
+        <input type="password" placeholder="Password"  id="password" class="login-input">
+        <input (click)="registerUser()" placeholder="Sign Up" class="login-btn">
       </form>
     </main>
     <!-- linking to signup -->
     <!-- <aside class="login__illustration">
       <span class="signup-notice">Don't have an account? &nbsp;</span>
       <a class="signup-link" href="/signup/index.php">Sign up</a>
+
+
+      formControlName="username"
+      formControlName="hometown"
+      formControlName="email"
+      formControlName="password"
     </aside> -->
 
   </div>
