@@ -1,4 +1,4 @@
-
+<div>
 <landing-nav></landing-nav>
 
 <mat-card 
@@ -10,6 +10,7 @@ class="card">
       fxLayout-Align="">
         <!-- login form -->
         <a (click)="router.navigate(['/'])"><- Go Back</a>
+        <br>
         <h1 >Welcome Back</h1>
      
         <form class="example-container" *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
@@ -19,6 +20,7 @@ class="card">
                 placeholder="Email"
                 id="email"
                 >
+                <br>
                 <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
               </mat-form-field>
               <mat-form-field [formGroup]="form">
@@ -32,10 +34,13 @@ class="card">
                   </button>
                 </mat-form-field>
         </form>
+        <br>
             <!-- <form method="post"> -->
                 <!-- <input type="text" autofocus placeholder="email" name="email" id="email" >
                 <input type="password" placeholder="password" name="password" id="password"> -->
-                <button mat-raised-button color="accent" (click)="verifyUser()">Login</button>
+                <button mat-raised-button color="accent"
+                (click)="router.navigate(['/home'])" >Login</button>
+                <!-- <button mat-raised-button color="accent" (click)="verifyUser()">Login</button> -->
               <!-- </form> -->
        
         
@@ -44,3 +49,4 @@ class="card">
   </div>
 </mat-card>
 <div class="right-triangle"></div>
+</div>
