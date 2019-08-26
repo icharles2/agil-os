@@ -19,7 +19,7 @@
       src={{trips.imgUrl}}>
       <mat-card-title>
         <div class="container">
-          <div>{{trips.destination}}: {{trips.title}}</div>
+          <div>{{trips.destination.split(',')[0]}}: {{trips.title}}</div>
           <div class="fill"></div>
           <div *ngIf="trips.total">
           <div class="end">{{trips.total | currency}}</div>
