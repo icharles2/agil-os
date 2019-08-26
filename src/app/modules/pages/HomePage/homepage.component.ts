@@ -4,7 +4,6 @@ import { ThemeService } from '../../../services/theme.service';
 
 @Component({
   // moduleId: module.id,
-
   selector: 'home-page',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
