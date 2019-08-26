@@ -1,22 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html', // landing
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  // also define dynamic values in the hmtl files like title= 'Pllnr'
-  title = 'Plnnr';
-  text = 'Click Me yuuuurd';
+export class AppComponent implements OnInit {
+  isDarkTheme: Observable<boolean>;
 
-  constructor() {}
-  // functions after constructor
+  constructor(private themeService: ThemeService) {}
+
   ngOnInit() {
-    // simple initialize func
+    this.isDarkTheme = this.themeService.isDarkTheme;
   }
 
-  countClicks() {
-    console.log('button has been clicked yuuurd');
-  }
+  
 }
