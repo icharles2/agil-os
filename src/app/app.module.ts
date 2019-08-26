@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {OverlayModule} from '@angular/cdk/overlay';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,12 +10,11 @@ import { StylesModule } from './shared/styles.module';
 import { SignComponent } from './modules/pages/Signup/signup.component';
 import { BudgetService } from './services/budget.service';
 import { DateService } from './services/date.service';
+import { ThemeService } from './services/theme.service';
 import { DashboardView } from './modules/pages/Budget/dashboard.component';
 import { LogComponent } from './modules/pages/login/login.component';
 import { LandingComponent } from './modules/pages/landing/landing.component';
 // import { NgxGooglePlaceAutocompleteDirective } from 'ngx-google-place-autocomplete'
-
-
 
 @NgModule({
   declarations: [AppComponent, SignComponent, LogComponent, LandingComponent],
@@ -29,7 +28,7 @@ import { LandingComponent } from './modules/pages/landing/landing.component';
     OverlayModule,
   ],
   exports: [HttpClientModule, OverlayModule],
-  providers: [BudgetService, DateService],
+  providers: [BudgetService, DateService, ThemeService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
