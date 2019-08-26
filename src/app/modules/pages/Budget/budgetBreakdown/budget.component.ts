@@ -485,21 +485,21 @@ export class BudgetComponent implements OnInit {
 
   }
   getTripPhoto() {
-    let destination = this.trips['destination'];
-    if (destination === 'Portland, ME, USA'){
+    let destination = this.trips['destination'].split(',')[0];
+    if (this.trips['destination'] === 'Portland, ME, USA'){
       destination = 'Portland, ME';
     }
-    if (destination === 'Portland, OR, USA') {
+    if (this.trips['destination'] === 'Portland, OR, USA') {
       destination = 'Portland, OR';
     }
-    if (destination === 'Birmingham, AL, USA') {
+    if (this.trips['destination'] === 'Birmingham, AL, USA') {
       destination = 'Birmingham, AL';
     } 
-    if (destination === 'Washington, DC, USA') {
+    if (this.trips['destination'] === 'Washington, DC, USA') {
       destination = 'Washington, D.C.';
-    } else {
-      destination = this.trips['destination'].split(',')[0];
-    }
+    } 
+      // destination = this.trips['destination'].split(',')[0];
+    
     // this.trips['destination'].split(',')[0]
     this.budget.getTripPicture(destination)
       .subscribe((data: string) => {
@@ -507,7 +507,8 @@ export class BudgetComponent implements OnInit {
       });
   }
   getMealsPrices(quality: number) {
-    this.budget.getMealsPrice(this.trips['destination'].split(',')[0], quality)
+    const destination = this.trips['destination'].split(',')[0]
+    this.budget.getMealsPrice(destination, quality)
     .subscribe((data) => {
       this.setPrices(data, 'meals');
       this.lifecycle['food'] = true;
@@ -588,7 +589,8 @@ export class BudgetComponent implements OnInit {
   }
 
   getGasPrices() {
-    const { origin, destination } = this.trips;
+    let { origin, destination } = this.trips;
+    destination = destination.split(',')[0]
     this.budget.getGasPrice(origin, destination)
     .subscribe((data) => {
       // should also make use of distance and time
