@@ -42,6 +42,7 @@
     "ngx-google-places-autocomplete": "^2.0.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~6.4.0",
+    "rxjs-compat": "^6.5.2",
     "tslib": "^1.10.0",
     "tslint": "^5.18.0",
     "zone.js": "~0.9.1"
