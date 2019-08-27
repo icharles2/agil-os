@@ -32,8 +32,8 @@ body .dark-theme {
   height: 100%;
   --bg: #303030;
   --bg-panel: #3A3A3A;
-  --primary: #2ba671;
-  --accent: rgba(184, 245, 248, 1);
+  --primary: #4bb386;
+  --accent: #dcfafc;
   --color-text-grey: #707070;
   --color-text-black: #E1E1E1;
   --triangle: transparent linear-gradient(52deg, #030303 0%, #2D2D2D 36%, #373737 52%, #555555 69%, #707070 92%, #FEFEFE 100%) 0% 0% no-repeat padding-box;

@@ -9,6 +9,11 @@
   opacity: 1;
 }
 
+.toggle {
+  margin-right: 4em;
+  font: Bold 17px/23px Open Sans;
+}
+
 .bt {
   margin-right: 10%; 
   width: 173px;

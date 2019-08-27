@@ -14,10 +14,11 @@ export class LogComponent implements OnInit {
   hide = true;
   firstFormGroup: FormGroup;
   form = new FormGroup({
-    email: new FormControl(),
-    password: new FormControl(),
+    email: new FormControl(''),
+    password: new FormControl(''),
   });
   constructor(
+    // tslint:disable-next-line: variable-name
     private _formBuilder: FormBuilder,
     private router: Router,
     private get: GetService,

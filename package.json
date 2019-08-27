@@ -36,6 +36,7 @@
     "@types/sha.js": "^2.4.0",
     "bcrypt": "^3.0.6",
     "dom-to-image": "^2.6.0",
+    "eslint-utils": "^1.4.2",
     "hammerjs": "^2.0.8",
     "html2canvas": "^1.0.0-rc.3",
     "js-sha256": "^0.9.0",

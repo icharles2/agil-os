@@ -15,7 +15,7 @@
 
 .end {
   margin-left: 200px;
-  color: #2eb57a;
+  color: var(--primary);
   font-weight: bold;
 }
 
