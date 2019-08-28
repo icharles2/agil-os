@@ -18,6 +18,10 @@
   flex: 1 1 auto;
 }
 
+.float {
+  margin-left: 4em;
+}
+
 .logo {
   text-decoration: none;
   color: #ffffff;
@@ -43,7 +47,6 @@
 .sub {
   top: 201px;
 left: 356px;
-width: 200px;
 height: 23px;
 padding-bottom: 10px;
 margin-bottom: 2em;
