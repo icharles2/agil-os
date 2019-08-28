@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ThemeService } from '../../../services/theme.service';
+import { Router } from '@angular/router';
 
 @Component({
   // moduleId: module.id,
@@ -14,8 +15,10 @@ export class HomePageComponent implements OnInit{
   notifications: number = 0;
   counter = 0;
   screenWidth: number;
+  user = history.state.data;
   constructor(
     private themeService: ThemeService,
+    private router: Router,
     ) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
@@ -26,6 +29,7 @@ export class HomePageComponent implements OnInit{
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
+    console.log('user', history.state.data);
   }
 
   toggleDarkTheme(checked: boolean) {
@@ -38,5 +42,9 @@ export class HomePageComponent implements OnInit{
 
   notify(num) {
     this.notifications = num;
+  }
+
+  goToPage(pageName: string) {
+    this.router.navigate([`${pageName}`], { state: { data: this.user } });
   }
 }
