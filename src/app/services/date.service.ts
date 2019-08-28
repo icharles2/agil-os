@@ -29,6 +29,19 @@ export class DateService {
     return tripLength;
   }
 
+  activeTrips(tripDeparture) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const firstDate = new Date(tripDeparture);
+    const todayDate = new Date();
+    const tripCountdown = Math.round(
+      Math.abs((todayDate.getTime() - firstDate.getTime()) / oneDay),
+    );
+    if (tripCountdown < 0) {
+      return false;
+    }
+    return true;
+  }
+
   getTripCountdown(tripDeparture): number {
     const oneDay = 24 * 60 * 60 * 1000;
     const firstDate = new Date(tripDeparture);

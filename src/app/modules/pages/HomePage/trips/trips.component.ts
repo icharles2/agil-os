@@ -13,11 +13,17 @@ import * as _ from 'lodash';
 export class TripsComponent implements OnInit {
   @Input() notifications;
   @Input() counter;
+  @Input() daysLeft;
+  @Output() sendNum = new EventEmitter<number>();
   @Output() notify = new EventEmitter<number>();
   @Output() count = new EventEmitter<number>();
   trips;
+  pastTrips = [];
+  activeTripsArr = [];
   prices;
   screenWidth: number;
+  countdown;
+  nextTrip;
 
   // hardcoded user until we have the ability to save users with code
   email: string = 'lisaberteausmith@gmail.com';
@@ -35,6 +41,19 @@ export class TripsComponent implements OnInit {
     .subscribe((trips) => {
       this.trips = trips;
       this.trips.sort((a, b) => b.id - a.id);
+      this.activeTripsArr = this.trips.filter(trip => this.date.activeTrips(trip['departureDate']));
+      this.countdown = this.activeTripsArr.map((trip) => {
+        return this.date.getTripCountdown(trip['departureDate']);
+      });
+      this.daysLeft = this.countdown.reduce((lowest, current) => {
+        if (lowest > 0) {
+          return Math.min(lowest, current);
+        }
+        return current;
+      });
+      this.outputCountdown(this.daysLeft);
+      console.log(this.countdown);
+      console.log(this.daysLeft);
       this.trips.filter((trip) => {
         if (trip.status === 'pending') {
           this.notifications += 1;
@@ -63,6 +82,10 @@ export class TripsComponent implements OnInit {
 
   outputNotify(num) {
     this.notify.emit(num);
+  }
+
+  outputCountdown(num) {
+    this.sendNum.emit(num);
   }
 
   approveTrip(trip) {
