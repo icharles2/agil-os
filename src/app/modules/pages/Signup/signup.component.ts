@@ -48,8 +48,6 @@ export class SignComponent implements OnInit {
     });
   }
 
-  
-
   getUserInfo() {
     const username = this.form.get('username').value;
     // const hometown = ((document.getElementById('hometown') as HTMLInputElement).value);

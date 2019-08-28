@@ -49,7 +49,7 @@
       </button>
       <mat-menu #settings="matMenu">
           <button mat-menu-item>
-              <a ma-list-item href="#">Change Hometown</a>
+              <mat-list-item (click)="openDialog()">Change Hometown</mat-list-item>
           </button>
           <button mat-menu-item>
               <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
@@ -66,10 +66,10 @@
         </button>
         <mat-menu #menu="matMenu">
             <button mat-menu-item>
-                <a ma-list-item (click)="router.navigate(['/'])">Log out</a>
+                <mat-list-item (click)="router.navigate(['/'])">Log out</mat-list-item>
             </button>
             <button mat-menu-item>
-                <a ma-list-item>Switch User</a>
+                <mat-list-item (click)="router.navigate(['/login'])">Switch User</mat-list-item>
                 <!-- <span>Switch User</span> -->
               </button>
             </mat-menu>

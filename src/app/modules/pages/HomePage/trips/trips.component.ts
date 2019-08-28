@@ -11,16 +11,20 @@ import * as _ from 'lodash';
   styleUrls: ['./trips.component.css'],
 })
 export class TripsComponent implements OnInit {
+  @Input() user;
   @Input() notifications;
   @Input() counter;
+  @Input() daysLeft;
+  @Output() sendNum = new EventEmitter<number>();
   @Output() notify = new EventEmitter<number>();
   @Output() count = new EventEmitter<number>();
   trips;
+  pastTrips = [];
+  activeTripsArr = [];
   prices;
   screenWidth: number;
-
-  // hardcoded user until we have the ability to save users with code
-  email: string = 'lisaberteausmith@gmail.com';
+  countdown;
+  nextTrip;
 
   constructor(
     private post: PostService,
@@ -30,11 +34,27 @@ export class TripsComponent implements OnInit {
 
   }
   ngOnInit() {
+    console.log(this.user.email);
     this.prices = [];
-    this.get.getTripsByUser(this.email)
+    this.get.getTripsByUser(this.user.email)
     .subscribe((trips) => {
       this.trips = trips;
       this.trips.sort((a, b) => b.id - a.id);
+      this.activeTripsArr = this.trips.filter(trip => this.date.activeTrips(trip['departureDate']));
+      this.countdown = this.activeTripsArr.map((trip) => {
+        return this.date.getTripCountdown(trip['departureDate']);
+      });
+      if (this.countdown >= 1) {
+        this.daysLeft = this.countdown.reduce((lowest, current) => {
+          if (lowest > 0) {
+            return Math.min(lowest, current);
+          }
+          return current;
+        });
+      }
+      this.outputCountdown(this.daysLeft);
+      console.log(this.countdown);
+      console.log(this.daysLeft);
       this.trips.filter((trip) => {
         if (trip.status === 'pending') {
           this.notifications += 1;
@@ -63,6 +83,10 @@ export class TripsComponent implements OnInit {
 
   outputNotify(num) {
     this.notify.emit(num);
+  }
+
+  outputCountdown(num) {
+    this.sendNum.emit(num);
   }
 
   approveTrip(trip) {

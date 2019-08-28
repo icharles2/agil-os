@@ -62,7 +62,6 @@ export class PostService {
     });
   }
 
-
   /* we use this func on the signup page therefor we need to import this service in signup.component
   subscribe into the signup component off this call
   */
@@ -76,5 +75,10 @@ export class PostService {
     });
   }
 
+  updateUsers(user):Observable<Object> {
+    return this.http.put(`${this.url}users/${user.id}`, {
+      hometown: user.hometown,
+    });
+  }
 
 }
