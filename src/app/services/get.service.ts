@@ -12,7 +12,7 @@ export class GetService {
   url: string = 'http://localhost:3000/';
 
   getTripsByUser(email){
-    return this.http.get(`${this.url}trips/?email=${email}`);
+    return this.http.get(`${this.url}trips/${email}`);
   }
 
   deleteTrips(trip) {
