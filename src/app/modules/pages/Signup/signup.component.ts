@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, EmailValidator } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GetService } from 'src/app/services/get.service';
 import { PostService } from 'src/app/services/posts.service';
@@ -10,11 +10,22 @@ import { PostService } from 'src/app/services/posts.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignComponent implements OnInit {
-  user: FormGroup;
+  hide = true;
+  signupErr = false;
+  firstFormGroup: FormGroup;
+  form = new FormGroup({
+    username: new FormControl(''),
+    hometown: new FormControl(''),
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  // user: FormGroup;
   saltRounds = 10;
   inputPassword = 'password';
   username: string;
   userInfo;
+  // inputPassword = 'password';
 
   formattedAddress = '';
 
@@ -25,15 +36,26 @@ export class SignComponent implements OnInit {
     },
   };
 
-  constructor(private router: Router, private get: GetService, private post: PostService) {}
-  ngOnInit() {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private router: Router,
+    private get: GetService,
+    private post: PostService,
+    ) {}
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required],
+    });
+  }
+
+  
 
   getUserInfo() {
-    const username = ((document.getElementById('username') as HTMLInputElement).value);
+    const username = this.form.get('username').value;
     // const hometown = ((document.getElementById('hometown') as HTMLInputElement).value);
     const hometown = this.formattedAddress.split(',')[0];
-    const email = ((document.getElementById('email') as HTMLInputElement).value);
-    const password = ((document.getElementById('password') as HTMLInputElement).value);
+    const email = this.form.get('email').value;
+    const password = this.form.get('password').value;
 
     // on submit user info is taken, either we pass the result of this func to the service or we call the func in here
     console.log({
@@ -64,7 +86,7 @@ export class SignComponent implements OnInit {
     return this.post.saveUsers(this.userInfo.username, this.userInfo.hometown, this.userInfo.email, this.userInfo.password)
     .subscribe(
       (data) => {
-        // user was successfuly saved
+        // user was successfully saved
         // redirect to the homepage with the user data to give to the main nav
         // router.navigate(['/home']) and also send the data back for the dashboard and main nav to render
         console.log('user posted', data);
@@ -73,8 +95,7 @@ export class SignComponent implements OnInit {
         // this.router.navigate(['/home']);
       },
       (err) => {
-        // user could not be saved
-        // display an alert/error saying email already exist or invalid hometown/name etc.
+        this.signupErr = true;
         console.log('user not saved', err);
       },
     );
