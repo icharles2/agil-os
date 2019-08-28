@@ -67,7 +67,10 @@
                   </button>
                 </mat-menu>
             <span class="v1"></span>
-            <img class="avatar" src="../../assets/profile.png" alt="Avatar">
+            <div *ngIf="user.pic">
+                <img class="avatar" src={{user.pic}} alt="Avatar">
+            </div>
+           
             <!-- Will need to make this dynamic -->
             <span class=username>{{user.username}}</span>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -87,7 +90,15 @@
           </mat-toolbar>
           <div class="container">
             <div class="heading">Dashboard</div>
-            <div class="sub">Welcome Back, {{user.username}}!</div>
+            <div class="sub">
+              <span>
+                  Welcome Back, {{user.username}}!
+              </span>
+              <span class="spacer2"></span>
+              <span class="float">
+                {{user.hometown}}
+              </span>
+            </div>
             <div class="line" fxLayout="row" 
             fxLayoutAlign="space-between">
             <div fxLayout="row"
@@ -155,6 +166,7 @@
             [notifications]="notifications" 
             [counter]="counter"
             [daysLeft]="daysLeft"
+            [user]="user"
             (sendNum)="sendNum($event)"
             (count)="count($event)"
             (notify)="notify($event)"></app-trips>
