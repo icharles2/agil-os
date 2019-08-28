@@ -61,9 +61,9 @@ export class LogComponent implements OnInit {
             // send alert saying email and password do not match
             console.log('user not found');
           } else {
-            console.log('user found', data[0]);
+            // console.log('user found', data[0]);
             this.user = data[0];
-            console.log('state Obj', this.user);
+            console.log('user found');
             this.router.navigate(['/home'], { state: { data: this.user } });
             // this.router.navigate(['/home']);
             // redirect to home with the user data for the main nav to render the info

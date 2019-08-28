@@ -11,6 +11,7 @@ import * as _ from 'lodash';
   styleUrls: ['./trips.component.css'],
 })
 export class TripsComponent implements OnInit {
+  @Input() user;
   @Input() notifications;
   @Input() counter;
   @Input() daysLeft;
@@ -25,9 +26,6 @@ export class TripsComponent implements OnInit {
   countdown;
   nextTrip;
 
-  // hardcoded user until we have the ability to save users with code
-  email: string = 'lisaberteausmith@gmail.com';
-
   constructor(
     private post: PostService,
     private get: GetService,
@@ -36,8 +34,9 @@ export class TripsComponent implements OnInit {
 
   }
   ngOnInit() {
+    console.log(this.user.email);
     this.prices = [];
-    this.get.getTripsByUser(this.email)
+    this.get.getTripsByUser(this.user.email)
     .subscribe((trips) => {
       this.trips = trips;
       this.trips.sort((a, b) => b.id - a.id);
@@ -45,12 +44,14 @@ export class TripsComponent implements OnInit {
       this.countdown = this.activeTripsArr.map((trip) => {
         return this.date.getTripCountdown(trip['departureDate']);
       });
-      this.daysLeft = this.countdown.reduce((lowest, current) => {
-        if (lowest > 0) {
-          return Math.min(lowest, current);
-        }
-        return current;
-      });
+      if (this.countdown >= 1) {
+        this.daysLeft = this.countdown.reduce((lowest, current) => {
+          if (lowest > 0) {
+            return Math.min(lowest, current);
+          }
+          return current;
+        });
+      }
       this.outputCountdown(this.daysLeft);
       console.log(this.countdown);
       console.log(this.daysLeft);
