@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ThemeService } from '../../services/theme.service';
 import { Observable } from 'rxjs';
 import { map, share } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'main-nav',
@@ -13,6 +13,7 @@ import { map, share } from 'rxjs/operators';
 export class MainNavComponent {
   isDarkTheme: Observable<boolean>;
   screenWidth: number;
+  // @Input() user;
   constructor(
     private themeService: ThemeService,
     private router: Router,
@@ -24,6 +25,7 @@ export class MainNavComponent {
     };
   }
   ngOnInit() {
+    // console.log(this.user);
     this.isDarkTheme = this.themeService.isDarkTheme;
   }
   toggleDarkTheme(checked: boolean) {

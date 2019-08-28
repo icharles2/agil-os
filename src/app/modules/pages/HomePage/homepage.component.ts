@@ -25,6 +25,7 @@ export class HomePageComponent implements OnInit{
   countdown = 0;
   counter = 0;
   screenWidth: number;
+  user = history.state.data;
   constructor(
     private themeService: ThemeService,
     private router: Router,
@@ -39,6 +40,7 @@ export class HomePageComponent implements OnInit{
 
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
+    console.log('user', history.state.data);
   }
 
   toggleDarkTheme(checked: boolean) {
@@ -85,4 +87,7 @@ export class HometownDialog {
     this.dialogRef.close();
   }
 
+  goToPage(pageName: string) {
+    this.router.navigate([`${pageName}`], { state: { data: this.user } });
+  }
 }

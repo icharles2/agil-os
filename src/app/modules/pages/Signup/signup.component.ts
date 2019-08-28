@@ -22,6 +22,9 @@ export class SignComponent implements OnInit {
 
   // user: FormGroup;
   saltRounds = 10;
+  inputPassword = 'password';
+  username: string;
+  userInfo;
   // inputPassword = 'password';
 
   formattedAddress = '';
@@ -74,19 +77,20 @@ export class SignComponent implements OnInit {
   }
 
   registerUser() {
-    const user = this.getUserInfo();
+    this.userInfo = this.getUserInfo();
     // console.log(typeof user);
     // pass this user to the post request
     // if any of the inputs are empty dont run this query
-    return this.post.saveUsers(user.username, user.hometown, user.email, user.password)
+    return this.post.saveUsers(this.userInfo.username, this.userInfo.hometown, this.userInfo.email, this.userInfo.password)
     .subscribe(
       (data) => {
         // user was successfully saved
         // redirect to the homepage with the user data to give to the main nav
         // router.navigate(['/home']) and also send the data back for the dashboard and main nav to render
-
         console.log('user posted', data);
-        this.router.navigate(['/home']);
+        console.log('state obj', this.userInfo);
+        this.router.navigate(['/home'], { state: { data: this.userInfo } });
+        // this.router.navigate(['/home']);
       },
       (err) => {
         this.signupErr = true;
