@@ -59,7 +59,7 @@
             </button>
             <mat-menu #settings="matMenu">
                 <button mat-menu-item>
-                    <a ma-list-item href="#">Change Hometown</a>
+                    <mat-list-item (click)="openDialog()">Change Hometown</mat-list-item>
                 </button>
                 <button mat-menu-item>
                     <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
@@ -75,10 +75,10 @@
               </button>
               <mat-menu #menu="matMenu">
                   <button mat-menu-item>
-                      <a ma-list-item href="/">Log out</a>
+                      <mat-list-item (click)="router.navigate(['/'])">Log out</mat-list-item>
                   </button>
                   <button mat-menu-item>
-                      <a ma-list-item>Switch User</a>
+                      <mat-list-item (click)="router.navigate(['/login'])">Switch User</mat-list-item>
                       <!-- <span>Switch User</span> -->
                     </button>
                   </mat-menu>
@@ -95,17 +95,27 @@
                 <div class="countdown"
                 fxLayout="column"
                 fxLayoutAlign="center center">
-                  <div class="number">9</div>
+                  <div *ngIf="daysLeft">
+                    <div class="number">{{daysLeft}}</div>
                   <span class="under">Days Left</span> 
+                </div>
             </div>
                 <div class="countdown2"
                 fxLayout="column"
                 fxLayoutAlign="center center">
-                <div class="label">
-                Until Your Next Trip
-              </div>
+                <div *ngIf="daysLeft; else elseBlock">
+                    <div class="label">
+                        Until Your Next Trip
+                      </div>
+                    </div>
+                      <ng-template #elseBlock>
+                          <div class="label">
+                              Plan some trips!
+                            </div>
+                      </ng-template>
               </div>
             </div>
+          
             <div fxLayout="row"
             fxLayoutAlign="center center">
               <div class="countdown"
@@ -144,6 +154,8 @@
             <app-trips 
             [notifications]="notifications" 
             [counter]="counter"
+            [daysLeft]="daysLeft"
+            (sendNum)="sendNum($event)"
             (count)="count($event)"
             (notify)="notify($event)"></app-trips>
           </div>

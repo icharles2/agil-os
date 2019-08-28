@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ThemeService } from '../../services/theme.service';
 import { Observable } from 'rxjs';
@@ -14,6 +15,7 @@ export class MainNavComponent {
   screenWidth: number;
   constructor(
     private themeService: ThemeService,
+    private router: Router,
   ) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
