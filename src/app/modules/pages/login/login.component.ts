@@ -12,6 +12,7 @@ import { PostService } from 'src/app/services/posts.service';
 })
 export class LogComponent implements OnInit {
   hide = true;
+  user;
   firstFormGroup: FormGroup;
   form = new FormGroup({
     email: new FormControl(),
@@ -51,8 +52,8 @@ export class LogComponent implements OnInit {
   }
 
   verifyUser() {
-    const user = this.verify();
-    return this.get.verifyUser(user.email, user.password)
+    const userInfo = this.verify();
+    return this.get.verifyUser(userInfo.email, userInfo.password)
       .subscribe(
         (data) => {
           if (Object.keys(data).length === 0) {
@@ -60,7 +61,10 @@ export class LogComponent implements OnInit {
             console.log('user not found');
           } else {
             console.log('user found', data[0]);
-            this.router.navigate(['/home']);
+            this.user = data[0];
+            console.log('state Obj', this.user);
+            this.router.navigate(['/home'], { state: { data: this.user } });
+            // this.router.navigate(['/home']);
             // redirect to home with the user data for the main nav to render the info
           }
         },
