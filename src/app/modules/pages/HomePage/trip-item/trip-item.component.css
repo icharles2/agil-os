@@ -1,7 +1,7 @@
 .example-card {
   max-width: 800px;
   margin-top: 2%;
-  margin-bottom: 2%;
+  margin-bottom: 4%;
   margin-left: auto;
   margin-right: auto;
 
@@ -15,12 +15,11 @@
 
 .end {
   margin-left: 200px;
-  color: #2eb57a;
+  color: var(--primary);
   font-weight: bold;
 }
 
 .example-header-image {
-  /* background-image: url('../../../../../assets/Icons/fe3bf53162ccc397f952359ce85c77cc.png'); */
   background-size: contain;
   height: 150px;
   width: 150px;

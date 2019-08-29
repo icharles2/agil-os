@@ -12,7 +12,6 @@ $secondary-typography: mat-typography-config(
   $font-family: 'Roboto, sans-serif'
 );
 
-
 // Be sure that you only ever include 'mat-core' mixin once!
 // it should not be included for each theme.
 @include mat-core($general-typography); 
@@ -84,7 +83,6 @@ $pl-blue: (
     )
 );
 
-
 // mandatory stuff for theming
 $pl-palette-primary: mat-palette($pl-green);
 $pl-palette-accent:  mat-palette($pl-blue);
@@ -95,3 +93,9 @@ $pl-theme: mat-light-theme($pl-palette-primary, $pl-palette-accent);
 // include the custom theme object into the angular material theme
 @include angular-material-theme($pl-theme);
 
+.dark-theme {
+  $pl-palette-primary: mat-palette($pl-green, 400);
+  $alt-theme: mat-dark-theme($pl-palette-primary, $pl-palette-accent);
+  color: $light-primary-text;
+  @include angular-material-theme($alt-theme);
+}

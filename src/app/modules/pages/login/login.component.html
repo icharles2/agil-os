@@ -1,23 +1,51 @@
+<div>
 <landing-nav></landing-nav>
-<!-- <br>
-<mat-card class="landing">
-  Welcome to Plnnr!
-  <br>
-  Sign Up Now!
-</mat-card> -->
-<div class="main__container">
-  <div class="login-card">
 
-    <main class="login-content">
-      <!-- login form -->
-      <h1 class="login-welcome-text">Log In here</h1>
-      <p class="login-welcome-text" (click)="router.navigate(['/'])">Dont have an account? Sign up</p>
-
-      <form method="post" class="login-form">
-        <input type="text" autofocus placeholder="email" name="email" id="email" class="login-input">
-        <input type="password" placeholder="password" name="password" id="password" class="login-input">
-        <input (click)="verifyUser()" name="submit" placeholder="Log In" class="login-btn">
-      </form>
-    </main>
+<mat-card 
+class="card">
+  <div>
+    <div>
+  
+      <main
+      fxLayout-Align="">
+        <!-- login form -->
+        <a (click)="router.navigate(['/'])"><- Go Back</a>
+        <br>
+        <h1 >Welcome Back</h1>
+     
+        <form class="example-container" *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
+            <mat-form-field [formGroup]="form" required>
+                <input matInput 
+                formControlName="email"
+                placeholder="Email"
+                id="email"
+                >
+                <br>
+                <!-- <mat-error *ngIf="">{{You already have an account with that email}}</mat-error> -->
+              </mat-form-field>
+              <mat-form-field [formGroup]="form">
+                  <input matInput 
+                  placeholder="Enter your password"
+                  formControlName="password"
+                  id="password"
+                  [type]="hide ? 'password' : 'text'">
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                </mat-form-field>
+        </form>
+        <br>
+            <!-- <form method="post"> -->
+                <!-- <input type="text" autofocus placeholder="email" name="email" id="email" >
+                <input type="password" placeholder="password" name="password" id="password"> -->
+                <button mat-raised-button color="accent" (click)="verifyUser()" >Login</button>
+                <!-- <button mat-raised-button color="accent" (click)="verifyUser()">Login</button> -->
+              <!-- </form> -->
+       
+        
+      </main>
+    </div>
   </div>
+</mat-card>
+<div class="right-triangle"></div>
 </div>

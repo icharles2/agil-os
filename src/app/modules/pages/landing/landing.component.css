@@ -1,13 +1,7 @@
-body {
-  background-color: #ffffff !important;
-}
 
-.page {
-  margin-top: 5%;
-  margin-bottom: 5%;
-}
 
 .container {
+  margin-top: 12em;
   height: 320px;
 }
 
@@ -15,7 +9,6 @@ body {
   text-align: left;
   font: Bold 36px/42px Open Sans;
   letter-spacing: 0;
-  color: #000000;
   opacity: 1;
 }
 
@@ -28,12 +21,14 @@ body {
 }
 
 .graph {
+  margin-top: 8em;
   width: 550px;
   height: 400px;
-  background: #FFFFFF 0% 0% no-repeat padding-box;
+  background: var(--bg-panel) 0% 0% no-repeat padding-box;
   box-shadow: 0px 15px 50px rgba(38, 44, 52, 0.08);
   border-radius: 20px;
   opacity: 1;
+  z-index: 10;
 }
 
 .flight {
@@ -41,25 +36,29 @@ body {
   left: 30px;
   width: 298px;
   height: 32px;
-  background: rgba(223, 226, 234, 1) 0% 0% no-repeat padding-box;
+  background: var(--graph) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 1;
   text-align: left;
   font: Bold 17px/23px Open Sans;
   letter-spacing: 0;
+  border: var(--graph-border);
 }
+
+
 
 .hotel {
   position: relative;
   left: 30px;
   width: 349px;
   height: 32px;
-  background: rgba(223, 226, 234, 1) 0% 0% no-repeat padding-box;
+  background: var(--graph) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 1;
   text-align: left;
   font: Bold 17px/23px Open Sans;
   letter-spacing: 0;
+  border: var(--graph-border);
 }
 
 .rental {
@@ -67,12 +66,13 @@ body {
   left: 30px;
   width: 208px;
   height: 32px;
-  background: rgba(223, 226, 234, 1) 0% 0% no-repeat padding-box;
+  background:var(--graph) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 1;
   text-align: left;
   font: Bold 17px/23px Open Sans;
   letter-spacing: 0;
+  border: var(--graph-border);
 }
 
 .meals {
@@ -80,12 +80,13 @@ body {
   left: 30px;
   width: 259px;
   height: 32px;
-  background: rgba(223, 226, 234, 1) 0% 0% no-repeat padding-box;
+  background: var(--graph) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 1;
   text-align: left;
   font: Bold 17px/23px Open Sans;
   letter-spacing: 0;
+  border: var(--graph-border);
 }
 
 .gas {
@@ -93,12 +94,13 @@ body {
   left: 30px;
   width: 175px;
   height: 32px;
-  background: rgba(223, 226, 234, 1) 0% 0% no-repeat padding-box;
+  background: var(--graph) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 1;
   text-align: left;
   font: Bold 17px/23px Open Sans;
   letter-spacing: 0;
+  border: var(--graph-border);
 }
 
 .total {
@@ -106,10 +108,11 @@ body {
   left: 30px;
   width: 488px;
   height: 32px;
-  background: rgba(46, 181, 122, 1) 0% 0% no-repeat padding-box;
+  background: var(--primary) 0% 0% no-repeat padding-box;
   border-radius: 10px;
   opacity: 1;
   text-align: left;
+  color: #000000;
   font: Bold 17px/23px Open Sans;
   letter-spacing: 0;
 }
@@ -117,27 +120,27 @@ body {
 .aDot {
 width: 16px;
 height: 16px;
-background: rgba(223, 226, 234, 1) 0% 0% no-repeat padding-box;
+background:var(--graph) 0% 0% no-repeat padding-box;
+border: var(--graph-border);
 border-radius: 50%;
 opacity: 1;
 }
 
 .tDot {
-  width: 16px;
+width: 16px;
 height: 16px;
 border-radius: 50%;
-background: rgba(46, 181, 122, 1) 0% 0% no-repeat padding-box;
+background: var(--primary) 0% 0% no-repeat padding-box;
 opacity: 1;
 }
 
 .aLabel {
-  width: 122px;
+  width: 128px;
   height: 23px;
   margin-left: 15px;
   text-align: left;
   font: Regular 17px/23px Open Sans;
   letter-spacing: 0;
-  color: rgba(0, 0, 0, 1);
   opacity: 1;
 }
 
@@ -145,12 +148,12 @@ opacity: 1;
   position: fixed;
   bottom: 0%;
   right: 0%;
-  height: 60%;
+  height: 90%;
   width: 60%;
-  background: transparent linear-gradient(51deg, #E9EDF8 0%, #FFFFFF 100%) 0% 0% no-repeat padding-box;
+  background: var(--triangle);
   -webkit-clip-path: polygon(100% 0, 0% 100%, 100% 100%);
   clip-path:  polygon(100% 0, 0% 100%, 100% 100%);
-  z-index: -1;
+  z-index: 0;
 }
 
 .title {
@@ -158,7 +161,7 @@ opacity: 1;
   text-align: center;
   font: Bold 25px/41px Open Sans;
   letter-spacing: 0;
-  color: rgba(0, 0, 0, 1);
+
   opacity: 1;
 }
 
@@ -167,13 +170,13 @@ opacity: 1;
   text-align: left;
   font: 17px/28px Open Sans;
   letter-spacing: 0;
-  color: #000000;
+
   opacity: 0.8;
 }
 
 .footer {
   position: absolute;
-  bottom: 45px;
+  bottom: 2em;
   left: 12%;
   width: 263px;
   height: 23px;
@@ -182,16 +185,18 @@ opacity: 1;
   letter-spacing: 0;
   color: rgba(177, 181, 184, 1);
   opacity: 1;
+
 }
 
 .language {
   position: absolute;
   right: 12%;
-  bottom: 45px;
+  bottom: 2em;
   height: 23px;
   text-align: left;
   font: Regular 17px/28px Open Sans;
   letter-spacing: 0;
   color: rgba(177, 181, 184, 1);
   opacity: 1;
+  z-index: 1;
 }

@@ -11,8 +11,8 @@ export class GetService {
   constructor(private http: HttpClient) {}
   url: string = 'http://localhost:3000/';
 
-  getTripsByUser(email){
-    return this.http.get(`${this.url}trips/?email=${email}`);
+  getTripsByUser(email) {
+    return this.http.get(`${this.url}trips/${email}`);
   }
 
   deleteTrips(trip) {

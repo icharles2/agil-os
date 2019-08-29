@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject, Input } from '@angular/core';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
@@ -28,7 +28,7 @@ export interface DialogData {
 export class BudgetComponent implements OnInit {
   @ViewChild('content', { static: true }) content: ElementRef;
   // private state$: Observable<object>;
-
+  @Input() user;
   trips: Trip;
   prices: Price;
   details: Detail;
@@ -50,6 +50,7 @@ export class BudgetComponent implements OnInit {
 
   ngOnInit() {
     console.log('obj', history.state.data);
+    console.log('user', this.user);
     this.prices = {
       tripTotal: [],
     };
@@ -65,7 +66,6 @@ export class BudgetComponent implements OnInit {
       transportationTotal: '',
     };
     this.trips = history.state.data;
-    // this.trips.user = 2;
     this.tempDeparture = this.trips['departure'];
     this.tempReturn = this.trips['returnDate'];
     this.lifecycle = {
@@ -108,7 +108,7 @@ export class BudgetComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '250px',
-      data: { name: this.name, email: this.email },
+      data: { email: this.email },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -146,21 +146,15 @@ export class BudgetComponent implements OnInit {
     this.transpoTotal();
     this.mealsTotal();
     this.lodgingTotal();
-    this.get.getUserById(1)
-    .subscribe((res) => {
-      console.log('Current User', res['username']);
-      this.trips['sharedBy'] = res['username'];
-    });
-    this.get.getUser(this.email)
+    this.trips['sharedBy'] = this.user['username'];
+    this.get.getUser(email)
     .subscribe((res) => {
       console.log('User', res['id']);
       this.trips['user'] = res['id'];
-    });
-    this.trips['user'] = 1;
-    this.trips['total'] = Number((this.trips['total']).toFixed(2));
+      this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
     // for now it is hardcoded
-    this.post.createTrip(this.trips, this.totals, 'pending', this.trips['sharedBy'])
+      this.post.createTrip(this.trips, this.totals, 'pending', this.trips['sharedBy'])
     .subscribe((res) => {
       console.log('Trip', res);
       // if both these prices don't exist we want error handling
@@ -224,6 +218,7 @@ export class BudgetComponent implements OnInit {
         this.prices['mealsTotal'],
         )
         .subscribe(res => console.log('Meal price', res));
+    });
     });
   }
 
@@ -306,7 +301,7 @@ export class BudgetComponent implements OnInit {
     this.mealsTotal();
     this.lodgingTotal();
     this.lifecycle['wasSaved'] = true;
-    this.trips['user'] = 1;
+    this.trips['user'] = this.user['id'];
     this.trips['total'] = Number((this.trips['total']).toFixed(2));
     // need to make a user get request for current user
     // for now it is hardcoded
@@ -487,13 +482,30 @@ export class BudgetComponent implements OnInit {
 
   }
   getTripPhoto() {
-    this.budget.getTripPicture(this.trips['destination'])
+    let destination = this.trips['destination'].split(',')[0];
+    if (this.trips['destination'] === 'Portland, ME, USA') {
+      destination = 'Portland, ME';
+    }
+    if (this.trips['destination'] === 'Portland, OR, USA') {
+      destination = 'Portland, OR';
+    }
+    if (this.trips['destination'] === 'Birmingham, AL, USA') {
+      destination = 'Birmingham, AL';
+    } 
+    if (this.trips['destination'] === 'Washington, DC, USA') {
+      destination = 'Washington, D.C.';
+    } 
+      // destination = this.trips['destination'].split(',')[0];
+    
+    // this.trips['destination'].split(',')[0]
+    this.budget.getTripPicture(destination)
       .subscribe((data: string) => {
         this.trips['imgUrl'] = data;
       });
   }
   getMealsPrices(quality: number) {
-    this.budget.getMealsPrice(this.trips['destination'], quality)
+    const destination = this.trips['destination'].split(',')[0];
+    this.budget.getMealsPrice(destination, quality)
     .subscribe((data) => {
       this.setPrices(data, 'meals');
       this.lifecycle['food'] = true;
@@ -574,7 +586,8 @@ export class BudgetComponent implements OnInit {
   }
 
   getGasPrices() {
-    const { origin, destination } = this.trips;
+    let { origin, destination } = this.trips;
+    destination = destination.split(',')[0]
     this.budget.getGasPrice(origin, destination)
     .subscribe((data) => {
       // should also make use of distance and time
