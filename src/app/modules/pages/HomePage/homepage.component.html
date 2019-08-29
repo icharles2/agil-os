@@ -50,8 +50,15 @@
             </button>
             <mat-menu #notification="matMenu">
                 <ng-template matMenuContent let-notifications="notifications">
-                  <button mat-menu-item>You Have {{notifications}} New Trips</button>
-                  <!-- <button mat-menu-item>{{name}}</button> -->
+                  <div *ngIf="notifications > 1">
+                      <button mat-menu-item>You Have {{notifications}} New Trips</button>
+                  </div>
+                  <div *ngIf="notifications === 0">
+                      <button mat-menu-item>You Have no New Trips to approve</button>
+                  </div>
+                  <div *ngIf="notifications === 1">
+                      <button mat-menu-item>You Have {{notifications}} New Trip</button>
+                  </div>
                 </ng-template>
               </mat-menu>
             <span class="v1"></span>
@@ -60,17 +67,22 @@
             </button>
             <mat-menu #settings="matMenu">
                 <button mat-menu-item>
-                    <mat-list-item (click)="openDialog()">Change Hometown</mat-list-item>
+                    <mat-list-item (click)="openHDialog()">Change Hometown</mat-list-item>
+                </button>
+                <button mat-menu-item>
+                    <mat-list-item (click)="openPDialog()">Add Profile Pic</mat-list-item>
                 </button>
                 <button mat-menu-item>
                     <mat-slide-toggle [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
-                    <!-- <span>Switch User</span> -->
                   </button>
                 </mat-menu>
             <span class="v1"></span>
-            <div *ngIf="user.pic">
-                <img class="avatar" src={{user.pic}} alt="Avatar">
+            <div class="space">
+                <div *ngIf="user.pic">
+                   <img mat-card-avatar class="avatar" src={{user.pic}} alt="User Avatar">
+                </div>
             </div>
+            
            
             <!-- Will need to make this dynamic -->
             <span class=username>{{user.username}}</span>
@@ -107,9 +119,13 @@
                 <div class="countdown"
                 fxLayout="column"
                 fxLayoutAlign="center center">
-                  <div *ngIf="daysLeft">
+                  <div *ngIf="daysLeft > 1">
                     <div class="number">{{daysLeft}}</div>
                   <span class="under">Days Left</span> 
+                </div>
+                <div *ngIf="daysLeft === 1">
+                    <div class="number">{{daysLeft}}</div>
+                  <span class="under">Day Left</span> 
                 </div>
             </div>
                 <div class="countdown2"
@@ -133,8 +149,14 @@
               <div class="countdown"
               fxLayout="column"
                 fxLayoutAlign="center center">
-                  <div class="number">{{counter}}</div>
-                  <span class="under">Trips</span> 
+                <div *ngIf="counter === 1; else elseBlock">
+                    <div class="number">{{counter}}</div>
+                  <span class="under">Trip</span> 
+                </div>
+                <ng-template #elseBlock >
+                    <div class="number">{{counter}}</div>
+                    <span class="under">Trips</span> 
+                </ng-template>
                 </div>
                 <div class="countdown2"
                 fxLayout="column"
@@ -150,8 +172,14 @@
               <div class="countdown"
               fxLayout="column"
                 fxLayoutAlign="center center">
+                <div *ngIf="notifications === 1; else elseBlock">
                   <div class="number">{{notifications}}</div>
-                  <span class="under">Pending Shares</span> 
+                  <span class="under">Pending Share</span> 
+                  </div>
+                  <ng-template #elseBlock >
+                    <div class="number">{{notifications}}</div>
+                    <span class="under">Pending Shares</span> 
+                </ng-template>
                 </div>
                 <div class="countdown2"
                 fxLayout="column"

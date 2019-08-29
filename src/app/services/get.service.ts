@@ -35,4 +35,8 @@ export class GetService {
     return this.http.get(`${this.url}users/password/${email}/${password}`);
   }
 
+  getUserByUsername(username) {
+    return this.http.get(`${this.url}users/username/${username}`);
+  }
+
 }

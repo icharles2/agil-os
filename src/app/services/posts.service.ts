@@ -81,4 +81,10 @@ export class PostService {
     });
   }
 
+  updateUsersPic(user):Observable<Object> {
+    return this.http.put(`${this.url}users/${user.id}`, {
+      pic: user.pic,
+    });
+  }
+
 }

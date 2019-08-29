@@ -42,7 +42,6 @@ export class NewTripComponent implements OnInit {
 
   ngOnInit() {
     this.user = history.state.data;
-    console.log('user info', this.user);
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
@@ -57,16 +56,14 @@ export class NewTripComponent implements OnInit {
     });
   }
   handleAddressChange(event: any) {
-    console.log('Address change:', event);
     this.formattedAddress = event.formatted_address;
   }
 
   setFormValues(obj) {
     obj['destination'] = this.formattedAddress;
-    // this.form.get('destination').value
-    // .split(',')[0];
     obj['title'] = this.form.get('tripName').value;
-    obj['departure'] = this.date.dateSlice(this.form.get('departureDate').value);
+    obj['departure'] = this.date.dateSlice(
+      this.form.get('departureDate').value);
     obj['returnDate'] = this.date.dateSlice(this.form.get('returnDate').value);
     obj['origin'] = this.user['hometown'];
   }
@@ -87,7 +84,6 @@ export class NewTripComponent implements OnInit {
     obj['lodging'] = val;
   }
   goToPage(pageName: string) {
-    console.log(this.tripObj);
     this.router.navigate([`${pageName}`], { state: {
       data: this.tripObj,
       userData: this.user } });

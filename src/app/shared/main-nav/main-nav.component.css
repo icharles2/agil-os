@@ -34,10 +34,12 @@
   font-size: 17px;
 }
 
-.avatar {
-  border-radius: 50%;
+/* .avatar {
   width: 30px;
-  padding-left: 10px;
+} */
+
+.space {
+  margin-left: 1em;
 }
 
 .v1 {

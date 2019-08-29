@@ -1,0 +1,11 @@
+<h3 mat-dialog-title
+fxLayoutAlign="center">Would you like to add a profile picture?</h3>
+<div mat-dialog-content>
+    <mat-form-field fxLayoutAlign="center">
+        <input matInput placeholder="Enter your picture link here" [(ngModel)]="pictureLink">
+      </mat-form-field>
+</div>
+<div mat-dialog-actions fxLayoutAlign="center">
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="pictureLink" cdkFocusInitial>Save</button>
+</div>

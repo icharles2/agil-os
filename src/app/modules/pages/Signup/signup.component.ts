@@ -37,13 +37,13 @@ export class SignComponent implements OnInit {
   };
 
   constructor(
-    private _formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,
     private router: Router,
     private get: GetService,
     private post: PostService,
     ) {}
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+    this.firstFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
   }
@@ -55,7 +55,6 @@ export class SignComponent implements OnInit {
     const email = this.form.get('email').value;
     const password = this.form.get('password').value;
 
-    // on submit user info is taken, either we pass the result of this func to the service or we call the func in here
     console.log({
       username,
       hometown,
@@ -81,12 +80,12 @@ export class SignComponent implements OnInit {
     // console.log(typeof user);
     // pass this user to the post request
     // if any of the inputs are empty dont run this query
-    return this.post.saveUsers(this.userInfo.username, this.userInfo.hometown, this.userInfo.email, this.userInfo.password)
+    return this.post.saveUsers(
+      this.userInfo.username, this.userInfo.hometown, this.userInfo.email, this.userInfo.password)
     .subscribe(
       (data) => {
         // user was successfully saved
         // redirect to the homepage with the user data to give to the main nav
-        // router.navigate(['/home']) and also send the data back for the dashboard and main nav to render
         console.log('user posted', data);
         console.log('state obj', this.userInfo);
         this.router.navigate(['/home'], { state: { data: this.userInfo } });

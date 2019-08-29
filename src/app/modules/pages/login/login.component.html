@@ -9,7 +9,7 @@ class="card">
       <main
       fxLayout-Align="">
         <!-- login form -->
-        <a (click)="router.navigate(['/'])"><- Go Back</a>
+        <a [attr.aria-label]="'Go Back to Landing page'"(click)="router.navigate(['/'])"><- Go Back</a>
         <br>
         <h1 >Welcome Back</h1>
      
@@ -19,6 +19,7 @@ class="card">
                 formControlName="email"
                 placeholder="Email"
                 id="email"
+                [attr.aria-label]="'Enter your email'"
                 >
                 <br>
                 <!-- <mat-error *ngIf="">{{You already have an account with that email}}</mat-error> -->
@@ -28,21 +29,16 @@ class="card">
                   placeholder="Enter your password"
                   formControlName="password"
                   id="password"
-                  [type]="hide ? 'password' : 'text'">
+                  [type]="hide ? 'password' : 'text'"
+                  [attr.aria-label]="'Enter your password'">
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
                 </mat-form-field>
         </form>
         <br>
-            <!-- <form method="post"> -->
-                <!-- <input type="text" autofocus placeholder="email" name="email" id="email" >
-                <input type="password" placeholder="password" name="password" id="password"> -->
-                <button mat-raised-button color="accent" (click)="verifyUser()" >Login</button>
-                <!-- <button mat-raised-button color="accent" (click)="verifyUser()">Login</button> -->
-              <!-- </form> -->
-       
-        
+           
+                <button [attr.aria-label]="'Login'"mat-raised-button color="accent" (click)="verifyUser()" >Login</button>
       </main>
     </div>
   </div>
