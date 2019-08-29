@@ -34,9 +34,9 @@ export class TripsComponent implements OnInit {
 
   }
   ngOnInit() {
-    console.log(this.user.email);
+    console.log(this.user['email']);
     this.prices = [];
-    this.get.getTripsByUser(this.user.email)
+    this.get.getTripsByUser(this.user['email'])
     .subscribe((trips) => {
       this.trips = trips;
       this.trips.sort((a, b) => b.id - a.id);
@@ -74,7 +74,6 @@ export class TripsComponent implements OnInit {
       });
       console.log(this.prices);
     });
-
   }
 
   countEm(num) {
