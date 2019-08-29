@@ -1,13 +1,6 @@
 import { Component } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
-export interface Expenses {
-  expense: string;
-  lowest: number;
-  highest: number;
-  average: number;
-  details: string;
-}
 
 @Component({
 
@@ -16,6 +9,10 @@ export interface Expenses {
   styleUrls: ['./dashboard.css'],
 })
 export class DashboardView {
+  user;
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.user = history.state.userData;
+    console.log('user', this.user);
+  }
 }

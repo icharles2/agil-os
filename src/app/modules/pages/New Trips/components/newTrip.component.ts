@@ -13,7 +13,7 @@ import { DateService } from '../../../../services/date.service';
 export class NewTripComponent implements OnInit {
 
   formattedAddress = '';
-  user = history.state.data;
+  user;
   options = {
     types: ['(cities)'],
     componentRestriction: {
@@ -41,7 +41,8 @@ export class NewTripComponent implements OnInit {
     private date: DateService) { }
 
   ngOnInit() {
-    console.log('user info', history.state.data);
+    this.user = history.state.data;
+    console.log('user info', this.user);
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required],
     });
@@ -67,7 +68,7 @@ export class NewTripComponent implements OnInit {
     obj['title'] = this.form.get('tripName').value;
     obj['departure'] = this.date.dateSlice(this.form.get('departureDate').value);
     obj['returnDate'] = this.date.dateSlice(this.form.get('returnDate').value);
-    obj['origin'] = 'New Orleans';
+    obj['origin'] = this.user['hometown'];
   }
 
   setPriceValue(obj, val) {
@@ -87,7 +88,9 @@ export class NewTripComponent implements OnInit {
   }
   goToPage(pageName: string) {
     console.log(this.tripObj);
-    this.router.navigate([`${pageName}`], { state: { data: this.tripObj } });
+    this.router.navigate([`${pageName}`], { state: {
+      data: this.tripObj,
+      userData: this.user } });
   }
 
 }
