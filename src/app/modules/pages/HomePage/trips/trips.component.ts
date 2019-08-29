@@ -34,45 +34,39 @@ export class TripsComponent implements OnInit {
 
   }
   ngOnInit() {
-    console.log(this.user['email']);
     this.prices = [];
     this.get.getTripsByUser(this.user['email'])
-    .subscribe((trips) => {
+    .subscribe((trips):any => {
       this.trips = trips;
       this.trips.sort((a, b) => b.id - a.id);
       this.activeTripsArr = this.trips.filter(trip => this.date.activeTrips(trip['departureDate']));
       this.countdown = this.activeTripsArr.map((trip) => {
         return this.date.getTripCountdown(trip['departureDate']);
       });
-      if (this.countdown >= 1) {
+      if (this.trips.length) {
         this.daysLeft = this.countdown.reduce((lowest, current) => {
           if (lowest > 0) {
             return Math.min(lowest, current);
           }
           return current;
         });
+        this.outputCountdown(this.daysLeft);
       }
-      this.outputCountdown(this.daysLeft);
-      console.log(this.countdown);
-      console.log(this.daysLeft);
       this.trips.filter((trip) => {
         if (trip.status === 'pending') {
           this.notifications += 1;
           this.outputNotify(this.notifications);
-          console.log(this.notifications);
         } else {
           this.counter += 1;
           this.countEm(this.counter);
         }
       });
-      console.log(trips);
       this.trips.forEach((trip) => {
         this.get.getTripPrices(trip)
         .subscribe((prices) => {
           this.prices.push(prices);
         });
       });
-      console.log(this.prices);
     });
   }
 

@@ -14,11 +14,23 @@ a:hover {
   text-decoration: underline;
 }
 
+.bt {
+  width: 173px;
+  height: 43px;
+  border-radius: 10px;
+  opacity: 1;
+  text-align: center;
+  font: Bold 17px/23px Open Sans;
+  letter-spacing: 0;
+  color: #191818;
+}
+
+
 .card {
-  padding: 8em;
-  margin: 15em auto;
+  padding: 6em;
+  margin: 2em auto;
   width: 50%;
-  height: 40%;
+  height: 30%;
   max-width: 675px;
   max-height: 450px;
   background: var(--bg-panel) 0% 0% no-repeat padding-box;

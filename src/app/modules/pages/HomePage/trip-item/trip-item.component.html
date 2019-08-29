@@ -27,7 +27,6 @@
                   <div>Origin: {{trip.origin}}</div>
                   <div>Departure Date: {{trip.departureDate}}</div>
                   <div>Return Date: {{trip.arrivalDate}}</div>
-      
                 </div>
             </mat-card-subtitle>
           </mat-card-header>
@@ -42,7 +41,6 @@
             </div> 
               <span fxFlex="20" class="item">{{trip.mealTotal | currency}}</span>  
                 </div>
-              
                 <div class="container"
                 fxLayout="row"
                 fxLayout.xs="column"
@@ -66,11 +64,6 @@
                   {{trip.lodgingTotal | currency}}
                 </span>
               </div>
-                <!-- <td>Meals:</td>
-                <td>{{price.subTotal | currency}}</td> -->
-                
-              
-            
             </mat-card-content>
                 <mat-card-actions>
                  <div *ngIf="trip.status === 'pending'">
@@ -78,6 +71,8 @@
                     <button 
                     (click)="onDeny(trip)" 
                     mat-raised-button>Deny</button>
+                    
+                    {{trip.sharedBy}} wants to share this trip with you!
                   </div>
                 </mat-card-actions>
             

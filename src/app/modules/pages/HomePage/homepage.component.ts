@@ -1,13 +1,18 @@
 import { Component, Input, OnInit, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { PostService } from '../../../services/posts.service'
+import { PostService } from '../../../services/posts.service';
 import { ThemeService } from '../../../services/theme.service';
 import  { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 export interface HometownData {
   answer: boolean;
   hometown: string;
+}
+
+export interface AddPicData {
+  answer: boolean;
+  pic: string;
 }
 
 @Component({
@@ -20,7 +25,7 @@ export interface HometownData {
 export class HomePageComponent implements OnInit{
   isDarkTheme: Observable<boolean>;
   notifications: number = 0;
-  daysLeft: number = 0;
+  daysLeft: number;
   countdown = 0;
   counter = 0;
   screenWidth: number;
@@ -30,7 +35,7 @@ export class HomePageComponent implements OnInit{
     private router: Router,
     public dialog: MatDialog,
     private post: PostService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     ) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
@@ -42,7 +47,6 @@ export class HomePageComponent implements OnInit{
   ngOnInit() {
     this.isDarkTheme = this.themeService.isDarkTheme;
     this.user = history.state.data;
-    console.log(this.user);
   }
 
   toggleDarkTheme(checked: boolean) {
@@ -61,26 +65,41 @@ export class HomePageComponent implements OnInit{
     this.notifications = num;
   }
 
-  openDialog() {
+  openHDialog() {
     const dialogRef = this.dialog.open(HometownDialog, {
-      width: '250px',
+      width: '450px',
     });
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-      this.user['hometown'] = result;
-      this.post.updateUsers(this.user)
-      .subscribe((data) => {
-        this.openSnackBar('Your hometown has been changed!', '');
-      });
+      if (result) {
+        this.user['hometown'] = result;
+        this.post.updateUsers(this.user)
+        .subscribe((data) => {
+          this.openSnackBar('Your hometown has been changed!', '');
+        });
+      }
+    });
+  }
+
+  openPDialog() {
+    const dialogRef = this.dialog.open(AddPicDialog, {
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.user['pic'] = result;
+        this.post.updateUsersPic(this.user)
+        .subscribe((data) => {
+          this.openSnackBar('Your picture has been added!', '');
+        });
+      }
     });
   }
 
   openSnackBar(message, action) {
-    const snackBarRef = this._snackBar.open(message, action, {
+    const snackBarRef = this.snackBar.open(message, action, {
       duration: 3000,
     });
     snackBarRef.afterDismissed().subscribe(() => {
-      console.log('The snackbar');
     });
   }
 
@@ -99,6 +118,22 @@ export class HometownDialog {
   constructor(
     public dialogRef: MatDialogRef<HometownDialog>,
     @Inject(MAT_DIALOG_DATA) public data: HometownData) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
+
+@Component({
+  selector: 'picture-dialog',
+  templateUrl: '../HomePage/dialogs/addPic.html',
+})
+export class AddPicDialog {
+
+  constructor(
+    public dialogRef: MatDialogRef<AddPicDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: AddPicData) {}
 
   onNoClick(): void {
     this.dialogRef.close();
