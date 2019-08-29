@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-nav.component.css'],
 })
 export class MainNavComponent {
+  @Input() user;
   isDarkTheme: Observable<boolean>;
   screenWidth: number;
   // @Input() user;
@@ -30,6 +31,10 @@ export class MainNavComponent {
   }
   toggleDarkTheme(checked: boolean) {
     this.themeService.setDarkTheme(checked);
+  }
+
+  goToPage(pageName: string) {
+    this.router.navigate([`${pageName}`], { state: { data: this.user } });
   }
 
 }
