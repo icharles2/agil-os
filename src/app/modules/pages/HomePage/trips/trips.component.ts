@@ -43,13 +43,15 @@ export class TripsComponent implements OnInit {
       this.countdown = this.activeTripsArr.map((trip) => {
         return this.date.getTripCountdown(trip['departureDate']);
       });
-      this.daysLeft = this.countdown.reduce((lowest, current) => {
-        if (lowest > 0) {
-          return Math.min(lowest, current);
-        }
-        return current;
-      });
-      this.outputCountdown(this.daysLeft);
+      if (this.trips.length) {
+        this.daysLeft = this.countdown.reduce((lowest, current) => {
+          if (lowest > 0) {
+            return Math.min(lowest, current);
+          }
+          return current;
+        });
+        this.outputCountdown(this.daysLeft);
+      }
       this.trips.filter((trip) => {
         if (trip.status === 'pending') {
           this.notifications += 1;

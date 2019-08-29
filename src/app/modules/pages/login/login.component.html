@@ -7,10 +7,11 @@ class="card">
     <div>
   
       <main
-      fxLayout-Align="">
+      fxLayout-Align="center">
         <!-- login form -->
-        <a [attr.aria-label]="'Go Back to Landing page'"(click)="router.navigate(['/'])"><- Go Back</a>
-        <br>
+        <a [attr.aria-label]="'Go Back to Landing page'"(click)="router.navigate(['/'])">
+          <mat-icon>arrow_back</mat-icon> Back</a>
+        
         <h1 >Welcome Back</h1>
      
         <form class="example-container" *ngIf="firstFormGroup" [formGroup]="firstFormGroup">
@@ -38,7 +39,7 @@ class="card">
         </form>
         <br>
            
-                <button [attr.aria-label]="'Login'"mat-raised-button color="accent" (click)="verifyUser()" >Login</button>
+                <button [attr.aria-label]="'Login'"mat-raised-button color="accent" class="bt" (click)="verifyUser()" >Login</button>
       </main>
     </div>
   </div>

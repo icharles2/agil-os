@@ -10,7 +10,8 @@
   <div>
 
     <main>
-        <a (click)="router.navigate(['/'])"><- Go Back</a>
+        <a (click)="router.navigate(['/'])">
+          <mat-icon>arrow_back</mat-icon> Back</a>
         <br>
       <h1 >Get Started</h1> 
       <form
@@ -53,10 +54,12 @@
                   <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
         </mat-form-field>
-        <button mat-raised-button 
-        color="accent"
-        (click)="registerUser()">Sign Up</button>
+       
       </form>
+      <button mat-raised-button 
+      color="accent"
+      class="bt"
+      (click)="registerUser()">Sign Up</button>
       </main>
     </div>
   </div>

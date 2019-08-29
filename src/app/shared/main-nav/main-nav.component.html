@@ -65,7 +65,7 @@
     </div>
      
       <!-- Will need to make this dynamic -->
-      <span class=username>{{user.username}}</span>
+      <span class=username>{{user.username | titlecase}}</span>
       <button mat-icon-button [matMenuTriggerFor]="menu" 
       aria-label="Example icon-button with a menu">
           <mat-icon>arrow_drop_down</mat-icon>

@@ -85,7 +85,7 @@
             
            
             <!-- Will need to make this dynamic -->
-            <span class=username>{{user.username}}</span>
+            <span class=username>{{user.username | titlecase}}</span>
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>arrow_drop_down</mat-icon>
               </button>
@@ -105,7 +105,7 @@
             <div class="heading">Dashboard</div>
             <div class="sub">
               <span>
-                  Welcome Back, {{user.username}}!
+                  Welcome Back, {{user.username | titlecase}}!
               </span>
               <span class="spacer2"></span>
               <span class="float">
@@ -131,12 +131,12 @@
                 <div class="countdown2"
                 fxLayout="column"
                 fxLayoutAlign="center center">
-                <div *ngIf="daysLeft; else elseBlock">
+                <div *ngIf="daysLeft > 0; else elseBlock1">
                     <div class="label">
                         Until Your Next Trip
                       </div>
                     </div>
-                      <ng-template #elseBlock>
+                      <ng-template #elseBlock1>
                           <div class="label">
                               Plan some trips!
                             </div>
@@ -149,11 +149,11 @@
               <div class="countdown"
               fxLayout="column"
                 fxLayoutAlign="center center">
-                <div *ngIf="counter === 1; else elseBlock">
+                <div *ngIf="counter === 1; else elseBlock2">
                     <div class="number">{{counter}}</div>
                   <span class="under">Trip</span> 
                 </div>
-                <ng-template #elseBlock >
+                <ng-template #elseBlock2 >
                     <div class="number">{{counter}}</div>
                     <span class="under">Trips</span> 
                 </ng-template>
@@ -172,11 +172,11 @@
               <div class="countdown"
               fxLayout="column"
                 fxLayoutAlign="center center">
-                <div *ngIf="notifications === 1; else elseBlock">
+                <div *ngIf="notifications === 1; else elseBlock3">
                   <div class="number">{{notifications}}</div>
                   <span class="under">Pending Share</span> 
                   </div>
-                  <ng-template #elseBlock >
+                  <ng-template #elseBlock3 >
                     <div class="number">{{notifications}}</div>
                     <span class="under">Pending Shares</span> 
                 </ng-template>
