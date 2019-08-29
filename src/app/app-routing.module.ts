@@ -17,7 +17,8 @@ const routes: Routes = [
   },
   {
     path: 'budget',
-    loadChildren: () => import('./modules/pages/Budget/dashboard.module').then(mod => mod.DashboardModule),
+    loadChildren: () => import(
+      './modules/pages/Budget/dashboard.module').then(mod => mod.DashboardModule),
   },
   {
     path: 'signup',
@@ -25,7 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
+    loadChildren: () => import(
+      './modules/pages/HomePage/homepage.module').then(mod => mod.HomePageModule),
   },
   {
     path: 'login',

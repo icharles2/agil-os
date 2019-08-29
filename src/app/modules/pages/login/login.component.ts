@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { GetService } from 'src/app/services/get.service';
 import { PostService } from 'src/app/services/posts.service';
 
-
 @Component({
   selector: 'log-in',
   templateUrl: '../login/login.component.html',
@@ -42,10 +41,6 @@ export class LogComponent implements OnInit {
     const email = this.form.get('email').value;
     const password = this.form.get('password').value;
 
-    console.log({
-      email,
-      password,
-    });
     return {
       email,
       password,
@@ -59,11 +54,9 @@ export class LogComponent implements OnInit {
         (data) => {
           if (Object.keys(data).length === 0) {
             // send alert saying email and password do not match
-            console.log('user not found');
           } else {
             // console.log('user found', data[0]);
             this.user = data[0];
-            console.log('user found');
             this.router.navigate(['/home'], { state: { data: this.user } });
             // this.router.navigate(['/home']);
             // redirect to home with the user data for the main nav to render the info

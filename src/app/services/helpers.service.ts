@@ -12,15 +12,15 @@ export class HelperService {
   priceId(category) {
     if (category === 'flight') {
       return 3;
-    } else if (category === 'car') {
+    } if (category === 'car') {
       return 2;
-    } else if (category === 'rental') {
+    } if (category === 'rental') {
       return 4;
-    } else if (category === 'hotel') {
+    } if (category === 'hotel') {
       return 6;
-    } else if (category === 'with friends') {
+    } if (category === 'with friends') {
       return 7;
-    } else if (category === 'meals') {
+    } if (category === 'meals') {
       return 8;
     }
   }

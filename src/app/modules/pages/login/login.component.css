@@ -10,20 +10,31 @@
 
 }
 
+.bt {
+  width: 173px;
+  height: 43px;
+  border-radius: 10px;
+  opacity: 1;
+  text-align: center;
+  font: Bold 17px/23px Open Sans;
+  letter-spacing: 0;
+  color: #191818;
+}
+
 a:hover {
   text-decoration: underline;
 }
 
 .card {
-  padding: 8em;
+  padding: 6em;
+  margin: 6em auto;
   width: 50%;
-  height: 40%;
+  height: 30%;
   max-width: 675px;
   max-height: 450px;
   background: var(--bg-panel) 0% 0% no-repeat padding-box;
   box-shadow: 0px 15px 50px rgba(38, 44, 52, 0.08);
   border-radius: 20px;
-  /* background: rgba(255, 255, 255, 1) 0% 0% no-repeat padding-box; */
   opacity: 1;
   z-index: 2;
 }

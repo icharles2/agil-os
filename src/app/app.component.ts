@@ -16,5 +16,4 @@ export class AppComponent implements OnInit {
     this.isDarkTheme = this.themeService.isDarkTheme;
   }
 
-  
 }

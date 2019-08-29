@@ -20,7 +20,7 @@ export class TripItemComponent implements OnInit {
   answer: boolean;
 
   constructor(
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     ) { }
 
@@ -33,16 +33,8 @@ export class TripItemComponent implements OnInit {
     this.onDelete(trip);
   }
   openSnackBar(message: string, action: string) {
-    const snackBarRef = this._snackBar.open(message, action, {
+    const snackBarRef = this.snackBar.open(message, action, {
       duration: 3000,
-    });
-    snackBarRef.afterDismissed().subscribe(() => {
-      console.log('The snackbar');
-    });
-
-    snackBarRef.onAction().subscribe(() => {
-
-      console.log('The snackbar action was triggered');
     });
 
   }

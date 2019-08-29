@@ -1,10 +1,10 @@
 
     <mat-toolbar color="primary">
       
-      <span class="spacer">PLNNR</span>
+      <span class="spacer" aria-label="Plnnr App">PLNNR</span>
       <span class="spacer2"></span>
-      <mat-slide-toggle class="toggle" [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
-      <button mat-raised-button color="accent" class="bt"
+      <mat-slide-toggle class="toggle" aria-checked="Toggle dark theme mode" [checked]="isDarkTheme | async" (change)="toggleDarkTheme($event.checked)">Dark theme</mat-slide-toggle>
+      <button  mat-raised-button color="accent" class="bt"
       (click)="router.navigate(['/login'])">Login</button>
     </mat-toolbar>
     

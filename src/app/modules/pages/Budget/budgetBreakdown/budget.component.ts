@@ -44,7 +44,7 @@ export class BudgetComponent implements OnInit {
     private dates: DateService,
     private post: PostService,
     private get: GetService,
-    private _snackBar: MatSnackBar,
+    private snackBar: MatSnackBar,
     public dialog: MatDialog,
     ) {}
 
@@ -127,7 +127,7 @@ export class BudgetComponent implements OnInit {
   }
 
   openSnackBar(message, action) {
-    const snackBarRef = this._snackBar.open(message, action, {
+    const snackBarRef = this.snackBar.open(message, action, {
       duration: 3000,
     });
     snackBarRef.afterDismissed().subscribe(() => {
@@ -258,15 +258,15 @@ export class BudgetComponent implements OnInit {
   priceId(category) {
     if (category === 'flight') {
       return 3;
-    } else if (category === 'car') {
+    } if (category === 'car') {
       return 2;
-    } else if (category === 'rental') {
+    } if (category === 'rental') {
       return 4;
-    } else if (category === 'hotel') {
+    } if (category === 'hotel') {
       return 6;
-    } else if (category === 'with friends') {
+    } if (category === 'with friends') {
       return 7;
-    } else if (category === 'meals') {
+    } if (category === 'meals') {
       return 8;
     }
   }
@@ -491,13 +491,11 @@ export class BudgetComponent implements OnInit {
     }
     if (this.trips['destination'] === 'Birmingham, AL, USA') {
       destination = 'Birmingham, AL';
-    } 
+    }
     if (this.trips['destination'] === 'Washington, DC, USA') {
       destination = 'Washington, D.C.';
-    } 
-      // destination = this.trips['destination'].split(',')[0];
-    
-    // this.trips['destination'].split(',')[0]
+    }
+
     this.budget.getTripPicture(destination)
       .subscribe((data: string) => {
         this.trips['imgUrl'] = data;
@@ -586,9 +584,9 @@ export class BudgetComponent implements OnInit {
   }
 
   getGasPrices() {
-    let { origin, destination } = this.trips;
-    destination = destination.split(',')[0]
-    this.budget.getGasPrice(origin, destination)
+    let { destination } = this.trips;
+    destination = destination.split(',')[0];
+    this.budget.getGasPrice(this.trips.origin, destination)
     .subscribe((data) => {
       // should also make use of distance and time
       this.prices['gas'] = data['gasPerGallon'].toFixed(2);
