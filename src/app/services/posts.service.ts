@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class PostService {
 
   constructor(private http: HttpClient) {}
-  url: string = 'http://localhost:3000/';
+  url: string = 'http://3.85.122.97:3000/';
 
   updateTrip(trip):Observable<Object> {
     return this.http.put(`${this.url}trips/${trip.id}`, {
