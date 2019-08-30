@@ -14,12 +14,12 @@ export interface Budget {
   providedIn: 'root',
 })
 export class BudgetService {
-  flightUrl = 'http://localhost:3000/prices/flight/';
-  hotelUrl = 'http://localhost:3000/prices/hotel/';
-  mealsUrl = 'http://localhost:3000/prices/food/';
-  gasUrl = 'http://localhost:3000/prices/gas/';
-  rentalCarUrl = 'http://localhost:3000/prices/cars/';
-  cityPicUrl = 'http://localhost:3000/cities/picture/';
+  flightUrl = 'http://3.85.122.97:3000/prices/flight/';
+  hotelUrl = 'http://3.85.122.97:3000/prices/hotel/';
+  mealsUrl = 'http://3.85.122.97:3000/prices/food/';
+  gasUrl = 'http://3.85.122.97:3000/prices/gas/';
+  rentalCarUrl = 'http://3.85.122.97:3000/prices/cars/';
+  cityPicUrl = 'http://3.85.122.97:3000/cities/picture/';
 
   constructor(private http: HttpClient) {}
 
