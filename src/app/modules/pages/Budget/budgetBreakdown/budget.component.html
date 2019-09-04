@@ -1,125 +1,131 @@
 <div id="content" #content>
 
-<div *ngIf="!lifecycle.isDoneLoading">
+
+  <div *ngIf="!lifecycle.transpo || !lifecycle.lodging || !lifecycle.food || !lifecycle.flight1 || !lifecycle.rental">
     <mat-progress-bar
-    class="progress"
-    mode="query"
-    color="primary"
-    ></mat-progress-bar>
-</div>
-<br>
-<mat-card class="example-card" >
-  <div id="contentToConvert"
- 
-  >
-    <mat-card-header>
-      <img
-      mat-card-avatar
-      class="example-header-image"
-      src={{trips.imgUrl}}>
-      <mat-card-title>
-        <div class="container">
-          <div>{{trips.destination.split(',')[0]}}: {{trips.title}}</div>
-          <div class="fill"></div>
-          <div *ngIf="trips.total">
-          <div class="end">{{trips.total | currency}}</div>
-        </div>
-        </div>
-      </mat-card-title>
-            <mat-card-subtitle>
+      class="progress"
+      mode="query"
+      color="primary"
+      >
+    </mat-progress-bar>
+  </div>
+  <br>
+
+  <mat-card class="example-card">
+    <div id="contentToConvert">
+      <mat-card-header>
+        <img
+          mat-card-avatar
+          class="example-header-image"
+          src={{trips.imgUrl}}>
+        <mat-card-title>
+          <div class="container">
+            <div>{{trips.destination.split(',')[0]}}: {{trips.title}}</div>
+            <div class="fill"></div>
+            <div *ngIf="trips.total">
+              <div class="end">{{trips.total | currency}}</div>
+            </div>
+          </div>
+        </mat-card-title>
+        <mat-card-subtitle>
           <mat-divider inset="true"></mat-divider>
           <div class="lines">
             <div>Origin: {{trips.origin}}</div>
             <div>Departure Date: {{tempDeparture}}</div>
             <div>Return Date: {{tempReturn}}</div>
-
           </div>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <br>
+        </mat-card-subtitle>
+      </mat-card-header>
+  <br>
     <mat-card-content>
       <mat-accordion style="width:100%">
-          <mat-expansion-panel [disabled]="true" hideToggle="true">
-              <mat-expansion-panel-header>
-              <mat-panel-title>
-                  Expense
-                </mat-panel-title>
-              <mat-panel-title>
-                  Lowest Estimate
-              </mat-panel-title>
-              <mat-panel-title>
-                  Highest Estimate
-              </mat-panel-title>
-              <mat-panel-title>
-                  Average Cost
-              </mat-panel-title>
-              </mat-expansion-panel-header>
-            </mat-expansion-panel>
-            
-            <mat-expansion-panel *ngIf="prices.flight1">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    Departing Flight: 
-                  </mat-panel-title>
-                  <mat-panel-description *ngFor="let flight of prices.flight1" class="list">
+        <mat-expansion-panel [disabled]="true" hideToggle="true">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Expense
+            </mat-panel-title>
+            <mat-panel-title>
+              Lowest Estimate
+            </mat-panel-title>
+            <mat-panel-title>
+              Highest Estimate
+            </mat-panel-title>
+            <mat-panel-title>
+              Average Cost
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="prices.flight1">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Departing Flight: 
+            </mat-panel-title>
+              <mat-panel-description 
+                *ngFor="let flight of prices.flight1" class="list">
                       {{flight | currency}}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
-                <table *ngIf="prices.flight1">
-                    <tr>
-                      <td>
-                        <a href="{{details.flight1.lowFlight.URL}}" target="_blank" rel="noopener noreferrer">
-                            {{details.flight1.lowFlight.airline}}</a>
-                      </td>
-                      <td>
-                        <a href="{{details.flight1.highFlight.URL}}" target="_blank" rel="noopener noreferrer">
-                        {{details.flight1.highFlight.airline}}</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>{{details.flight1.lowFlight.cabin}}</td>
-                      <td>{{details.flight1.highFlight.cabin}}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        {{details.flight1.lowFlight.flightPath.origin}} - {{details.flight1.lowFlight.flightPath.destination}} || {{details.flight1.lowFlight.stops}} stop
-                      </td>
-                      <td>
-                          {{details.flight1.highFlight.flightPath.origin}} - {{details.flight1.highFlight.flightPath.destination}} || {{details.flight1.highFlight.stops}} stop
-                        </td>
-                    </tr>
-                  </table>
-                  <mat-action-row>
-                      Change Price
-                  <mat-button-toggle-group #group="matButtonToggleGroup">
-                      <mat-button-toggle 
-                      class="box" 
-                      value="1" 
-                      aria-label="Cheapest option"
-                      (click)="editFlight1Price(1)"> $ </mat-button-toggle>
-                      <mat-button-toggle 
-                      class="box" 
-                      value="2" 
-                      aria-label="Middle option"
-                      (click)="editFlight1Price(2)">$$ </mat-button-toggle>
-                      <mat-button-toggle 
-                      style="padding: 0px" 
-                      class="box" 
-                      value="3" 
-                      aria-label="Extravegent option"
-                      (click)="editFlight1Price(3)">
-                        $$$
-                      </mat-button-toggle>
-                    </mat-button-toggle-group>
-                </mat-action-row>
-            </mat-expansion-panel>
+              </mat-panel-description>
+          </mat-expansion-panel-header>
+            <table *ngIf="prices.flight1">
+              <tr>
+                <td>
+                  <a href="{{details.flight1.lowFlight.URL}}"
+                  target="_blank" rel="noopener noreferrer">
+                    {{details.flight1.lowFlight.airline}}</a>
+                </td>
+                <td>
+                  <a href="{{details.flight1.highFlight.URL}}"
+                  target="_blank" rel="noopener noreferrer">
+                    {{details.flight1.highFlight.airline}}</a>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{details.flight1.lowFlight.cabin}}
+                </td>
+                <td>
+                  {{details.flight1.highFlight.cabin}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  {{details.flight1.lowFlight.flightPath.origin}} - {{details.flight1.lowFlight.flightPath.destination}} || {{details.flight1.lowFlight.stops}} stop
+                </td>
+                <td>
+                  {{details.flight1.highFlight.flightPath.origin}} - {{details.flight1.highFlight.flightPath.destination}} || {{details.flight1.highFlight.stops}} stop
+                </td>
+              </tr>
+            </table>
+            <mat-action-row>
+              Change Price
+              <mat-button-toggle-group #group="matButtonToggleGroup">
+                <mat-button-toggle 
+                  class="box" 
+                  value="1" 
+                  aria-label="Cheapest option"
+                  (click)="editFlight1Price(1)"> $ </mat-button-toggle>
+                <mat-button-toggle 
+                  class="box" 
+                  value="2" 
+                  aria-label="Middle option"
+                  (click)="editFlight1Price(2)">$$ </mat-button-toggle>
+                <mat-button-toggle 
+                  style="padding: 0px" 
+                  class="box" 
+                  value="3" 
+                  aria-label="Extravegent option"
+                  (click)="editFlight1Price(3)">
+                  $$$
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </mat-action-row>
+          </mat-expansion-panel>
 
-                <mat-expansion-panel *ngIf="prices.flight2">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        Returning Flight: 
-                      </mat-panel-title>
-                      <mat-panel-description *ngFor="let flight of prices.flight2" class="list">
+          <mat-expansion-panel *ngIf="prices.flight2">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Returning Flight: 
+              </mat-panel-title>
+              <mat-panel-description *ngFor="let flight of prices.flight2" class="list">
                           {{flight | currency}}
                       </mat-panel-description>
                     </mat-expansion-panel-header>
@@ -171,9 +177,6 @@
                         </mat-button-toggle-group>
                     </mat-action-row>
                     </mat-expansion-panel>
-            <!-- <td *ngIf="isDoneLoading"> 
-              <edit-buttons></edit-buttons>
-            </td> -->
             <mat-expansion-panel *ngIf="prices.hotel">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -299,10 +302,6 @@
               </mat-button-toggle-group>
           </mat-action-row>
         </mat-expansion-panel>
-          <!-- <td *ngIf="isDoneLoading"> 
-              <edit-buttons></edit-buttons>
-          </td> -->
-      
       <mat-expansion-panel *ngIf="prices.mealsTotal" hideToggle="true">
         <mat-expansion-panel-header>
             <mat-panel-title>
@@ -378,11 +377,6 @@
     matTooltip="Share Your Trip With Another Plnnr"
     mat-raised-button (click)="openDialog()">SHARE ON PLNNR</button>
       </div>
-     
-      <!-- <button mat-raised-button
-      (click)="captureScreen()"
-      matTooltip="Share Your Trip With Another Plnnr"
-      >SHARE</button> -->
     </mat-card-actions>
   </div>
   </mat-card>
