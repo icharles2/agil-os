@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject, Input } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { catchError, retry, shareReplay } from 'rxjs/operators';
 import { BudgetService } from '../../../../services/budget.service';
 import { DateService } from '../../../../services/date.service';
@@ -12,7 +12,6 @@ import { Subtotal } from '../../../../models/Subtotals';
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-// import domToImage from 'dom-to-image';
 import { Lifecycle } from 'src/app/models/Lifecycle';
 
 export interface DialogData {
@@ -27,7 +26,6 @@ export interface DialogData {
 })
 export class BudgetComponent implements OnInit {
   @ViewChild('content', { static: true }) content: ElementRef;
-  // private state$: Observable<object>;
   @Input() user;
   trips: Trip;
   prices: Price;
@@ -49,8 +47,6 @@ export class BudgetComponent implements OnInit {
     ) {}
 
   ngOnInit() {
-    console.log('obj', history.state.data);
-    console.log('user', this.user);
     this.prices = {
       tripTotal: [],
     };
@@ -71,6 +67,8 @@ export class BudgetComponent implements OnInit {
     this.lifecycle = {
       food: false,
       transpo: false,
+      rental: this.trips['rental'] === true ? false : true,
+      flight1: this.trips['transpo'] === 'flight' ? false : true,
       lodging: this.trips['lodging'] === 'hotel' ? false : true,
       isDoneLoading: false,
       wasSaved: false,
@@ -91,18 +89,6 @@ export class BudgetComponent implements OnInit {
     if (this.trips['lodging'] === 'hotel') {
       this.getHotelPrices(this.trips['quality']);
     }
-    setTimeout(
-      () => {
-        this.getMealsTotal();
-      },
-      3000,
-    );
-    setTimeout(
-      () => {
-        this.getPricesTotal();
-      },
-      11000,
-    );
   }
 
   openDialog(): void {
@@ -112,12 +98,11 @@ export class BudgetComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
       this.email = result;
       if (this.email) {
+        this.shareTrip(this.email);
         this.openSnackBar('Trip was Shared!', '');
       }
-      this.shareTrip(this.email);
     });
   }
 
@@ -129,14 +114,6 @@ export class BudgetComponent implements OnInit {
   openSnackBar(message, action) {
     const snackBarRef = this.snackBar.open(message, action, {
       duration: 3000,
-    });
-    snackBarRef.afterDismissed().subscribe(() => {
-      console.log('The snackbar');
-    });
-
-    snackBarRef.onAction().subscribe(() => {
-
-      console.log('The snackbar action was triggered');
     });
   }
 
@@ -152,12 +129,8 @@ export class BudgetComponent implements OnInit {
       console.log('User', res['id']);
       this.trips['user'] = res['id'];
       this.trips['total'] = Number((this.trips['total']).toFixed(2));
-    // need to make a user get request for current user
-    // for now it is hardcoded
       this.post.createTrip(this.trips, this.totals, 'pending', this.trips['sharedBy'])
     .subscribe((res) => {
-      console.log('Trip', res);
-      // if both these prices don't exist we want error handling
       if (this.prices['flight1'] && this.prices['flight2']) {
         const flight = this.flightTotal(this.prices['flight1'], this.prices['flight2']);
         this.post.savePrice(
@@ -223,7 +196,6 @@ export class BudgetComponent implements OnInit {
   }
 
   transpoId() {
-    // let { transpo } = this.trips;
     if (this.trips['transpo'] === 'car') {
       this.trips['transpo'] = 2;
       if (this.trips['rental'] === true) {
@@ -303,12 +275,9 @@ export class BudgetComponent implements OnInit {
     this.lifecycle['wasSaved'] = true;
     this.trips['user'] = this.user['id'];
     this.trips['total'] = Number((this.trips['total']).toFixed(2));
-    // need to make a user get request for current user
-    // for now it is hardcoded
     this.post.createTrip(this.trips, this.totals)
     .subscribe((res) => {
       console.log('Trip', res);
-      // if both these prices don't exist we want error handling
       if (this.prices['flight1'] && this.prices['flight2']) {
         const flight = this.flightTotal(this.prices['flight1'], this.prices['flight2']);
         this.post.savePrice(
@@ -374,68 +343,38 @@ export class BudgetComponent implements OnInit {
 
   editHotelPrice(price) {
     if (this.prices.hotelQ !== price) {
-      this.lifecycle.isDoneLoading = false;
+      this.lifecycle['lodging'] = false;
       this.prices['tripTotal'].push(-(this.prices['hotel']));
       this.getHotelPrices(price);
-      setTimeout(
-        () => {
-          this.getPricesTotal();
-        },
-        4000,
-      );
-      console.log('I was edited', price);
+ 
     } else {
       console.log(`You have already selected ${price}`);
     }
   }
   editFlight1Price(price) {
     if (this.prices.flightQ !== price) {
-      this.lifecycle.isDoneLoading = false;
-      this.prices['tripTotal'].push(-(this.prices['flightTotal']));
+      this.lifecycle['flight1'] = false;
+      this.prices['tripTotal'].push(-(this.prices['flight1'][2]));
       this.getFlightsPrices(price);
-      setTimeout(
-        () => {
-          this.getPricesTotal();
-        },
-        4000,
-      );
-      console.log('I was edited', price);
     } else {
       console.log(`You have already selected ${price}`);
     }
   }
   editFlight2Price(price) {
     if (this.prices.flightQ !== price) {
-      this.lifecycle.isDoneLoading = false;
+      this.lifecycle['transpo'] = false;
+      this.prices['tripTotal'].push(-(this.prices['flight2'][2]));
+
       this.getFlightsPrices(price);
-      setTimeout(
-        () => {
-          this.getPricesTotal();
-        },
-        4000,
-    );
-      console.log('I was edited', price);
     } else {
       console.log(`You have already selected ${price}`);
     }
   }
   editFoodPrice(price) {
     if (this.prices.mealsQ !== price) {
-      this.lifecycle.isDoneLoading = false;
+      this.lifecycle['food'] = false;
       this.prices['tripTotal'].push(-(this.prices['mealsTotal']));
       this.getMealsPrices(price);
-      setTimeout(
-        () => {
-          this.getMealsTotal();
-        },
-        3000,
-      );
-      setTimeout(
-        () => {
-          this.getPricesTotal();
-        },
-        2000,
-      );
     } else {
       console.log(`You have already selected ${price}`);
     }
@@ -469,8 +408,6 @@ export class BudgetComponent implements OnInit {
 
   getPricesTotal() {
     this.trips.total = this.prices.tripTotal.reduce((a, b) => a + b);
-    this.lifecycle['isDoneLoading'] = true;
-    console.log(this.trips.total);
     return this.trips.total;
   }
 
@@ -479,7 +416,8 @@ export class BudgetComponent implements OnInit {
     const { meals, tripTotal } = this.prices;
     this.prices.mealsTotal = ((this.prices.meals[2]) * tripLength) * 3;
     tripTotal.push(this.prices.mealsTotal);
-
+    this.getPricesTotal();
+    this.lifecycle['food'] = true;
   }
   getTripPhoto() {
     let destination = this.trips['destination'].split(',')[0];
@@ -501,13 +439,15 @@ export class BudgetComponent implements OnInit {
         this.trips['imgUrl'] = data;
       });
   }
+
   getMealsPrices(quality: number) {
     const destination = this.trips['destination'].split(',')[0];
     this.budget.getMealsPrice(destination, quality)
     .subscribe((data) => {
       this.setPrices(data, 'meals');
-      this.lifecycle['food'] = true;
       this.setQuality(quality, 'meals');
+      this.getMealsTotal();
+      this.lifecycle['food'] = true;
     });
   }
 
@@ -535,19 +475,26 @@ export class BudgetComponent implements OnInit {
           this.setQuality(quality, 'flight');
         }
         if (err) {
-          console.log('HTTP Flights Error', err);
+          console.log('HTTP Flights1 Error', err);
         }
+        this.getPricesTotal();
+        this.lifecycle['flight1'] = true;
       });
-
     this.budget.getFlightPrice(quality, destination, origin, returnDate)
-      .subscribe((data) => {
-        this.setPrices(data, 'flight2');
-        this.addToTotal(data);
-        this.details['flight2'] = data.detail;
-        console.log(this.details['flight2']);
+      .subscribe((res, err) => {
+        if (res) {
+          this.setPrices(res, 'flight2');
+          this.addToTotal(res);
+          this.details['flight2'] = res.detail;
+          console.log(this.details['flight2']);
+        } else if (err) {
+          console.log('HTTP Flights2 Error', err);
+        }
+        this.getPricesTotal();
         this.lifecycle['transpo'] = true;
       });
   }
+
   getHotelPrices(quality: number) {
     const { destination, departure, returnDate } = this.trips;
     this.budget.getHotelPrice(quality, destination, departure, returnDate)
@@ -563,11 +510,11 @@ export class BudgetComponent implements OnInit {
         this.setPrices(res, 'hotel');
         this.addToTotal(res);
         this.details['hotel'] = res.detail;
-        console.log(this.details['hotel']);
         this.setQuality(quality, 'hotel');
       } else {
         console.log('HTTP Hotels Error', err);
       }
+      this.getPricesTotal();
       this.lifecycle['lodging'] = true;
     });
   }
@@ -579,7 +526,8 @@ export class BudgetComponent implements OnInit {
         this.setPrices(data, 'rental');
         this.addToTotal(data);
         this.details['rental'] = data.detail;
-        console.log(this.details['rental']);
+        this.getPricesTotal();
+        this.lifecycle['rental'] = true;
       });
   }
 
@@ -593,6 +541,7 @@ export class BudgetComponent implements OnInit {
       this.prices['gasTotal'] = data['distancePrice'];
       this.trips['distance'] = data['distance'];
       this.prices['tripTotal'].push(data['distancePrice']);
+      this.getPricesTotal();
       this.lifecycle['transpo'] = true;
     });
   }
