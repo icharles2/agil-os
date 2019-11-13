@@ -36,6 +36,8 @@ export class BudgetComponent implements OnInit {
   tempReturn: string;
   email: string;
   name: string;
+  events: Array<Object>;
+  
 
   constructor(
     private budget: BudgetService,
@@ -544,6 +546,16 @@ export class BudgetComponent implements OnInit {
       this.getPricesTotal();
       this.lifecycle['transpo'] = true;
     });
+  }
+
+  getEvents() {
+    let { destination, departure, returnDate } = this.trips;
+    destination = destination.split(',')[0];
+    this.budget.getEvents(destination, departure, returnDate)
+    .subscribe((data) => {
+      this.events = data;
+      console.log(data);
+    })
   }
 }
 
