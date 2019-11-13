@@ -10,7 +10,6 @@
     </mat-progress-bar>
   </div>
   <br>
-
   <mat-card class="example-card">
     <div id="contentToConvert">
       <mat-card-header>
@@ -380,9 +379,36 @@
       <button mat-raised-button
       (click)="getEvents()"
       matTooltip="Find And Book Events In The Area">FIND EVENTS</button>
-
+      
       </div>
     </mat-card-actions>
   </div>
+  </mat-card>
+  <mat-card class="example-card" *ngIf="events.length">
+    <ul id="eventList">
+      <li *ngFor="let event of events">
+      <mat-card-header>
+      <img mat-card-avatar class="example-header-image" src={{trips.imgUrl}}>
+      <mat-card-title>
+        <div class="container">
+          <div>{{ event }}</div>
+          <div class="fill"></div>
+           <div *ngIf="trips.total">
+            <div class="end">{{trips.total | currency}}</div>
+          </div>
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <mat-divider inset="true"></mat-divider>
+        <div class="lines">
+          <div>Origin: {{trips.origin}}</div>
+          <div>Departure Date: {{tempDeparture}}</div>
+          <div>Return Date: {{tempReturn}}</div>
+        </div>
+      </mat-card-subtitle>
+      
+      </mat-card-header>
+      </li>
+    </ul>
   </mat-card>
 </div>
