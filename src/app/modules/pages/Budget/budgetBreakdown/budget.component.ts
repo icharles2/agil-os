@@ -36,7 +36,7 @@ export class BudgetComponent implements OnInit {
   tempReturn: string;
   email: string;
   name: string;
-  events: Array<Object>;
+  eventList: Array<Object>;
   
 
   constructor(
@@ -553,7 +553,16 @@ export class BudgetComponent implements OnInit {
     destination = destination.split(',')[0];
     this.budget.getEvents(destination, departure, returnDate)
     .subscribe((data) => {
-      this.events = data;
+      for(let i = 0; i < data.length; i++) {
+        if (typeof data[i].priceMin === "string") {
+          data[i].priceMin = null;
+          data[i].priceMax = null;
+        } else {
+          data[i].priceMin = data[i].priceMin.toString();
+          data[i].priceMax = data[i].priceMax.toString();
+        }
+      }
+      this.eventList = data;
       console.log(data);
     })
   }
