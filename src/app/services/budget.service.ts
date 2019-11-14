@@ -20,6 +20,7 @@ export class BudgetService {
   gasUrl = 'http://localhost:3000/prices/gas/';
   rentalCarUrl = 'http://localhost:3000/prices/cars/';
   cityPicUrl = 'http://localhost:3000/cities/picture/';
+  eventsUrl = 'http://localhost:3000/event/'
 
   constructor(private http: HttpClient) {}
 
@@ -45,5 +46,9 @@ export class BudgetService {
 
   getTripPicture(destination): any {
     return this.http.get(`${this.cityPicUrl}${destination}`);
+  }
+
+  getEvents(city, startDate, endDate): any {
+    return this.http.get(`${this.eventsUrl}${city}/${startDate}/${endDate}`);
   }
 }

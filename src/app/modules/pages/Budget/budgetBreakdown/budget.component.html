@@ -10,7 +10,6 @@
     </mat-progress-bar>
   </div>
   <br>
-
   <mat-card class="example-card">
     <div id="contentToConvert">
       <mat-card-header>
@@ -368,7 +367,7 @@
       (click)="saveCalls()"
       matTooltip="Save This Trip to Your Account"
       >SAVE TO DASHBOARD</button>
-     
+    
       <button mat-raised-button
       (click)="captureScreen()"
       matTooltip="Share Your Trip As A PDF"
@@ -376,8 +375,43 @@
       <button 
     matTooltip="Share Your Trip With Another Plnnr"
     mat-raised-button (click)="openDialog()">SHARE ON PLNNR</button>
+
+      <button mat-raised-button
+      (click)="getEvents()"
+      matTooltip="Find And Book Events In The Area">FIND EVENTS</button>
+      
       </div>
     </mat-card-actions>
   </div>
+  </mat-card>
+  <mat-card class="example-card" *ngIf="eventList">
+    <ul id="eventList">
+      <li *ngFor="let info of eventList" >
+        <a href="{{info.link}}">
+        <mat-card-header>
+          <img mat-card-avatar class="example-header-image" src="{{info.pic}}" alt="Image not found">
+          <mat-card-title>
+            <div class="container">
+              <div>{{info.name}}</div>
+              <div class="fill"></div>
+
+              <div class="end">
+                ${{info.priceMin || " Price not listed"}}
+              </div>
+            </div>
+
+          </mat-card-title>
+          <mat-card-subtitle>
+            <mat-divider inset="true"></mat-divider>
+            <div class="lines">
+              <div></div>
+              <div>Date: {{info.date}}</div>
+            </div>
+          </mat-card-subtitle>
+
+        </mat-card-header>
+        </a>
+      </li>
+    </ul>
   </mat-card>
 </div>
